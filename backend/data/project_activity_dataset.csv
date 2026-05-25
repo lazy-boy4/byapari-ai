@@ -1,0 +1,21 @@
+order_id,customer_name,product_category,product_name,region,sales,profit,quantity,stock,rating,payment_method,order_date,delivery_days,returned
+1001,Arif,Electronics,iPhone 14,Dhaka,1200,300,2,50,4.8,Card,2025-01-10,3,No
+1002,Sadia,Fashion,Nike Shoes,Chittagong,150,40,1,120,4.5,Cash,2025-01-11,5,No
+1003,Rahim,Electronics,Samsung TV,Sylhet,800,120,1,20,4.2,Card,2025-01-12,7,Yes
+1004,Nusrat,Grocery,Rice Bag,Rajshahi,60,10,5,300,4.0,Mobile Banking,2025-01-12,2,No
+1005,Tanvir,Fashion,T-Shirt,Dhaka,25,8,3,500,3.9,Cash,2025-01-13,4,No
+1006,Ayesha,Electronics,Laptop,Khulna,1500,400,1,15,4.9,Card,2025-01-14,6,No
+1007,Karim,Grocery,Cooking Oil,Barisal,90,15,4,250,4.1,Mobile Banking,2025-01-14,3,Yes
+1008,Mehedi,Furniture,Office Chair,Dhaka,300,70,2,40,4.3,Card,2025-01-15,8,No
+1009,Sumaiya,Fashion,Handbag,Rangpur,180,50,1,60,4.6,Cash,2025-01-16,5,No
+1010,Hasan,Electronics,AirPods,Chittagong,220,90,2,100,4.7,Card,2025-01-17,2,No
+1011,Farzana,Grocery,Milk,Sylhet,15,3,10,600,4.0,Cash,2025-01-18,1,No
+1012,Rifat,Furniture,Table,Dhaka,450,110,1,25,4.4,Card,2025-01-18,9,Yes
+1013,Imran,Electronics,Monitor,Khulna,350,80,2,35,4.5,Card,2025-01-19,4,No
+1014,Lamia,Fashion,Watch,Rajshahi,275,60,1,70,4.2,Mobile Banking,2025-01-20,6,No
+1015,Nabil,Grocery,Eggs,Barisal,12,2,12,1000,3.8,Cash,2025-01-20,1,No
+1016,Shila,Electronics,Keyboard,Dhaka,85,20,3,150,4.1,Card,2025-01-21,3,No
+1017,Rakib,Furniture,Sofa,Chittagong,950,250,1,10,4.7,Card,2025-01-22,10,Yes
+1018,Priya,Fashion,Jacket,Sylhet,320,75,2,45,4.6,Mobile Banking,2025-01-22,5,No
+1019,Alif,Electronics,Mouse,Rangpur,40,12,5,200,4.0,Cash,2025-01-23,2,No
+1020,Mim,Grocery,Bread,Dhaka,8,1,15,700,3.9,Cash,2025-01-24,1,No

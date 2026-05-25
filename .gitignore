@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+.venv/
+venv/
+
+# build
+.next/
+dist/
+build/
+
+# env
+.env
+.env.local
+
+# python
+__pycache__/
+*.pyc
+
+# logs
+npm-debug.log*
+
+# vscode
+.vscode/
+
+# mac/windows
+.DS_Store
+Thumbs.db

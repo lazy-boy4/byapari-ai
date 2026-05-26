@@ -352,6 +352,8 @@ def analyze_and_generate(df: pd.DataFrame) -> dict[str, Any]:
     - kpis: all business metrics
     - insights: AI-generated recommendations
     - health_score: overall business health 0-100
+    - sales_trend: monthly revenue + orders
+    - top_products: top 5 products by revenue
     """
 
     # Calculate KPIs
@@ -381,8 +383,15 @@ def analyze_and_generate(df: pd.DataFrame) -> dict[str, Any]:
     # Calculate health score
     health_score = calculate_health_score(df)
 
+    # Generate sales trend and top products
+    from app.services.csv_service import generate_sales_trend, generate_top_products
+    sales_trend = generate_sales_trend(df)
+    top_products = generate_top_products(df)
+
     return {
         "kpis": kpis,
         "insights": insights,
         "health_score": health_score,
+        "sales_trend": sales_trend,
+        "top_products": top_products,
     }

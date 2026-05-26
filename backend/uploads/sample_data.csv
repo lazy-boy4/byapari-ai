@@ -1,0 +1,11 @@
+date,product_name,product_category,sales,profit,quantity,rating,returned,stock,payment_method,customer_city
+1/15/2025,Xiaomi Redmi Note 13,Electronics,25000,8000,1,4.5,No,45,Nagad,Dhaka
+1/16/2025,Rupchanda Soyabean Oil 5L,Groceries,850,250,2,4.2,No,120,Nagad,Chittagong
+1/17/2025,Unilever Sunsilk Shampoo,Beauty,450,150,1,3.8,No,80,Cash on Delivery,Sylhet
+1/18/2025,Philips LED Bulb 12W,Home & Kitchen,320,100,3,4,No,200,Nagad,Dhaka
+1/19/2025,Samsung Galaxy A15,Electronics,18000,5400,1,4.7,No,15,bKash,Dhaka
+1/20/2025,Fresh Chicken 1kg,Groceries,450,120,2,4.1,No,50,Nagad,Rajshahi
+1/21/2025,Denim Jeans Mens,Fashion,1200,400,1,3.5,Yes,30,Nagad,Khulna
+1/22/2025,Realme Buds Wireless,Mobile Accessories,1800,600,1,4.3,No,60,Nagad,Barisal
+1/23/2025,Aarong Cotton Sharee,Fashion,3500,1200,1,4.6,No,20,Cash on Delivery,Dhaka
+1/24/2025,Pran Potato Chips 50g,Groceries,50,15,5,4,No,500,Rocket,Rangpur

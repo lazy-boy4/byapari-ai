@@ -11,6 +11,7 @@ import {
   ChevronRight,
   TrendingUp,
   Package,
+  Info,
 } from "lucide-react";
 
 interface NavItem {
@@ -26,12 +27,13 @@ interface SidebarProps {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { icon: <LayoutDashboard size={20} />, label: "Dashboard", id: "dashboard" },
-  { icon: <BarChart3 size={20} />, label: "Analytics", id: "analytics" },
-  { icon: <TrendingUp size={20} />, label: "Sales Trend", id: "sales" },
-  { icon: <Package size={20} />, label: "Products", id: "products" },
-  { icon: <Upload size={20} />, label: "Upload Data", id: "upload" },
-  { icon: <Lightbulb size={20} />, label: "AI Insights", id: "insights", badge: 3 },
+  { icon: <LayoutDashboard size={18} />, label: "Dashboard",   id: "dashboard" },
+  { icon: <BarChart3 size={18} />,       label: "Analytics",   id: "analytics" },
+  { icon: <TrendingUp size={18} />,      label: "Sales Trend", id: "sales"     },
+  { icon: <Package size={18} />,         label: "Products",    id: "products"  },
+  { icon: <Upload size={18} />,          label: "Upload Data", id: "upload"    },
+  { icon: <Lightbulb size={18} />,       label: "AI Insights", id: "insights", badge: 3 },
+  { icon: <Info size={18} />,            label: "About",       id: "about"     },
 ];
 
 export default function Sidebar({ activeSection, onNavigate }: SidebarProps) {
@@ -39,150 +41,202 @@ export default function Sidebar({ activeSection, onNavigate }: SidebarProps) {
 
   return (
     <aside
-      className="sidebar-bg flex flex-col transition-all duration-300 ease-in-out"
-      style={{ width: collapsed ? "72px" : "240px", minHeight: "100vh" }}
+      className="sidebar-panel flex flex-col transition-all duration-300 ease-in-out"
+      style={{ width: collapsed ? 68 : 236, minHeight: "100vh", flexShrink: 0 }}
     >
       {/* ── Logo ── */}
       <div
-        className="flex items-center gap-3 px-4 py-5"
-        style={{ borderBottom: "1px solid var(--border)" }}
+        style={{
+          padding: collapsed ? "20px 14px" : "20px 16px",
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+        }}
       >
-        {/* Logo mark */}
+        {/* B-AI Logo mark */}
         <div
-          className="flex-shrink-0 flex items-center justify-center rounded-xl font-bold text-sm"
-          style={{
-            width: 40,
-            height: 40,
-            background: "linear-gradient(135deg, #3b82f6, #6366f1)",
-            color: "white",
-            fontFamily: "Syne, sans-serif",
-          }}
+          className="logo-mark"
+          style={{ width: 38, height: 38, fontSize: 14 }}
         >
-          ব
+          B-AI
         </div>
-        {/* Logo text — hidden when collapsed */}
+
         {!collapsed && (
-          <div>
+          <div style={{ overflow: "hidden" }}>
             <div
               style={{
-                fontFamily: "Syne, sans-serif",
-                fontWeight: 700,
-                fontSize: 16,
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: 17,
                 color: "var(--text-primary)",
-                lineHeight: 1.2,
+                letterSpacing: "-0.04em",
+                lineHeight: 1.15,
+                whiteSpace: "nowrap",
               }}
             >
               Byapari AI
             </div>
-            <div style={{ fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.05em" }}>
-              Business Intelligence
+            <div
+              style={{
+                fontSize: 10,
+                color: "var(--text-muted)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                marginTop: 1,
+              }}
+            >
+              Intelligence Platform
             </div>
           </div>
         )}
       </div>
 
-      {/* ── Navigation Items ── */}
-      <nav className="flex-1 py-4 px-2 flex flex-col gap-1">
+      {/* ── Section label ── */}
+      {!collapsed && (
+        <div style={{ padding: "18px 16px 6px" }}>
+          <span className="section-label">Navigation</span>
+        </div>
+      )}
+
+      {/* ── Navigation ── */}
+      <nav
+        style={{
+          flex: 1,
+          padding: collapsed ? "16px 8px" : "8px 10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
         {NAV_ITEMS.map((item) => {
           const isActive = activeSection === item.id;
           return (
             <button
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              className="flex items-center gap-3 rounded-xl transition-all duration-200 w-full text-left"
+              className={`nav-item ${isActive ? "active" : ""}`}
               style={{
-                padding: collapsed ? "10px 12px" : "10px 14px",
-                background: isActive ? "var(--accent-glow)" : "transparent",
-                color: isActive ? "var(--accent)" : "var(--text-secondary)",
-                border: isActive
-                  ? "1px solid rgba(59, 130, 246, 0.25)"
-                  : "1px solid transparent",
-                fontFamily: "DM Sans, sans-serif",
-                fontWeight: isActive ? 600 : 400,
-                fontSize: 14,
-                position: "relative",
+                padding: collapsed ? "10px 0" : "9px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
               }}
               title={collapsed ? item.label : undefined}
             >
-              {/* Icon */}
-              <span className="flex-shrink-0">{item.icon}</span>
+              <span style={{ flexShrink: 0, opacity: isActive ? 1 : 0.7 }}>
+                {item.icon}
+              </span>
 
-              {/* Label */}
-              {!collapsed && <span className="flex-1">{item.label}</span>}
+              {!collapsed && (
+                <span style={{ flex: 1, fontSize: 13.5 }}>{item.label}</span>
+              )}
 
-              {/* Badge */}
               {!collapsed && item.badge && (
                 <span
-                  className="rounded-full text-xs font-bold flex items-center justify-center"
-                  style={{
-                    background: "var(--accent)",
-                    color: "white",
-                    width: 20,
-                    height: 20,
-                    fontFamily: "Syne, sans-serif",
-                    fontSize: 10,
-                  }}
+                  className="badge badge-accent"
+                  style={{ fontSize: 10, minWidth: 20, height: 20 }}
                 >
                   {item.badge}
                 </span>
-              )}
-
-              {/* Active left border indicator */}
-              {isActive && (
-                <span
-                  className="absolute left-0 rounded-full"
-                  style={{
-                    width: 3,
-                    height: "60%",
-                    background: "var(--accent)",
-                    borderRadius: "0 3px 3px 0",
-                  }}
-                />
               )}
             </button>
           );
         })}
       </nav>
 
-      {/* ── Bottom: Settings + Collapse ── */}
+      {/* ── Team credit (visible when expanded) ── */}
+      {!collapsed && (
+        <div
+          style={{
+            margin: "0 10px 12px",
+            padding: "12px 14px",
+            borderRadius: "var(--radius-md)",
+            background: "rgba(82,157,255,0.04)",
+            border: "1px solid rgba(82,157,255,0.10)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 10,
+              color: "var(--text-muted)",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              fontWeight: 600,
+              marginBottom: 5,
+            }}
+          >
+            Built by
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: 13,
+              color: "var(--text-primary)",
+              lineHeight: 1.3,
+            }}
+          >
+            S M Mohaiminul Islam
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              color: "var(--accent)",
+              marginTop: 2,
+              fontWeight: 500,
+            }}
+          >
+            Team Nexion
+          </div>
+        </div>
+      )}
+
+      {/* ── Bottom controls ── */}
       <div
-        className="p-2 flex flex-col gap-1"
-        style={{ borderTop: "1px solid var(--border)" }}
+        style={{
+          padding: collapsed ? "8px" : "8px 10px",
+          borderTop: "1px solid var(--border)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
       >
-        {/* Settings button */}
         <button
           onClick={() => onNavigate("settings")}
-          className="flex items-center gap-3 rounded-xl transition-all duration-200 w-full"
+          className="nav-item"
           style={{
-            padding: collapsed ? "10px 12px" : "10px 14px",
-            color: "var(--text-muted)",
-            background: "transparent",
-            border: "1px solid transparent",
-            fontSize: 14,
+            padding: collapsed ? "10px 0" : "9px 12px",
             justifyContent: collapsed ? "center" : "flex-start",
           }}
           title={collapsed ? "Settings" : undefined}
         >
-          <Settings size={20} />
-          {!collapsed && <span>Settings</span>}
+          <Settings size={18} style={{ opacity: 0.6 }} />
+          {!collapsed && (
+            <span style={{ fontSize: 13.5, color: "var(--text-secondary)" }}>
+              Settings
+            </span>
+          )}
         </button>
 
-        {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center gap-3 rounded-xl transition-all duration-200 w-full"
+          className="nav-item"
           style={{
-            padding: collapsed ? "10px 12px" : "10px 14px",
-            color: "var(--text-muted)",
-            background: "transparent",
-            border: "1px solid transparent",
-            fontSize: 14,
+            padding: collapsed ? "10px 0" : "9px 12px",
             justifyContent: collapsed ? "center" : "flex-start",
           }}
+          title={collapsed ? "Expand" : "Collapse sidebar"}
         >
-          {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-          {!collapsed && <span style={{ fontSize: 13 }}>Collapse sidebar</span>}
+          {collapsed ? (
+            <ChevronRight size={18} style={{ opacity: 0.5 }} />
+          ) : (
+            <>
+              <ChevronLeft size={18} style={{ opacity: 0.5 }} />
+              <span style={{ fontSize: 12.5, color: "var(--text-muted)" }}>
+                Collapse
+              </span>
+            </>
+          )}
         </button>
       </div>
     </aside>

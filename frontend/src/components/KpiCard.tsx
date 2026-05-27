@@ -1,114 +1,140 @@
 "use client";
 
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { ReactNode } from "react";
 
 interface KpiCardProps {
   title: string;
-  value: string;
-  change?: number;        // e.g. 12.4 means +12.4%
-  changeLabel?: string;   // e.g. "vs last month"
-  icon: React.ReactNode;
-  accentColor?: string;   // CSS color value
-  delay?: number;         // animation delay (1-4)
+  value: string | number;
+  subtext?: string;
+  icon: ReactNode;
+  accentColor?: string;
+  delay?: number;
+  trend?: "up" | "down" | "neutral";
+  trendValue?: string;
 }
 
 export default function KpiCard({
   title,
   value,
-  change,
-  changeLabel = "vs last month",
+  subtext,
   icon,
-  accentColor = "var(--accent)",
+  accentColor = "#529dff",
   delay = 1,
+  trend,
+  trendValue,
 }: KpiCardProps) {
-  const isPositive = change !== undefined && change >= 0;
+  const trendColor =
+    trend === "up"
+      ? "#34d399"
+      : trend === "down"
+      ? "#f87171"
+      : "var(--text-muted)";
 
   return (
     <div
-      className={`glow-card p-5 fade-in fade-in-delay-${delay}`}
-      style={{ position: "relative", overflow: "hidden" }}
+      className={`glass-card kpi-card fade-up delay-${delay}`}
+      style={{ padding: "20px 22px" }}
     >
-      {/* Background glow blob */}
+      {/* Top row: icon + trend */}
       <div
         style={{
-          position: "absolute",
-          top: -20,
-          right: -20,
-          width: 80,
-          height: 80,
-          borderRadius: "50%",
-          background: accentColor,
-          opacity: 0.08,
-          filter: "blur(20px)",
-          pointerEvents: "none",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginBottom: 14,
         }}
-      />
-
-      {/* Top row: title + icon */}
-      <div className="flex items-center justify-between mb-3">
-        <span
-          style={{
-            fontSize: 13,
-            color: "var(--text-muted)",
-            fontWeight: 500,
-            letterSpacing: "0.03em",
-            textTransform: "uppercase",
-          }}
-        >
-          {title}
-        </span>
-
-        {/* Icon circle */}
+      >
+        {/* Icon bubble */}
         <div
-          className="flex items-center justify-center rounded-xl"
           style={{
-            width: 36,
-            height: 36,
-            background: accentColor,
-            opacity: 0.9,
-            color: "white",
+            width: 40,
+            height: 40,
+            borderRadius: 10,
+            background: `${accentColor}16`,
+            border: `1px solid ${accentColor}28`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: accentColor,
+            flexShrink: 0,
           }}
         >
           {icon}
         </div>
+
+        {/* Trend badge */}
+        {trend && trendValue && (
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: trendColor,
+              background: `${trendColor}14`,
+              border: `1px solid ${trendColor}28`,
+              borderRadius: 99,
+              padding: "3px 8px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
+            {trend === "up" ? "↑" : trend === "down" ? "↓" : "→"} {trendValue}
+          </span>
+        )}
       </div>
 
-      {/* Main value */}
+      {/* Value */}
       <div
         className="stat-number"
         style={{
           fontSize: 28,
-          fontWeight: 700,
+          fontWeight: 800,
           color: "var(--text-primary)",
-          lineHeight: 1.1,
-          marginBottom: 8,
+          lineHeight: 1,
+          marginBottom: 6,
+          letterSpacing: "-0.04em",
         }}
       >
         {value}
       </div>
 
-      {/* Change indicator */}
-      {change !== undefined && (
-        <div className="flex items-center gap-1.5">
-          <div
-            className="flex items-center gap-1 rounded-full px-2 py-0.5"
-            style={{
-              background: isPositive
-                ? "rgba(16, 185, 129, 0.12)"
-                : "rgba(239, 68, 68, 0.12)",
-              color: isPositive ? "var(--accent-green)" : "var(--accent-red)",
-              fontSize: 12,
-              fontWeight: 600,
-            }}
-          >
-            {isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
-            {isPositive ? "+" : ""}{change}%
-          </div>
-          <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
-            {changeLabel}
-          </span>
+      {/* Title */}
+      <div
+        style={{
+          fontSize: 12.5,
+          color: "var(--text-secondary)",
+          fontWeight: 500,
+          letterSpacing: "0.02em",
+        }}
+      >
+        {title}
+      </div>
+
+      {/* Optional subtext */}
+      {subtext && (
+        <div
+          style={{
+            fontSize: 11,
+            color: "var(--text-muted)",
+            marginTop: 4,
+          }}
+        >
+          {subtext}
         </div>
       )}
+
+      {/* Accent line at bottom */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "15%",
+          right: "15%",
+          height: 2,
+          borderRadius: "2px 2px 0 0",
+          background: `linear-gradient(90deg, transparent, ${accentColor}40, transparent)`,
+        }}
+      />
     </div>
   );
 }

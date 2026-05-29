@@ -4,6 +4,7 @@ import shutil
 import os
 from app.services.insight_engine import analyze_and_generate
 from app.services.csv_service import generate_sales_trend, generate_top_products
+from app.services.forecast import generate_sales_forecast
 
 router = APIRouter()
 
@@ -163,9 +164,16 @@ async def upload_csv(file: UploadFile = File(...)):
     # ── 7. Copy to canonical location ──
     shutil.copy(file_path, DATA_PATH)
 
-    # ── 8. Run analysis ──
+       # ── 8. Run analysis ──
     try:
         result = analyze_and_generate(df)
+
+        # Generate ML forecast
+        forecast = generate_sales_forecast(df)
+
+        # Add forecast into response
+        result["forecast"] = forecast
+
     except Exception as e:
         return {
             "error": "Analysis failed",
@@ -173,9 +181,10 @@ async def upload_csv(file: UploadFile = File(...)):
             "hint": "This might be due to unexpected data patterns. Please check your CSV format."
         }
 
-    # Ensure all response fields
+    # ✅ CORRECT — now outside the except block, no extra indent
     if "sales_trend" not in result:
         result["sales_trend"] = generate_sales_trend(df)
+
     if "top_products" not in result:
         result["top_products"] = generate_top_products(df)
 
@@ -183,12 +192,21 @@ async def upload_csv(file: UploadFile = File(...)):
     result["message"] = f"'{file.filename}' uploaded and analyzed successfully!"
     result["rows"] = rows_after
     result["columns"] = df.columns.tolist()
+
+    # ADD THIS
+    result["raw_data"] = (
+        df.where(df.notna(), other=None)
+        .to_dict(orient="records")
+    )
+
     result["data_quality"] = {
         "rows_uploaded": rows_before,
         "rows_analyzed": rows_after,
         "rows_dropped": rows_dropped,
         "fixes_applied": fixes_report,
-        "warnings": [] if not fixes_report else ["Some data was auto-corrected. See fixes_applied for details."]
+        "warnings": [] if not fixes_report else [
+            "Some data was auto-corrected. See fixes_applied for details."
+        ]
     }
 
     return result

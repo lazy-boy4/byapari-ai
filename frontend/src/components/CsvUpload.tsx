@@ -31,7 +31,8 @@ interface CsvUploadProps {
     insights: AiRecommendation[],
     healthScore: HealthScore,
     salesTrend: SalesDataPoint[],
-    topProducts: ProductData[]
+    topProducts: ProductData[],
+    rawData?: Record<string, string | number>[]
   ) => void;
 }
 
@@ -44,6 +45,7 @@ export default function CsvUpload({
   const [error, setError] = useState("");
   const [kpis, setKpis] = useState<KpiData | null>(null);
   const [qualityReport, setQualityReport] = useState<any>(null);
+  const [rawData, setRawData] = useState<Record<string, string | number>[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
@@ -60,18 +62,26 @@ export default function CsvUpload({
 
     try {
       const data = await uploadCsv(file);
+      console.log("UPLOAD RESPONSE:", data);
       setRows(data.rows ?? 0);
       setKpis(data.kpis);
       setQualityReport(data.data_quality ?? null);
       setState("success");
+      const rawScore = (data as any).health_score as number ?? 0;
+      const healthScore: HealthScore = {
+        score: rawScore,
+        label: rawScore >= 70 ? "Good" : rawScore >= 40 ? "Fair" : "Poor",
+        color: rawScore >= 70 ? "#34d399" : rawScore >= 40 ? "#fbbf24" : "#f87171",
+      };
 
       if (onDataLoaded) {
         onDataLoaded(
           data.kpis,
           data.insights,
-          data.health_score,
+          healthScore,
           data.sales_trend,
-          data.top_products
+          data.top_products,
+          data.raw_data || []
         );
       }
     } catch (err: any) {
@@ -183,6 +193,54 @@ export default function CsvUpload({
                 <Download size={14} />
                 Download Sample CSV
               </a>
+              <div style={{ marginTop: 12, padding: "12px 16px", borderRadius: 10, background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", maxWidth: 340 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginBottom: 6 }}>
+                  🤖 Want to test with your own data?
+                </p>
+                <p style={{ fontSize: 11.5, color: "var(--text-muted)", lineHeight: 1.6, marginBottom: 8 }}>
+                  Ask ChatGPT or any AI to generate a CSV with these exact columns:
+                </p>
+                <code style={{
+                  display: "block",
+                  fontSize: 10.5,
+                  color: "var(--accent)",
+                  background: "rgba(82,157,255,0.06)",
+                  border: "1px solid rgba(82,157,255,0.12)",
+                  borderRadius: 6,
+                  padding: "8px 10px",
+                  lineHeight: 1.8,
+                  marginBottom: 8,
+                  wordBreak: "break-all",
+                }}>
+                  date, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city
+                </code>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(
+                      `Generate a CSV dataset with 200 rows for an e-commerce business with exactly these columns:\n\ndate, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city\n\nRules:\n- date: between 2024-01-01 and 2024-12-31 (YYYY-MM-DD format)\n- product_category: only Electronics, Clothing, Food, Sports, Home & Kitchen\n- sales: decimal number between 500 and 20000\n- profit: decimal, always less than sales\n- quantity: between 1 and 20\n- rating: between 1.0 and 5.0\n- returned: Yes or No (about 10% Yes)\n- stock: between 0 and 200\n- payment_method: Cash on Delivery, bKash, Nagad, Card, or Bank Transfer\n- customer_city: real cities from your country\n\nGive me only the CSV data, no explanation.`
+                    );
+                    alert("✅ Prompt copied! Paste it into ChatGPT or any AI.");
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "6px 12px",
+                    borderRadius: 6,
+                    background: "rgba(232,184,75,0.10)",
+                    border: "1px solid rgba(232,184,75,0.25)",
+                    color: "var(--gold)",
+                    fontSize: 11.5,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                >
+                  📋 Copy AI Prompt
+                </button>
+              </div>
             </>
           )}
 

@@ -2,6 +2,16 @@
 
 import { useState, useEffect } from "react";
 import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import {
   DollarSign,
   ShoppingCart,
   TrendingUp,
@@ -21,6 +31,7 @@ import {
   ExternalLink,
   Link2,
   Upload,
+  AlertTriangle,
 } from "lucide-react";
 
 import Sidebar from "@/components/Sidebar";
@@ -32,12 +43,239 @@ import ProductsPage from "@/components/ProductsPage";
 import {
   fetchAnalytics,
   checkApiHealth,
+  analyzeCSV,
   KpiData,
   AiRecommendation,
   HealthScore,
   SalesDataPoint,
   ProductData,
+  InsightResponse,
 } from "@/lib/api";
+
+import InsightsPanel from "@/components/InsightsPanel";
+import { Loader2 } from "lucide-react";
+
+// ─────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────
+interface Alert {
+  severity: "critical" | "warning" | "info";
+  message: string;
+}
+
+// ─────────────────────────────────────────────
+// ALERT SEVERITY CONFIG
+// ─────────────────────────────────────────────
+const ALERT_CONFIG: Record<Alert["severity"], { color: string; bg: string; border: string; label: string }> = {
+  critical: {
+    color: "#f87171",
+    bg: "rgba(248,113,113,0.08)",
+    border: "rgba(248,113,113,0.25)",
+    label: "Critical",
+  },
+  warning: {
+    color: "#e8b84b",
+    bg: "rgba(232,184,75,0.08)",
+    border: "rgba(232,184,75,0.25)",
+    label: "Warning",
+  },
+  info: {
+    color: "#529dff",
+    bg: "rgba(82,157,255,0.08)",
+    border: "rgba(82,157,255,0.25)",
+    label: "Info",
+  },
+};
+
+// ─────────────────────────────────────────────
+// AI ALERT GENERATOR (rule-based, zero API cost)
+// ─────────────────────────────────────────────
+function generateAlerts(kpis: KpiData | null, health: HealthScore | null): Alert[] {
+  if (!kpis || !health) return [];
+
+  const alerts: Alert[] = [];
+
+  // ── Health score ──
+  if (health.score < 50) {
+    alerts.push({
+      severity: "critical",
+      message: "Business health is critically low. Immediate action required.",
+    });
+  } else if (health.score < 70) {
+    alerts.push({
+      severity: "warning",
+      message: "Business health is below optimal level. Review key metrics.",
+    });
+  }
+
+  // ── Profit margin ──
+  if (kpis.total_sales > 0 && kpis.total_profit < kpis.total_sales * 0.1) {
+    alerts.push({
+      severity: "warning",
+      message: "Profit margin is very low compared to sales. Consider reducing costs or adjusting pricing.",
+    });
+  }
+
+  // ── Return rate ──
+  if (kpis.total_orders > 0 && kpis.returned_orders > kpis.total_orders * 0.2) {
+    alerts.push({
+      severity: "critical",
+      message: "High return rate detected (>20% of orders). Check product quality and descriptions.",
+    });
+  } else if (kpis.total_orders > 0 && kpis.returned_orders > kpis.total_orders * 0.1) {
+    alerts.push({
+      severity: "warning",
+      message: "Return rate is above 10%. Monitor closely for product issues.",
+    });
+  }
+
+  // ── Low stock ──
+  if (kpis.low_stock_products > 5) {
+    alerts.push({
+      severity: "warning",
+      message: `${kpis.low_stock_products} products are running low on stock. Restock soon to avoid lost sales.`,
+    });
+  } else if (kpis.low_stock_products > 0) {
+    alerts.push({
+      severity: "info",
+      message: `${kpis.low_stock_products} product(s) are low in stock.`,
+    });
+  }
+
+  // ── Customer rating ──
+  if (kpis.average_rating < 3.0) {
+    alerts.push({
+      severity: "critical",
+      message: "Customer satisfaction is critically low (rating < 3.0). Urgent review needed.",
+    });
+  } else if (kpis.average_rating < 3.5) {
+    alerts.push({
+      severity: "warning",
+      message: "Customer satisfaction is dropping. Consider improving product quality or service.",
+    });
+  }
+
+  return alerts;
+}
+
+// ─────────────────────────────────────────────
+// AI ALERTS BANNER
+// ─────────────────────────────────────────────
+function AlertsBanner({ alerts }: { alerts: Alert[] }) {
+  const [dismissed, setDismissed] = useState(false);
+
+  if (alerts.length === 0 || dismissed) return null;
+
+  // Show highest severity first
+  const sorted = [...alerts].sort((a, b) => {
+    const order = { critical: 0, warning: 1, info: 2 };
+    return order[a.severity] - order[b.severity];
+  });
+
+  // Use the colour of the most severe alert for the banner
+  const topSeverity = sorted[0].severity;
+  const cfg = ALERT_CONFIG[topSeverity];
+
+  return (
+    <div
+      className="fade-up"
+      style={{
+        marginBottom: 20,
+        borderRadius: 12,
+        background: cfg.bg,
+        border: `1px solid ${cfg.border}`,
+        padding: "14px 18px",
+      }}
+    >
+      {/* Header row */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: alerts.length > 1 ? 12 : 0,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <AlertTriangle size={15} style={{ color: cfg.color, flexShrink: 0 }} />
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 14,
+            color: cfg.color,
+          }}>
+            AI Alerts
+          </span>
+          <span style={{
+            padding: "1px 7px",
+            borderRadius: 99,
+            background: `${cfg.color}18`,
+            border: `1px solid ${cfg.color}30`,
+            fontSize: 10,
+            fontWeight: 700,
+            color: cfg.color,
+            letterSpacing: "0.04em",
+          }}>
+            {alerts.length}
+          </span>
+        </div>
+        <button
+          onClick={() => setDismissed(true)}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: "var(--text-muted)",
+            fontSize: 18,
+            lineHeight: 1,
+            padding: "0 4px",
+          }}
+          aria-label="Dismiss alerts"
+        >
+          ×
+        </button>
+      </div>
+
+      {/* Alert rows */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {sorted.map((alert, i) => {
+          const ac = ALERT_CONFIG[alert.severity];
+          return (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 10,
+                padding: "8px 12px",
+                borderRadius: 8,
+                background: ac.bg,
+                border: `1px solid ${ac.border}`,
+              }}
+            >
+              <span style={{
+                padding: "1px 6px",
+                borderRadius: 4,
+                background: `${ac.color}18`,
+                border: `1px solid ${ac.color}30`,
+                fontSize: 9,
+                fontWeight: 700,
+                color: ac.color,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                flexShrink: 0,
+                marginTop: 1,
+              }}>
+                {ac.label}
+              </span>
+              <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                {alert.message}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 // ─────────────────────────────────────────────
 // HEALTH SCORE CARD
@@ -114,28 +352,32 @@ function HealthScoreCard({ health }: { health: HealthScore }) {
           </div>
         </div>
 
-        {/* Breakdown bars */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
-          {Object.values(health.breakdown).map((item) => (
-            <div key={item.label}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-                <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{item.label}</span>
-                <span style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 600 }}>
-                  {item.score}/{item.max}
-                </span>
+        {/* Breakdown bars - only if breakdown exists */}
+        {health.breakdown && Object.values(health.breakdown).length > 0 && (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+              {Object.values(health.breakdown ?? {})
+                .filter(Boolean)
+                .map((item) => (
+              <div key={item.label}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{item.label}</span>
+                  <span style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 600 }}>
+                    {item.score}/{item.max}
+                  </span>
+                </div>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill"
+                    style={{
+                      width: `${(item.score / item.max) * 100}%`,
+                      background: health.color,
+                    }}
+                  />
+                </div>
               </div>
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${(item.score / item.max) * 100}%`,
-                    background: health.color,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -144,72 +386,7 @@ function HealthScoreCard({ health }: { health: HealthScore }) {
 // ─────────────────────────────────────────────
 // INSIGHT CARD
 // ─────────────────────────────────────────────
-function InsightCard({ rec, index }: { rec: AiRecommendation; index: number }) {
-  return (
-    <div
-      className={`insight-card ${rec.impact} fade-up delay-${(index % 5) + 1}`}
-      style={{ padding: "18px 20px", display: "flex", flexDirection: "column", gap: 12 }}
-    >
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-        <span className={`badge badge-${rec.impact}`} style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.06em", padding: "3px 9px" }}>
-          {rec.impact.toUpperCase()} IMPACT
-        </span>
-        <span className="chip" style={{
-          background: "rgba(255,255,255,0.04)",
-          color: "var(--text-muted)",
-          border: "1px solid var(--border)",
-          fontSize: 10,
-        }}>
-          {rec.category}
-        </span>
-      </div>
 
-      <h4 style={{
-        fontFamily: "var(--font-display)",
-        fontWeight: 700,
-        fontSize: 14.5,
-        color: "var(--text-primary)",
-        lineHeight: 1.45,
-      }}>
-        {rec.title}
-      </h4>
-
-      <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.65 }}>
-        {rec.description}
-      </p>
-
-      {rec.metric && (
-        <div style={{
-          padding: "8px 12px",
-          borderRadius: 8,
-          background: "rgba(255,255,255,0.03)",
-          border: "1px solid var(--border)",
-          fontSize: 12,
-          color: "var(--text-muted)",
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-        }}>
-          <BarChart3 size={12} style={{ opacity: 0.6 }} />
-          {rec.metric}
-        </div>
-      )}
-
-      {rec.action && (
-        <button style={{
-          display: "flex", alignItems: "center", gap: 4,
-          fontSize: 13, fontWeight: 600,
-          color: "var(--accent)",
-          background: "none", border: "none",
-          cursor: "pointer", padding: 0, marginTop: 2,
-        }}>
-          {rec.action}
-          <ArrowRight size={13} />
-        </button>
-      )}
-    </div>
-  );
-}
 
 // ─────────────────────────────────────────────
 // ABOUT PAGE
@@ -225,7 +402,6 @@ function AboutPage() {
         className="about-section"
         style={{ padding: "40px 40px 36px" }}
       >
-        {/* B-AI logo large */}
         <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
           <div
             className="logo-mark float"
@@ -346,7 +522,6 @@ function AboutPage() {
         </h2>
 
         <div style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
-          {/* Avatar */}
           <div style={{
             width: 56, height: 56,
             borderRadius: "50%",
@@ -605,9 +780,17 @@ export default function DashboardPage() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [kpis, setKpis] = useState<KpiData | null>(null);
   const [insights, setInsights] = useState<AiRecommendation[]>([]);
+  const [insightData, setInsightData] = useState<InsightResponse | null>(null);
   const [healthScore, setHealthScore] = useState<HealthScore | null>(null);
   const [salesTrend, setSalesTrend] = useState<SalesDataPoint[]>([]);
   const [topProducts, setTopProducts] = useState<ProductData[]>([]);
+  const [aiInsights, setAiInsights] = useState<InsightResponse | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [insightLang, setInsightLang] = useState<"bn" | "en">("bn");
+  const [rawCsvData, setRawCsvData] = useState<Record<string, string | number>[]>([]);
+
+  // ── AI Alerts state ──
+  const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
     checkApiHealth().then((ok) => {
@@ -616,20 +799,64 @@ export default function DashboardPage() {
     });
   }, []);
 
+  // ── Re-generate alerts whenever KPIs or health score change ──
+  useEffect(() => {
+    const newAlerts = generateAlerts(kpis, healthScore);
+    setAlerts(newAlerts);
+  }, [kpis, healthScore]);
+
   const handleUploadSuccess = (
-    newKpis: KpiData,
-    newInsights: AiRecommendation[],
-    newHealthScore: HealthScore,
-    newSalesTrend: SalesDataPoint[],
-    newTopProducts: ProductData[]
-  ) => {
-    setKpis(newKpis);
-    setInsights(newInsights);
-    setHealthScore(newHealthScore);
-    setSalesTrend(newSalesTrend);
-    setTopProducts(newTopProducts);
-    setLastUpdated(new Date());
-  };
+  newKpis: KpiData,
+  newInsights: AiRecommendation[],
+  newHealthScore: HealthScore,
+  newSalesTrend: SalesDataPoint[],
+  newTopProducts: ProductData[],
+  rawData?: Record<string, string | number>[]
+) => {
+
+  console.log("RAW DATA RECEIVED:", rawData);
+
+  setKpis(newKpis);
+  setInsights(newInsights);
+  setHealthScore(newHealthScore);
+  setSalesTrend(newSalesTrend);
+  setTopProducts(newTopProducts);
+
+  if (rawData) {
+    setRawCsvData(rawData);
+
+    // IMPORTANT
+    handleGetInsights("bn", rawData);
+  }
+
+  setLastUpdated(new Date());
+};
+
+  const handleGetInsights = async (
+  lang: "bn" | "en" = "bn",
+  dataOverride?: Record<string, string | number>[]
+) => {
+
+  const dataToAnalyze = dataOverride || rawCsvData;
+
+  if (dataToAnalyze.length === 0) return;
+
+  setAnalyzing(true);
+
+  try {
+    const response = await analyzeCSV(dataToAnalyze, lang);
+
+    console.log("AI RESPONSE:", response);
+
+    setAiInsights(response);
+    setInsightLang(lang);
+
+  } catch (err) {
+    console.error("Insights error:", err);
+  } finally {
+    setAnalyzing(false);
+  }
+};
 
   // ── DASHBOARD ──
   const renderDashboard = () => {
@@ -639,6 +866,10 @@ export default function DashboardPage() {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+
+        {/* ── AI Alerts Banner ── */}
+        <AlertsBanner alerts={alerts} />
+
         {/* KPI Row 1 */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
           <KpiCard title="Total Sales"   value={`৳${(kpis.total_sales ?? 0).toLocaleString()}`}
@@ -663,6 +894,71 @@ export default function DashboardPage() {
             icon={<Package size={17} />}    accentColor="#f87171" delay={4} />
         </div>
 
+        {/* Get AI Insights Button */}
+        <div className="fade-up delay-3" style={{ marginBottom: 8 }}>
+          <button
+            onClick={() => handleGetInsights(insightLang)}
+            disabled={analyzing || rawCsvData.length === 0}
+            className="btn-primary"
+            style={{
+              fontSize: 14,
+              padding: "10px 20px",
+              opacity: analyzing ? 0.6 : 1,
+              cursor: analyzing ? "not-allowed" : "pointer",
+              gap: 8,
+            }}
+          >
+            {analyzing ? (
+              <><Loader2 size={15} className="animate-spin" /> {insightLang === "bn" ? "বিশ্লেষণ হচ্ছে..." : "Analyzing..."}</>
+            ) : (
+              <><Sparkles size={15} /> {insightLang === "bn" ? "এআই ইনসাইট পান" : "Get AI Insights"}</>
+            )}
+          </button>
+        </div>
+
+        {/* AI Insights Panel */}
+        {aiInsights && (
+          <div className="fade-up delay-4" style={{ maxWidth: 800 }}>
+            <InsightsPanel
+              insights={aiInsights}
+              lang={insightLang}
+              isLoading={analyzing}
+              onLanguageChange={(lang) => handleGetInsights(lang)}
+            />
+
+            {/* Forecast Chart */}
+            <div className="mt-6">
+              <h2 className="text-xl font-bold mb-4">
+                AI Sales Forecast
+              </h2>
+              <div
+                style={{
+                  width: "100%",
+                  height: 300,
+                  background: "#111827",
+                  padding: "20px",
+                  borderRadius: "16px",
+                }}
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={aiInsights.forecast}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="predicted_sales"
+                      stroke="#3b82f6"
+                      strokeWidth={3}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Health + Sales Trend */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
           {healthScore && <HealthScoreCard health={healthScore} />}
@@ -672,7 +968,7 @@ export default function DashboardPage() {
         {/* Top Products */}
         <TopProductsChart data={topProducts} />
 
-        {/* AI Insights */}
+        {/* AI Recommendations */}
         <div className="fade-up delay-4">
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
             <Lightbulb size={17} style={{ color: "var(--gold)" }} />
@@ -687,13 +983,8 @@ export default function DashboardPage() {
             <span className="badge badge-gold" style={{ marginLeft: 4 }}>
               {insights.length} insights
             </span>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 14 }}>
-            {insights.map((rec, i) => (
-              <InsightCard key={i} rec={rec} index={i} />
-            ))}
-          </div>
-        </div>
+          </div> 
+      </div>
       </div>
     );
   };
@@ -742,11 +1033,14 @@ export default function DashboardPage() {
           <HealthScoreCard health={healthScore} />
         </div>
       )}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 14 }}>
-        {insights.map((rec, i) => (
-          <InsightCard key={i} rec={rec} index={i} />
-        ))}
-      </div>
+      {aiInsights && (
+        <InsightsPanel
+          insights={aiInsights}
+          lang={insightLang}
+          isLoading={analyzing}
+          onLanguageChange={(lang) => handleGetInsights(lang)}
+        />
+      )}
     </div>
   );
 
@@ -831,6 +1125,27 @@ export default function DashboardPage() {
                 <span style={{ color: `${healthScore.color}90`, fontWeight: 400 }}>
                   · {healthScore.label}
                 </span>
+              </div>
+            )}
+
+            {/* Alert count badge in header */}
+            {alerts.length > 0 && (
+              <div
+                onClick={() => setActiveSection("dashboard")}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  borderRadius: 99,
+                  padding: "5px 12px",
+                  background: "rgba(248,113,113,0.1)",
+                  border: "1px solid rgba(248,113,113,0.25)",
+                  fontSize: 12,
+                  color: "#f87171",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                <AlertTriangle size={12} />
+                {alerts.length} alert{alerts.length !== 1 ? "s" : ""}
               </div>
             )}
 

@@ -505,6 +505,196 @@ function AboutPage() {
         </div>
       </div>
 
+      {/* Pricing Section */}
+        <div>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 18,
+            color: "var(--text-primary)",
+            marginBottom: 6,
+            letterSpacing: "-0.03em",
+          }}>
+            Simple Pricing
+          </h2>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
+            Start free. Upgrade when you grow.
+          </p>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: 14,
+          }}>
+            {[
+              {
+                name: "Free",
+                price: "৳0",
+                period: "forever",
+                color: "#529dff",
+                features: [
+                  "1 CSV upload/month",
+                  "Basic KPIs",
+                  "Sales trend chart",
+                  "Top 5 products",
+                ],
+                cta: "Get Started",
+                popular: false,
+              },
+              {
+                name: "Pro",
+                price: "৳499",
+                period: "per month",
+                color: "#e8b84b",
+                features: [
+                  "Unlimited CSV uploads",
+                  "Full AI insights",
+                  "Bengali language support",
+                  "Sales forecast",
+                  "Priority support",
+                ],
+                cta: "Start Pro",
+                popular: true,
+              },
+              {
+                name: "Enterprise",
+                price: "Custom",
+                period: "contact us",
+                color: "#a78bfa",
+                features: [
+                  "Everything in Pro",
+                  "API access",
+                  "Custom integrations",
+                  "Dedicated support",
+                  "Team accounts",
+                ],
+                cta: "Contact Us",
+                popular: false,
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                className="glass-card"
+                style={{
+                  padding: "24px 22px",
+                  position: "relative",
+                  border: plan.popular
+                    ? `1px solid ${plan.color}40`
+                    : "1px solid var(--border)",
+                }}
+              >
+                {/* Popular badge */}
+                {plan.popular && (
+                  <div style={{
+                    position: "absolute",
+                    top: -12,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: plan.color,
+                    color: "white",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: "3px 12px",
+                    borderRadius: 99,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                  }}>
+                    Most Popular
+                  </div>
+                )}
+
+                {/* Plan name */}
+                <div style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: 15,
+                  color: plan.color,
+                  marginBottom: 10,
+                }}>
+                  {plan.name}
+                </div>
+
+                {/* Price */}
+                <div style={{ marginBottom: 16 }}>
+                  <span style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: 32,
+                    color: "var(--text-primary)",
+                    letterSpacing: "-0.04em",
+                  }}>
+                    {plan.price}
+                  </span>
+                  <span style={{
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    marginLeft: 4,
+                  }}>
+                    {plan.period}
+                  </span>
+                </div>
+
+                {/* Divider */}
+                <div className="divider" style={{ marginBottom: 16 }} />
+
+                {/* Features */}
+                <div style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  marginBottom: 20,
+                }}>
+                  {plan.features.map((feature) => (
+                    <div
+                      key={feature}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        fontSize: 12.5,
+                        color: "var(--text-secondary)",
+                      }}
+                    >
+                      <span style={{ color: plan.color, fontSize: 14 }}>✓</span>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  style={{
+                    width: "100%",
+                    padding: "9px 0",
+                    borderRadius: 8,
+                    border: `1px solid ${plan.color}40`,
+                    background: plan.popular
+                      ? `${plan.color}18`
+                      : "transparent",
+                    color: plan.color,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    fontFamily: "var(--font-body)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = `${plan.color}28`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = plan.popular
+                      ? `${plan.color}18`
+                      : "transparent";
+                  }}
+                >
+                  {plan.cta}
+                </button>
+              </div>
+            ))}
+          </div>
+      </div>   
+
       {/* Team & Creator */}
       <div
         className="glass-card"
@@ -1051,6 +1241,7 @@ export default function DashboardPage() {
     if (activeSection === "sales")     return <SalesTrendPage data={salesTrend} />;
     if (activeSection === "products")  return <ProductsPage products={topProducts} />;
     if (activeSection === "about")     return <AboutPage />;
+    if (activeSection === "pricing")   return <AboutPage />;
     if (activeSection === "analytics") return (
       <AnalyticsSection salesTrend={salesTrend} topProducts={topProducts} healthScore={healthScore} />
     );
@@ -1066,6 +1257,7 @@ export default function DashboardPage() {
     upload: "Upload Data",
     insights: "AI Insights",
     about: "About B-AI",
+    pricing: "Pricing", 
     settings: "Settings",
   };
 

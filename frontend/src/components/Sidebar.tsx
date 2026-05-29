@@ -12,6 +12,7 @@ import {
   TrendingUp,
   Package,
   Info,
+  DollarSign,
 } from "lucide-react";
 
 interface NavItem {
@@ -34,6 +35,7 @@ const NAV_ITEMS: NavItem[] = [
   { icon: <Upload size={18} />,          label: "Upload Data", id: "upload"    },
   { icon: <Lightbulb size={18} />,       label: "AI Insights", id: "insights", badge: 3 },
   { icon: <Info size={18} />,            label: "About",       id: "about"     },
+  { icon: <DollarSign size={18} />,      label: "Pricing",     id: "pricing"   },
 ];
 
 export default function Sidebar({ activeSection, onNavigate }: SidebarProps) {

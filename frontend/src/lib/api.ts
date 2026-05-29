@@ -127,6 +127,8 @@ export interface InsightResponse {
   data_points: number;
 
   forecast?: ForecastItem[];
+
+  ai_summary?: string;
 }
 export interface ForecastItem {
   date: string;

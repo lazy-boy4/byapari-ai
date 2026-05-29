@@ -197,6 +197,43 @@ export default function InsightsPanel({
           )}
         </div>
       </div>
+      
+       {/* AI Summary from Gemini */}
+        {insights.ai_summary && (
+          <div style={{
+            padding: "16px 20px",
+            borderRadius: 12,
+            background: "rgba(232,184,75,0.06)",
+            border: "1px solid rgba(232,184,75,0.15)",
+            marginTop: 8,
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 10,
+            }}>
+              <span style={{ fontSize: 16 }}>✨</span>
+              <span style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 14,
+                color: "var(--gold)",
+              }}>
+                {lang === "bn" ? "জেমিনি এআই বিশ্লেষণ" : "Gemini AI Analysis"}
+              </span>
+            </div>
+            <p style={{
+              fontSize: 13.5,
+              color: "var(--text-secondary)",
+              lineHeight: 1.8,
+              whiteSpace: "pre-wrap",
+            }}>
+              {insights.ai_summary}
+            </p>
+          </div>
+        )}
+
 
       {/* Insight Cards */}
       <div className="space-y-3">

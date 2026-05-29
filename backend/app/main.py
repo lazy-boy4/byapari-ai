@@ -11,7 +11,10 @@ app = FastAPI()
 # ── CORS — allows frontend to talk to backend ──
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001",
+    "https://byapari-ai.vercel.app", 
+    "https://*.vercel.app", ],
+
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -220,7 +220,7 @@ export default function InsightsPanel({
                 fontSize: 14,
                 color: "var(--gold)",
               }}>
-                {lang === "bn" ? "জেমিনি এআই বিশ্লেষণ" : "Gemini AI Analysis"}
+                {lang === "bn" ? "Byapari এআই বিশ্লেষণ" : "Byapari AI Analysis"}
               </span>
             </div>
             <p style={{

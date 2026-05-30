@@ -1,11 +1,501 @@
 date,product_name,product_category,sales,profit,quantity,rating,returned,stock,payment_method,customer_city
-2025-01-15,Xiaomi Redmi Note 13,Electronics,25000,8000,1,4.5,No,45,bKash,Dhaka
-2025-01-16,Rupchanda Soyabean Oil 5L,Groceries,850,250,2,4.2,No,120,Nagad,Chittagong
-2025-01-17,Unilever Sunsilk Shampoo,Beauty,450,150,1,3.8,No,80,Cash on Delivery,Sylhet
-2025-01-18,Philips LED Bulb 12W,Home & Kitchen,320,100,3,4.0,No,200,bKash,Dhaka
-2025-01-19,Samsung Galaxy A15,Electronics,18000,5400,1,4.7,No,15,bKash,Dhaka
-2025-01-20,Fresh Chicken 1kg,Groceries,450,120,2,4.1,No,50,Nagad,Rajshahi
-2025-01-21,Denim Jeans Mens,Fashion,1200,400,1,3.5,Yes,30,bKash,Khulna
-2025-01-22,Realme Buds Wireless,Mobile Accessories,1800,600,1,4.3,No,60,bKash,Barisal
-2025-01-23,Aarong Cotton Sharee,Fashion,3500,1200,1,4.6,No,20,Cash on Delivery,Dhaka
-2025-01-24,Pran Potato Chips 50g,Groceries,50,15,5,4.0,No,500,Rocket,Rangpur
+2024-11-23,Aarong Kurta,Clothing,987.71,307.62,8,1.6,No,189,Bank Transfer,Chittagong
+2024-10-29,Hilsa Fish,Food,1119.76,150.14,8,3.0,Yes,50,Bank Transfer,Barisal
+2024-04-22,Mustard Oil,Food,11990.68,4056.68,1,4.0,No,108,Nagad,Khulna
+2024-03-20,Walton TV,Electronics,19165.65,1716.14,3,2.5,No,88,Bank Transfer,Khulna
+2024-01-23,Badminton Racket,Sports,9458.79,667.89,13,1.3,No,160,Bank Transfer,Comilla
+2024-10-22,Walton TV,Electronics,14239.15,276.83,8,4.1,No,59,Cash on Delivery,Barisal
+2024-05-22,Mustard Oil,Food,12895.85,1855.92,12,2.4,No,179,Cash on Delivery,Sylhet
+2024-09-30,Badminton Racket,Sports,5273.81,2338.19,9,5.0,No,142,bKash,Comilla
+2024-01-29,Walton TV,Electronics,16525.15,4034.98,13,2.1,No,145,Nagad,Rajshahi
+2024-12-01,Mustard Oil,Food,8214.82,4577.01,15,1.6,No,190,Bank Transfer,Khulna
+2024-10-26,Hilsa Fish,Food,18007.55,2027.03,8,5.0,No,126,Cash on Delivery,Dhaka
+2024-02-26,Panjabi,Clothing,12735.2,3970.79,14,3.4,No,152,Card,Khulna
+2024-10-10,Blender,Home & Kitchen,18877.4,3417.4,4,3.7,No,68,Nagad,Chittagong
+2024-05-30,Hilsa Fish,Food,3584.08,61.47,9,4.9,No,129,Cash on Delivery,Khulna
+2024-11-23,Basmati Rice,Food,12374.92,806.55,6,3.2,No,135,Cash on Delivery,Comilla
+2024-09-07,Jamdani Saree,Clothing,2681.42,1004.79,10,2.0,No,145,Cash on Delivery,Chittagong
+2024-09-05,Blender,Home & Kitchen,1849.64,1418.05,5,1.5,No,140,bKash,Khulna
+2024-09-27,Blender,Home & Kitchen,12328.58,4823.6,18,4.0,No,182,Nagad,Barisal
+2024-12-09,Football,Sports,7781.7,4503.09,15,1.5,No,86,Cash on Delivery,Rajshahi
+2024-10-28,Walton TV,Electronics,640.22,467.07,2,1.9,No,84,Cash on Delivery,Rajshahi
+2024-05-22,Football,Sports,9965.58,2719.21,19,3.3,No,121,Card,Rajshahi
+2024-02-18,Aarong Kurta,Clothing,13350.16,1803.77,14,2.9,No,172,Cash on Delivery,Dhaka
+2024-07-25,Badminton Racket,Sports,7116.4,4315.28,8,1.8,No,35,Card,Sylhet
+2024-05-22,Mustard Oil,Food,5371.23,4620.16,15,4.2,No,25,Cash on Delivery,Dhaka
+2024-02-17,Pressure Cooker,Home & Kitchen,15194.53,1220.08,14,2.9,No,102,Cash on Delivery,Sylhet
+2024-07-13,Jamdani Saree,Clothing,19713.52,1362.76,15,2.1,No,187,Bank Transfer,Rangpur
+2024-03-20,Walton TV,Electronics,6285.8,4845.11,19,3.9,Yes,80,Cash on Delivery,Dhaka
+2024-10-26,Mustard Oil,Food,10305.58,4270.96,6,1.2,No,47,Cash on Delivery,Chittagong
+2024-12-11,Blender,Home & Kitchen,5086.48,643.44,19,2.0,No,158,Cash on Delivery,Barisal
+2024-12-02,Cricket Bat,Sports,11521.93,1616.03,9,1.8,No,61,Nagad,Barisal
+2024-03-08,Football,Sports,13087.27,2313.26,3,1.0,No,144,Cash on Delivery,Chittagong
+2024-10-02,Walton TV,Electronics,10364.75,705.66,12,4.5,No,94,Nagad,Sylhet
+2024-08-12,Blender,Home & Kitchen,11092.75,1547.46,17,1.0,No,76,Cash on Delivery,Sylhet
+2024-05-15,Aarong Kurta,Clothing,17849.4,3724.96,5,2.1,No,183,Nagad,Rajshahi
+2024-12-17,Football,Sports,17131.8,2551.77,9,4.6,No,23,Card,Khulna
+2024-01-23,Jamdani Saree,Clothing,7004.35,697.56,9,1.6,No,180,Card,Dhaka
+2024-02-27,Aarong Kurta,Clothing,18928.49,3470.55,5,3.2,No,149,Bank Transfer,Sylhet
+2024-08-08,Panjabi,Clothing,1315.66,511.16,2,4.6,No,63,Cash on Delivery,Comilla
+2024-10-13,Pressure Cooker,Home & Kitchen,17556.9,4870.49,5,4.7,No,41,bKash,Barisal
+2024-01-13,Panjabi,Clothing,14863.01,1694.32,14,4.2,No,63,Nagad,Sylhet
+2024-12-25,Aarong Kurta,Clothing,7959.56,241.69,16,1.9,No,117,Nagad,Khulna
+2024-04-26,Walton TV,Electronics,961.46,225.84,11,2.1,Yes,197,Nagad,Comilla
+2024-11-24,Basmati Rice,Food,8293.73,4906.69,18,2.3,Yes,66,bKash,Khulna
+2024-01-20,Aarong Kurta,Clothing,12133.14,1761.15,11,2.7,No,29,Card,Rajshahi
+2024-05-10,Jamdani Saree,Clothing,14321.31,58.37,18,3.7,No,188,bKash,Comilla
+2024-08-08,Aarong Kurta,Clothing,19003.05,4607.82,20,2.3,No,184,Nagad,Khulna
+2024-12-07,Hilsa Fish,Food,6860.57,3501.18,18,1.5,No,97,bKash,Khulna
+2024-07-26,Basmati Rice,Food,16757.64,1554.18,7,2.7,No,167,Nagad,Rangpur
+2024-08-14,Mustard Oil,Food,13674.73,2580.31,6,3.6,No,169,Bank Transfer,Comilla
+2024-02-17,Blender,Home & Kitchen,19063.99,1212.6,10,1.9,No,6,Cash on Delivery,Rajshahi
+2024-08-31,Cricket Bat,Sports,17069.89,410.5,14,4.5,No,183,Card,Rangpur
+2024-07-23,Walton TV,Electronics,3377.64,2337.47,4,4.1,No,178,Bank Transfer,Rangpur
+2024-01-26,Basmati Rice,Food,5359.37,4249.26,15,1.5,No,135,Bank Transfer,Comilla
+2024-08-14,Cricket Bat,Sports,16392.63,4465.5,14,4.3,No,40,Card,Rangpur
+2024-05-12,Rice Cooker,Home & Kitchen,5321.17,3206.42,17,2.9,No,112,Cash on Delivery,Khulna
+2024-04-30,Singer Fridge,Electronics,7049.03,4470.48,3,1.6,No,177,bKash,Rajshahi
+2024-02-02,Hilsa Fish,Food,8448.19,2735.93,14,1.2,No,99,Bank Transfer,Dhaka
+2024-10-21,Hilsa Fish,Food,9801.1,4716.57,10,4.0,No,107,Bank Transfer,Rajshahi
+2024-09-06,Walton TV,Electronics,5822.24,2453.93,13,2.3,No,103,bKash,Rangpur
+2024-03-06,Cricket Bat,Sports,10915.41,4539.3,19,3.3,Yes,164,Card,Sylhet
+2024-08-24,Panjabi,Clothing,1480.55,591.95,7,2.8,No,97,Nagad,Barisal
+2024-05-09,Blender,Home & Kitchen,2097.17,89.66,18,1.2,No,57,Cash on Delivery,Dhaka
+2024-01-16,Walton TV,Electronics,4387.53,138.38,5,2.0,No,29,Bank Transfer,Rajshahi
+2024-08-26,Badminton Racket,Sports,5496.75,1876.03,20,3.4,No,29,bKash,Khulna
+2024-02-25,Cricket Bat,Sports,1000.73,346.28,13,2.6,No,19,Bank Transfer,Rajshahi
+2024-02-22,Badminton Racket,Sports,15563.38,4258.95,20,4.2,No,144,Cash on Delivery,Comilla
+2024-09-29,Hilsa Fish,Food,13399.67,391.34,11,1.1,No,125,Cash on Delivery,Barisal
+2024-07-04,Football,Sports,17885.71,2325.71,5,2.7,No,166,Nagad,Rangpur
+2024-08-26,Hilsa Fish,Food,16601.82,2982.75,11,4.4,No,22,Nagad,Rangpur
+2024-05-04,Rice Cooker,Home & Kitchen,9561.82,3071.14,13,2.3,No,83,bKash,Rangpur
+2024-04-18,Xiaomi Smartphone,Electronics,16057.73,1734.68,20,3.8,No,2,Bank Transfer,Rajshahi
+2024-02-13,Walton TV,Electronics,14541.46,2468.46,8,3.8,No,125,Card,Dhaka
+2024-02-17,Singer Fridge,Electronics,4821.13,3349.91,10,3.7,No,141,Bank Transfer,Comilla
+2024-08-05,Badminton Racket,Sports,11232.58,1791.46,15,2.1,No,30,bKash,Comilla
+2024-03-02,Badminton Racket,Sports,10949.35,3822.84,6,1.8,No,70,Bank Transfer,Khulna
+2024-02-21,Blender,Home & Kitchen,4285.29,1013.23,6,2.2,No,32,Nagad,Dhaka
+2024-01-28,Basmati Rice,Food,6196.66,4723.24,16,1.4,Yes,72,Card,Rangpur
+2024-08-13,Xiaomi Smartphone,Electronics,4095.09,257.77,16,1.5,Yes,125,Cash on Delivery,Dhaka
+2024-03-18,Panjabi,Clothing,16317.27,4748.17,3,5.0,No,195,Card,Rajshahi
+2024-09-24,Hilsa Fish,Food,9285.03,2241.47,19,5.0,No,158,Cash on Delivery,Chittagong
+2024-04-16,Football,Sports,4614.99,3064.19,6,2.0,No,40,Cash on Delivery,Barisal
+2024-08-18,Badminton Racket,Sports,12079.32,1491.73,8,2.2,No,116,Cash on Delivery,Rajshahi
+2024-05-15,Rice Cooker,Home & Kitchen,15929.33,2969.46,7,2.7,No,165,bKash,Khulna
+2024-03-13,Aarong Kurta,Clothing,1662.94,1327.67,20,4.0,No,73,Card,Chittagong
+2024-08-27,Badminton Racket,Sports,6429.78,2042.42,9,3.0,No,20,Bank Transfer,Dhaka
+2024-08-09,Badminton Racket,Sports,6785.27,1289.32,3,1.9,No,147,Bank Transfer,Dhaka
+2024-12-10,Blender,Home & Kitchen,5755.47,249.15,6,2.9,No,71,bKash,Barisal
+2024-11-21,Blender,Home & Kitchen,10088.65,501.65,12,2.6,No,26,bKash,Comilla
+2024-07-29,Badminton Racket,Sports,10161.65,3329.79,13,4.3,No,116,Cash on Delivery,Comilla
+2024-05-09,Xiaomi Smartphone,Electronics,2760.47,2143.2,17,4.3,Yes,138,Card,Barisal
+2024-01-28,Walton TV,Electronics,10609.57,3132.04,16,3.5,No,52,Nagad,Sylhet
+2024-05-27,Mustard Oil,Food,17676.51,2449.32,1,4.9,No,61,bKash,Khulna
+2024-10-09,Jamdani Saree,Clothing,11268.9,511.39,4,2.8,No,39,Card,Khulna
+2024-09-17,Badminton Racket,Sports,5831.79,4181.88,16,2.0,No,98,bKash,Sylhet
+2024-02-05,Singer Fridge,Electronics,15567.17,4279.34,11,4.7,No,0,Nagad,Khulna
+2024-10-27,Cricket Bat,Sports,19978.6,2473.72,5,2.8,No,85,Bank Transfer,Barisal
+2024-08-21,Pressure Cooker,Home & Kitchen,6774.66,983.83,8,3.3,No,198,Card,Dhaka
+2024-06-11,Badminton Racket,Sports,9723.04,4571.48,13,2.5,No,166,bKash,Rangpur
+2024-01-19,Panjabi,Clothing,10294.68,2971.39,4,4.5,No,134,Card,Dhaka
+2024-03-14,Hilsa Fish,Food,17483.19,4851.29,3,2.9,No,86,Bank Transfer,Barisal
+2024-11-28,Aarong Kurta,Clothing,17109.42,4269.09,18,2.5,No,183,Card,Dhaka
+2024-11-12,Aarong Kurta,Clothing,5078.02,3437.78,10,5.0,No,111,Cash on Delivery,Chittagong
+2024-08-15,Panjabi,Clothing,14033.02,4521.95,2,2.3,Yes,91,Nagad,Barisal
+2024-03-15,Walton TV,Electronics,10857.74,2851.34,6,1.7,Yes,97,Bank Transfer,Rajshahi
+2024-09-11,Pressure Cooker,Home & Kitchen,11871.56,1199.33,9,2.8,No,119,Nagad,Sylhet
+2024-02-07,Mustard Oil,Food,18932.09,4938.88,10,3.6,No,64,Card,Khulna
+2024-04-11,Hilsa Fish,Food,17140.04,577.93,13,3.3,No,179,Nagad,Dhaka
+2024-12-03,Hilsa Fish,Food,5852.37,2851.35,2,4.6,No,73,bKash,Comilla
+2024-04-22,Football,Sports,4207.57,1091.75,5,3.5,No,165,Cash on Delivery,Khulna
+2024-08-13,Jamdani Saree,Clothing,11801.69,3675.18,3,4.6,No,106,bKash,Rajshahi
+2024-03-08,Rice Cooker,Home & Kitchen,11018.45,4858.87,17,3.0,No,42,Nagad,Rangpur
+2024-05-31,Badminton Racket,Sports,17472.74,4030.95,15,4.9,No,57,Card,Comilla
+2024-02-16,Rice Cooker,Home & Kitchen,8194.2,1359.07,4,2.8,No,172,Nagad,Barisal
+2024-11-22,Xiaomi Smartphone,Electronics,2612.75,648.99,1,3.5,No,83,Bank Transfer,Rajshahi
+2024-11-27,Aarong Kurta,Clothing,12890.38,2348.12,10,3.6,No,11,Cash on Delivery,Khulna
+2024-09-09,Aarong Kurta,Clothing,2395.24,2129.95,5,2.6,No,190,Bank Transfer,Barisal
+2024-10-27,Badminton Racket,Sports,14668.68,4432.8,4,4.3,No,71,Cash on Delivery,Comilla
+2024-04-21,Mustard Oil,Food,9171.57,1218.76,12,1.4,No,139,Nagad,Dhaka
+2024-07-22,Singer Fridge,Electronics,4201.27,557.0,15,1.4,No,163,Bank Transfer,Dhaka
+2024-01-26,Rice Cooker,Home & Kitchen,7003.43,4944.66,19,1.8,No,141,bKash,Rajshahi
+2024-04-29,Xiaomi Smartphone,Electronics,15600.19,3953.79,20,1.0,No,37,bKash,Khulna
+2024-03-30,Aarong Kurta,Clothing,13390.62,177.61,1,2.4,No,150,Nagad,Dhaka
+2024-03-30,Singer Fridge,Electronics,1521.78,1140.9,17,1.5,Yes,114,Nagad,Chittagong
+2024-08-19,Basmati Rice,Food,4820.22,2983.58,17,2.2,No,7,Cash on Delivery,Rangpur
+2024-07-24,Hilsa Fish,Food,13878.9,2476.83,15,1.3,Yes,155,bKash,Chittagong
+2024-03-05,Singer Fridge,Electronics,12674.19,2947.56,11,2.5,No,75,Card,Barisal
+2024-02-20,Rice Cooker,Home & Kitchen,14184.7,4271.32,18,3.9,No,115,bKash,Barisal
+2024-06-22,Blender,Home & Kitchen,9343.23,2109.15,4,2.3,No,65,Nagad,Sylhet
+2024-12-17,Pressure Cooker,Home & Kitchen,9748.22,501.56,3,1.4,Yes,189,Nagad,Sylhet
+2024-10-11,Jamdani Saree,Clothing,11936.07,2829.85,11,3.7,No,170,Card,Dhaka
+2024-05-27,Cricket Bat,Sports,6592.75,562.82,17,1.9,No,57,Cash on Delivery,Comilla
+2024-10-11,Xiaomi Smartphone,Electronics,2740.26,799.14,8,4.2,No,196,Bank Transfer,Dhaka
+2024-11-07,Pressure Cooker,Home & Kitchen,13327.71,3482.68,1,1.7,No,79,Nagad,Comilla
+2024-01-04,Panjabi,Clothing,17462.32,2853.29,13,1.3,No,7,Cash on Delivery,Rajshahi
+2024-07-11,Hilsa Fish,Food,9346.09,829.18,10,3.9,No,145,Bank Transfer,Chittagong
+2024-01-27,Panjabi,Clothing,3569.49,2223.86,3,2.1,No,124,Bank Transfer,Rangpur
+2024-07-31,Singer Fridge,Electronics,4703.59,2433.74,12,2.7,No,173,Bank Transfer,Rangpur
+2024-09-26,Football,Sports,6514.18,1141.57,20,1.2,No,54,bKash,Khulna
+2024-05-28,Xiaomi Smartphone,Electronics,2839.69,1437.05,14,1.7,No,180,bKash,Comilla
+2024-02-06,Hilsa Fish,Food,17304.41,259.4,1,2.8,Yes,80,Bank Transfer,Barisal
+2024-10-20,Hilsa Fish,Food,14335.23,2117.59,4,2.6,No,43,Bank Transfer,Rangpur
+2024-12-19,Pressure Cooker,Home & Kitchen,7556.13,2211.72,4,2.0,No,134,Cash on Delivery,Barisal
+2024-06-07,Badminton Racket,Sports,7120.51,1698.69,6,1.3,No,135,Bank Transfer,Rajshahi
+2024-06-27,Xiaomi Smartphone,Electronics,14683.89,4103.8,5,1.9,No,50,bKash,Sylhet
+2024-12-01,Aarong Kurta,Clothing,3954.35,3066.7,16,2.9,No,148,Card,Comilla
+2024-11-17,Xiaomi Smartphone,Electronics,3443.67,281.67,15,3.5,No,151,Cash on Delivery,Comilla
+2024-09-16,Aarong Kurta,Clothing,6552.95,2286.97,2,2.5,No,165,Cash on Delivery,Barisal
+2024-08-24,Cricket Bat,Sports,11309.17,3969.5,2,2.8,No,166,bKash,Comilla
+2024-11-05,Mustard Oil,Food,10276.66,4790.73,15,1.4,No,87,Cash on Delivery,Sylhet
+2024-01-21,Walton TV,Electronics,14298.62,4955.38,17,3.1,No,95,Nagad,Barisal
+2024-07-28,Rice Cooker,Home & Kitchen,7098.16,3009.54,11,1.3,Yes,173,Card,Khulna
+2024-05-09,Badminton Racket,Sports,17105.54,4823.83,20,4.5,No,149,bKash,Comilla
+2024-06-07,Football,Sports,14120.36,1990.19,20,3.8,Yes,143,Card,Comilla
+2024-03-06,Football,Sports,14205.2,4738.19,17,1.4,No,130,Nagad,Dhaka
+2024-07-04,Singer Fridge,Electronics,4015.13,899.09,16,1.8,No,39,Cash on Delivery,Khulna
+2024-02-21,Basmati Rice,Food,15532.06,4183.84,17,1.2,No,196,Bank Transfer,Sylhet
+2024-11-01,Hilsa Fish,Food,3507.93,675.17,20,4.2,No,112,Cash on Delivery,Barisal
+2024-07-05,Football,Sports,14531.92,4849.46,20,2.1,No,114,bKash,Rajshahi
+2024-06-07,Rice Cooker,Home & Kitchen,15795.22,4524.67,7,2.5,No,112,Card,Khulna
+2024-07-14,Basmati Rice,Food,10785.47,4833.03,7,4.2,No,64,Cash on Delivery,Rangpur
+2024-07-09,Basmati Rice,Food,18718.72,3571.43,17,4.4,No,195,bKash,Khulna
+2024-08-18,Pressure Cooker,Home & Kitchen,10510.38,4163.68,3,4.8,No,115,Nagad,Dhaka
+2024-07-31,Jamdani Saree,Clothing,8230.85,1901.11,13,5.0,No,7,Nagad,Chittagong
+2024-12-31,Football,Sports,7038.16,772.94,2,2.1,No,178,bKash,Rangpur
+2024-08-17,Cricket Bat,Sports,602.4,93.69,9,1.9,No,186,Bank Transfer,Barisal
+2024-02-26,Rice Cooker,Home & Kitchen,6117.98,1540.7,2,2.0,No,159,Card,Chittagong
+2024-02-26,Blender,Home & Kitchen,18150.36,3003.86,1,3.5,No,183,bKash,Khulna
+2024-08-07,Jamdani Saree,Clothing,12488.79,1240.79,14,1.7,No,134,Nagad,Chittagong
+2024-09-26,Basmati Rice,Food,10392.89,4942.24,18,1.1,No,11,Card,Comilla
+2024-05-09,Badminton Racket,Sports,816.72,653.79,12,2.0,No,26,Bank Transfer,Comilla
+2024-03-09,Jamdani Saree,Clothing,7369.83,1725.81,6,4.3,No,178,Card,Sylhet
+2024-03-10,Aarong Kurta,Clothing,14462.88,4720.85,2,2.2,Yes,51,Cash on Delivery,Comilla
+2024-06-07,Basmati Rice,Food,8265.37,4086.26,16,2.0,No,48,Nagad,Comilla
+2024-01-25,Blender,Home & Kitchen,13286.76,1402.42,12,2.7,No,112,Card,Comilla
+2024-04-05,Mustard Oil,Food,13995.34,1868.37,17,2.1,Yes,108,Cash on Delivery,Barisal
+2024-11-04,Blender,Home & Kitchen,4018.9,1215.64,4,1.3,No,78,Card,Barisal
+2024-03-26,Badminton Racket,Sports,9156.21,2263.29,12,3.5,No,163,Cash on Delivery,Chittagong
+2024-12-09,Football,Sports,8421.1,2589.78,6,4.8,No,155,Card,Dhaka
+2024-03-05,Aarong Kurta,Clothing,5101.91,3243.56,12,2.5,No,154,bKash,Rangpur
+2024-07-08,Xiaomi Smartphone,Electronics,9156.82,430.58,5,3.1,No,166,Nagad,Rajshahi
+2024-02-28,Jamdani Saree,Clothing,14845.66,2520.27,13,4.7,No,198,Nagad,Rangpur
+2024-04-19,Cricket Bat,Sports,6068.75,4586.57,16,1.8,No,18,Card,Sylhet
+2024-12-31,Mustard Oil,Food,19946.62,4062.04,11,3.7,No,140,Bank Transfer,Khulna
+2024-06-02,Blender,Home & Kitchen,3571.35,2547.91,6,4.2,No,31,bKash,Sylhet
+2024-05-01,Rice Cooker,Home & Kitchen,10133.43,1836.44,19,2.5,No,141,bKash,Chittagong
+2024-02-03,Singer Fridge,Electronics,8264.12,3598.82,16,3.1,No,147,Cash on Delivery,Sylhet
+2024-06-11,Football,Sports,1946.22,932.86,17,2.4,No,199,Bank Transfer,Sylhet
+2024-03-07,Hilsa Fish,Food,10305.84,4347.65,4,3.1,No,41,Nagad,Rajshahi
+2024-06-26,Basmati Rice,Food,17951.06,4237.37,9,1.8,No,70,bKash,Khulna
+2024-11-10,Basmati Rice,Food,2321.85,1505.59,19,4.8,No,168,Bank Transfer,Comilla
+2024-10-15,Jamdani Saree,Clothing,16592.11,190.45,2,4.8,No,67,bKash,Barisal
+2024-11-12,Football,Sports,1090.58,974.18,18,2.2,No,123,bKash,Barisal
+2024-06-01,Mustard Oil,Food,1922.97,162.16,15,2.7,No,87,Bank Transfer,Sylhet
+2024-06-09,Blender,Home & Kitchen,14508.08,3684.29,12,4.9,No,94,Bank Transfer,Chittagong
+2024-06-12,Walton TV,Electronics,9596.22,1373.98,8,1.6,Yes,98,Bank Transfer,Barisal
+2024-05-07,Blender,Home & Kitchen,18095.06,4076.72,19,3.9,No,40,Card,Rangpur
+2024-09-12,Pressure Cooker,Home & Kitchen,6516.54,164.72,13,3.0,No,55,Bank Transfer,Comilla
+2024-01-25,Jamdani Saree,Clothing,5986.45,3007.72,16,2.1,Yes,27,Card,Sylhet
+2024-05-15,Badminton Racket,Sports,7632.66,2046.11,2,2.6,No,49,Nagad,Khulna
+2024-02-07,Hilsa Fish,Food,10332.98,3833.8,9,4.3,No,156,Cash on Delivery,Sylhet
+2024-02-19,Hilsa Fish,Food,7777.37,4934.6,18,4.8,No,50,Bank Transfer,Barisal
+2024-09-13,Jamdani Saree,Clothing,1383.42,232.59,11,4.2,No,38,Bank Transfer,Sylhet
+2024-06-16,Pressure Cooker,Home & Kitchen,12454.83,854.39,20,4.0,No,86,Bank Transfer,Rangpur
+2024-12-28,Cricket Bat,Sports,6345.92,4087.96,12,2.3,No,106,Bank Transfer,Khulna
+2024-12-18,Football,Sports,1019.62,509.7,19,3.3,No,149,Card,Sylhet
+2024-09-25,Football,Sports,14563.07,3884.3,13,1.6,No,8,Bank Transfer,Chittagong
+2024-04-07,Jamdani Saree,Clothing,9100.25,2122.96,14,3.8,No,198,Bank Transfer,Rangpur
+2024-02-01,Badminton Racket,Sports,3192.61,701.39,11,5.0,No,96,Nagad,Sylhet
+2024-08-23,Pressure Cooker,Home & Kitchen,10895.98,2754.05,9,3.4,No,63,Nagad,Khulna
+2024-04-25,Singer Fridge,Electronics,15537.9,3539.26,16,2.3,No,184,Nagad,Khulna
+2024-03-03,Cricket Bat,Sports,13694.13,1929.49,13,4.3,No,37,Nagad,Dhaka
+2024-05-27,Badminton Racket,Sports,2041.07,1888.84,9,4.0,No,137,Nagad,Khulna
+2024-03-11,Aarong Kurta,Clothing,12505.7,2954.81,8,1.2,No,57,bKash,Dhaka
+2024-02-21,Hilsa Fish,Food,6940.73,2388.4,5,1.0,No,40,Card,Rangpur
+2024-09-01,Football,Sports,4389.39,4231.84,11,2.1,Yes,196,Cash on Delivery,Rajshahi
+2024-09-30,Badminton Racket,Sports,14600.79,4686.51,6,2.7,No,9,Card,Rangpur
+2024-04-05,Pressure Cooker,Home & Kitchen,15105.56,4367.84,10,4.5,Yes,145,Bank Transfer,Chittagong
+2024-06-20,Singer Fridge,Electronics,9359.81,3224.5,17,3.0,No,129,Card,Khulna
+2024-04-08,Rice Cooker,Home & Kitchen,2696.61,479.9,15,3.6,No,3,Nagad,Khulna
+2024-10-17,Football,Sports,15267.01,918.7,13,4.3,No,22,Card,Chittagong
+2024-04-04,Panjabi,Clothing,9810.35,4682.34,1,2.0,No,192,Nagad,Comilla
+2024-06-03,Cricket Bat,Sports,14596.21,106.61,12,3.8,Yes,30,Card,Khulna
+2024-03-22,Hilsa Fish,Food,13878.44,4619.37,10,3.8,No,75,Nagad,Rajshahi
+2024-04-22,Panjabi,Clothing,9824.55,2302.14,20,2.5,No,120,Bank Transfer,Rajshahi
+2024-05-06,Football,Sports,15217.42,4372.02,3,3.1,No,92,Cash on Delivery,Chittagong
+2024-02-01,Blender,Home & Kitchen,11179.16,2552.16,19,3.1,No,133,Card,Chittagong
+2024-12-14,Walton TV,Electronics,14479.9,2469.7,17,2.8,Yes,33,Bank Transfer,Barisal
+2024-08-21,Cricket Bat,Sports,1625.87,778.19,10,3.9,No,0,bKash,Chittagong
+2024-01-24,Hilsa Fish,Food,7218.31,365.61,2,4.7,Yes,120,Cash on Delivery,Khulna
+2024-07-28,Panjabi,Clothing,15494.96,3840.85,14,2.5,No,114,Card,Barisal
+2024-02-11,Football,Sports,19300.82,4379.04,5,3.6,No,45,Bank Transfer,Barisal
+2024-09-27,Panjabi,Clothing,14693.23,1152.32,1,4.0,No,118,Bank Transfer,Barisal
+2024-09-29,Hilsa Fish,Food,16555.53,1275.18,12,1.6,No,185,Cash on Delivery,Dhaka
+2024-12-04,Hilsa Fish,Food,12491.0,4684.38,1,2.0,Yes,152,Cash on Delivery,Rangpur
+2024-11-02,Football,Sports,14214.08,290.95,2,2.6,No,55,Cash on Delivery,Sylhet
+2024-09-14,Singer Fridge,Electronics,5066.15,4586.17,19,2.3,No,172,Nagad,Rajshahi
+2024-06-03,Pressure Cooker,Home & Kitchen,3293.58,2190.79,8,2.7,No,142,Bank Transfer,Sylhet
+2024-11-16,Football,Sports,8830.41,2503.32,12,4.8,No,134,Nagad,Barisal
+2024-07-28,Panjabi,Clothing,6347.83,960.2,18,2.9,No,76,bKash,Rangpur
+2024-01-30,Basmati Rice,Food,8547.21,2111.71,17,1.5,No,52,Nagad,Chittagong
+2024-08-18,Blender,Home & Kitchen,7736.01,2701.4,7,1.2,No,154,Bank Transfer,Dhaka
+2024-02-07,Walton TV,Electronics,16190.69,2958.54,18,1.9,No,85,Nagad,Dhaka
+2024-04-18,Pressure Cooker,Home & Kitchen,4205.46,3130.43,16,4.7,No,180,bKash,Barisal
+2024-05-02,Basmati Rice,Food,6771.49,1451.14,15,3.1,No,66,Nagad,Rangpur
+2024-08-26,Aarong Kurta,Clothing,16154.92,3625.95,11,4.7,No,105,Cash on Delivery,Rajshahi
+2024-03-15,Jamdani Saree,Clothing,5585.1,4677.05,19,3.9,No,50,Nagad,Rajshahi
+2024-07-13,Cricket Bat,Sports,16750.57,2521.54,11,2.0,No,185,Card,Rangpur
+2024-03-27,Badminton Racket,Sports,16002.02,887.87,18,3.0,No,138,Cash on Delivery,Dhaka
+2024-02-08,Blender,Home & Kitchen,13530.2,3833.48,14,1.5,No,17,bKash,Dhaka
+2024-04-21,Basmati Rice,Food,9392.19,349.23,20,4.7,No,4,Cash on Delivery,Barisal
+2024-01-07,Jamdani Saree,Clothing,10823.64,1409.97,10,1.1,No,172,Card,Sylhet
+2024-02-24,Pressure Cooker,Home & Kitchen,2378.12,396.5,7,3.5,No,90,Nagad,Barisal
+2024-02-10,Xiaomi Smartphone,Electronics,19206.31,2322.04,8,5.0,No,175,Cash on Delivery,Dhaka
+2024-02-17,Hilsa Fish,Food,7895.65,2785.87,2,3.5,No,21,Card,Barisal
+2024-11-26,Rice Cooker,Home & Kitchen,6959.78,4887.78,4,4.6,No,58,bKash,Rangpur
+2024-05-18,Jamdani Saree,Clothing,18521.11,3437.92,9,4.6,No,8,bKash,Comilla
+2024-01-09,Walton TV,Electronics,11947.2,3773.66,13,4.7,No,144,bKash,Barisal
+2024-12-12,Pressure Cooker,Home & Kitchen,11040.97,1950.04,5,4.2,No,20,Bank Transfer,Comilla
+2024-01-28,Aarong Kurta,Clothing,9023.22,4201.44,11,3.4,No,152,Card,Comilla
+2024-01-16,Football,Sports,5829.88,4963.3,16,1.9,No,96,Card,Sylhet
+2024-12-14,Cricket Bat,Sports,13383.1,474.19,20,2.2,No,18,Cash on Delivery,Khulna
+2024-03-19,Hilsa Fish,Food,14377.7,3187.81,13,2.3,No,1,Nagad,Rangpur
+2024-07-03,Rice Cooker,Home & Kitchen,5760.45,705.91,6,2.7,No,131,Card,Chittagong
+2024-01-14,Aarong Kurta,Clothing,7401.33,510.67,20,4.1,No,3,Nagad,Barisal
+2024-07-17,Rice Cooker,Home & Kitchen,2151.64,1942.96,8,3.3,No,97,bKash,Sylhet
+2024-05-17,Singer Fridge,Electronics,5733.93,772.38,6,2.7,No,123,Cash on Delivery,Comilla
+2024-05-08,Walton TV,Electronics,14557.54,2504.22,20,1.8,No,77,Cash on Delivery,Barisal
+2024-06-19,Blender,Home & Kitchen,12593.75,4030.18,11,2.8,No,166,Bank Transfer,Sylhet
+2024-06-02,Xiaomi Smartphone,Electronics,12262.62,3491.7,16,2.3,No,81,Nagad,Rangpur
+2024-10-21,Rice Cooker,Home & Kitchen,5227.27,1911.47,13,2.5,No,51,Bank Transfer,Sylhet
+2024-12-15,Rice Cooker,Home & Kitchen,11226.93,4767.37,15,4.8,No,74,Cash on Delivery,Barisal
+2024-12-10,Mustard Oil,Food,3213.99,1007.86,9,3.6,No,96,Cash on Delivery,Rangpur
+2024-11-02,Mustard Oil,Food,11853.76,2695.12,14,3.2,No,92,Bank Transfer,Chittagong
+2024-02-25,Rice Cooker,Home & Kitchen,5340.5,3340.23,6,3.6,Yes,165,Card,Comilla
+2024-08-08,Aarong Kurta,Clothing,705.68,219.39,17,4.0,No,176,Bank Transfer,Rajshahi
+2024-08-16,Xiaomi Smartphone,Electronics,8127.12,3873.09,19,3.8,No,6,Card,Chittagong
+2024-05-31,Hilsa Fish,Food,18450.68,474.98,5,2.4,No,200,bKash,Rangpur
+2024-06-27,Mustard Oil,Food,2403.65,1748.6,15,2.3,No,181,Cash on Delivery,Dhaka
+2024-06-24,Football,Sports,2632.57,2115.39,8,3.1,No,84,Bank Transfer,Barisal
+2024-08-24,Walton TV,Electronics,16056.24,3167.31,6,3.6,No,7,Bank Transfer,Rajshahi
+2024-08-18,Cricket Bat,Sports,8876.28,72.03,7,1.8,No,16,Bank Transfer,Chittagong
+2024-10-01,Panjabi,Clothing,7632.96,1025.52,4,2.0,No,135,Nagad,Barisal
+2024-11-08,Hilsa Fish,Food,11946.59,1772.23,15,3.5,No,180,Nagad,Chittagong
+2024-12-10,Panjabi,Clothing,6607.12,1230.93,4,1.7,No,130,Card,Barisal
+2024-11-01,Panjabi,Clothing,11708.72,2144.04,16,3.5,No,165,bKash,Sylhet
+2024-09-07,Singer Fridge,Electronics,3235.78,1051.87,15,3.5,No,2,Card,Sylhet
+2024-04-09,Blender,Home & Kitchen,7986.91,2829.83,16,2.6,No,181,Card,Rangpur
+2024-03-26,Aarong Kurta,Clothing,11525.26,3989.61,8,2.2,No,137,Nagad,Sylhet
+2024-08-22,Cricket Bat,Sports,14979.11,3841.3,18,3.0,No,68,Bank Transfer,Comilla
+2024-10-04,Blender,Home & Kitchen,15257.33,3812.02,15,3.2,No,26,bKash,Khulna
+2024-01-17,Mustard Oil,Food,5624.9,4317.89,3,2.8,No,198,bKash,Rajshahi
+2024-10-28,Badminton Racket,Sports,7337.3,3568.23,14,1.7,No,52,bKash,Dhaka
+2024-10-18,Xiaomi Smartphone,Electronics,10879.48,3004.45,6,2.3,No,74,Bank Transfer,Khulna
+2024-09-20,Pressure Cooker,Home & Kitchen,13746.34,521.36,14,4.7,No,167,bKash,Sylhet
+2024-05-07,Panjabi,Clothing,14372.2,4150.98,13,3.0,No,68,Card,Barisal
+2024-08-19,Aarong Kurta,Clothing,12855.74,4406.62,3,2.6,No,177,Nagad,Rangpur
+2024-09-06,Xiaomi Smartphone,Electronics,11848.13,4351.09,3,3.9,No,170,Nagad,Chittagong
+2024-09-30,Hilsa Fish,Food,4747.68,2067.9,7,3.0,No,72,Nagad,Sylhet
+2024-10-16,Blender,Home & Kitchen,9964.09,1751.51,2,1.2,No,117,Cash on Delivery,Chittagong
+2024-03-21,Mustard Oil,Food,9402.1,4959.6,14,1.8,No,33,Nagad,Sylhet
+2024-05-20,Aarong Kurta,Clothing,13264.47,1289.43,12,3.7,No,13,Card,Khulna
+2024-12-24,Rice Cooker,Home & Kitchen,5065.8,3294.65,4,1.0,No,33,Bank Transfer,Rajshahi
+2024-09-22,Football,Sports,9178.8,89.91,11,4.3,No,108,bKash,Rangpur
+2024-02-06,Walton TV,Electronics,7969.86,3667.28,4,1.4,No,76,bKash,Barisal
+2024-03-09,Football,Sports,19862.33,757.12,17,3.3,No,42,Card,Comilla
+2024-04-19,Football,Sports,15091.24,4603.48,20,3.7,No,22,Cash on Delivery,Sylhet
+2024-03-04,Cricket Bat,Sports,14735.18,1790.1,14,2.3,No,70,Cash on Delivery,Rajshahi
+2024-10-10,Cricket Bat,Sports,12200.15,3057.59,1,4.4,No,77,bKash,Rajshahi
+2024-07-19,Singer Fridge,Electronics,13100.31,3929.82,8,3.0,No,127,Bank Transfer,Chittagong
+2024-09-27,Pressure Cooker,Home & Kitchen,19565.09,4935.07,11,1.5,No,145,Card,Comilla
+2024-10-06,Football,Sports,3869.02,1848.34,3,1.1,Yes,67,bKash,Dhaka
+2024-01-31,Rice Cooker,Home & Kitchen,8260.51,1468.11,17,4.1,No,102,Cash on Delivery,Sylhet
+2024-05-22,Aarong Kurta,Clothing,6543.18,2580.96,7,4.9,No,83,Card,Chittagong
+2024-06-07,Badminton Racket,Sports,9030.98,4769.47,8,1.2,Yes,111,Cash on Delivery,Rangpur
+2024-11-09,Cricket Bat,Sports,1573.06,1063.81,6,1.5,No,179,Cash on Delivery,Sylhet
+2024-09-11,Xiaomi Smartphone,Electronics,10698.6,3925.79,9,1.7,No,199,Nagad,Chittagong
+2024-01-16,Xiaomi Smartphone,Electronics,16238.6,1396.3,3,2.1,No,160,Cash on Delivery,Rangpur
+2024-08-21,Basmati Rice,Food,7522.42,2523.07,19,1.7,No,197,Cash on Delivery,Chittagong
+2024-04-26,Badminton Racket,Sports,10422.09,267.99,1,2.0,No,98,bKash,Sylhet
+2024-01-19,Basmati Rice,Food,16160.75,3584.4,14,1.9,No,184,Nagad,Khulna
+2024-02-09,Cricket Bat,Sports,7769.76,2535.1,2,1.7,No,11,Card,Chittagong
+2024-08-26,Blender,Home & Kitchen,6004.98,4231.99,11,1.3,No,94,bKash,Khulna
+2024-10-15,Rice Cooker,Home & Kitchen,6426.23,3132.45,15,2.5,No,197,bKash,Rajshahi
+2024-03-18,Jamdani Saree,Clothing,18681.75,168.36,18,2.4,No,2,Nagad,Dhaka
+2024-12-02,Hilsa Fish,Food,17055.62,3649.71,4,1.8,No,107,Card,Dhaka
+2024-03-13,Badminton Racket,Sports,5956.59,267.31,8,4.6,No,179,Nagad,Rangpur
+2024-02-13,Cricket Bat,Sports,2363.75,358.78,13,1.3,No,111,bKash,Rajshahi
+2024-05-29,Singer Fridge,Electronics,17092.82,4633.91,13,3.8,No,81,Card,Khulna
+2024-04-29,Aarong Kurta,Clothing,18899.32,723.75,19,1.4,No,115,Card,Comilla
+2024-07-27,Aarong Kurta,Clothing,10950.53,4824.94,7,2.8,No,30,Cash on Delivery,Sylhet
+2024-12-17,Singer Fridge,Electronics,16614.54,3499.55,2,1.9,No,37,Cash on Delivery,Rajshahi
+2024-07-01,Hilsa Fish,Food,10512.46,3402.06,9,4.3,No,103,Card,Rajshahi
+2024-02-18,Mustard Oil,Food,2487.19,1983.87,4,1.0,No,56,bKash,Rajshahi
+2024-07-24,Xiaomi Smartphone,Electronics,13882.56,4691.0,3,3.3,No,19,Cash on Delivery,Chittagong
+2024-04-11,Pressure Cooker,Home & Kitchen,13096.74,4056.03,3,4.6,No,84,Cash on Delivery,Dhaka
+2024-08-24,Jamdani Saree,Clothing,3775.79,2187.6,13,3.0,No,109,bKash,Comilla
+2024-04-19,Pressure Cooker,Home & Kitchen,4149.45,1196.97,5,1.1,No,62,Nagad,Rangpur
+2024-07-29,Pressure Cooker,Home & Kitchen,11238.43,351.85,9,2.5,No,164,Bank Transfer,Rajshahi
+2024-11-18,Rice Cooker,Home & Kitchen,11101.31,146.67,13,4.1,No,139,Card,Comilla
+2024-10-16,Basmati Rice,Food,6771.29,1388.66,1,2.3,No,199,Nagad,Dhaka
+2024-08-29,Basmati Rice,Food,7469.94,2940.75,8,4.9,No,168,bKash,Khulna
+2024-09-30,Blender,Home & Kitchen,15929.13,3698.45,8,3.3,No,99,Nagad,Sylhet
+2024-03-31,Walton TV,Electronics,12054.13,4040.74,12,4.7,Yes,179,Nagad,Sylhet
+2024-10-15,Walton TV,Electronics,16815.59,4061.49,16,3.2,No,9,Cash on Delivery,Dhaka
+2024-04-29,Cricket Bat,Sports,4766.77,2532.61,1,2.3,No,33,Nagad,Sylhet
+2024-06-14,Jamdani Saree,Clothing,927.3,564.05,5,4.1,No,93,Cash on Delivery,Comilla
+2024-12-26,Football,Sports,8214.11,550.11,10,2.3,No,187,Card,Rangpur
+2024-11-28,Xiaomi Smartphone,Electronics,3896.95,3775.74,20,4.1,No,150,bKash,Barisal
+2024-06-06,Badminton Racket,Sports,13925.72,680.37,1,4.8,No,100,Bank Transfer,Dhaka
+2024-04-03,Cricket Bat,Sports,6705.23,4053.59,20,1.9,No,127,bKash,Comilla
+2024-02-09,Walton TV,Electronics,7262.8,1631.62,3,4.3,No,186,Nagad,Rangpur
+2024-01-06,Singer Fridge,Electronics,4588.84,3195.52,12,2.0,No,0,Cash on Delivery,Barisal
+2024-08-12,Badminton Racket,Sports,8683.24,873.38,14,3.0,No,139,Card,Chittagong
+2024-09-02,Rice Cooker,Home & Kitchen,17348.99,3272.3,8,1.7,Yes,8,Nagad,Dhaka
+2024-06-12,Singer Fridge,Electronics,19057.41,417.29,6,4.6,No,19,Bank Transfer,Chittagong
+2024-06-22,Cricket Bat,Sports,19712.88,4471.47,1,2.7,No,155,Card,Sylhet
+2024-01-28,Aarong Kurta,Clothing,6956.34,4873.27,14,3.8,No,186,Bank Transfer,Khulna
+2024-12-04,Singer Fridge,Electronics,6299.31,524.78,13,3.3,No,39,Cash on Delivery,Comilla
+2024-01-02,Hilsa Fish,Food,2208.75,1827.76,20,2.9,Yes,52,bKash,Khulna
+2024-02-11,Mustard Oil,Food,16953.5,1576.35,13,2.9,No,67,Cash on Delivery,Barisal
+2024-04-04,Xiaomi Smartphone,Electronics,17767.11,1878.54,15,1.2,No,67,bKash,Khulna
+2024-10-15,Jamdani Saree,Clothing,3447.05,2415.25,4,1.3,No,138,Card,Rajshahi
+2024-10-10,Jamdani Saree,Clothing,16895.54,4101.11,14,4.9,No,121,Bank Transfer,Rajshahi
+2024-08-31,Singer Fridge,Electronics,2039.62,1845.28,2,3.0,No,146,Bank Transfer,Sylhet
+2024-03-02,Rice Cooker,Home & Kitchen,9256.27,4747.85,6,4.9,No,32,Cash on Delivery,Barisal
+2024-02-10,Football,Sports,8990.17,4986.48,5,4.3,No,186,Cash on Delivery,Chittagong
+2024-07-17,Basmati Rice,Food,8248.42,1664.33,9,3.1,No,3,Bank Transfer,Barisal
+2024-02-27,Hilsa Fish,Food,3418.03,1957.74,19,4.0,No,27,Bank Transfer,Chittagong
+2024-05-26,Blender,Home & Kitchen,10944.85,1752.15,14,2.1,No,146,Bank Transfer,Rangpur
+2024-01-20,Panjabi,Clothing,5870.58,762.07,20,3.7,No,101,Nagad,Rajshahi
+2024-01-26,Badminton Racket,Sports,9766.75,1379.49,12,1.1,No,77,Nagad,Khulna
+2024-09-08,Blender,Home & Kitchen,14075.57,536.18,8,1.5,No,113,Nagad,Khulna
+2024-08-01,Cricket Bat,Sports,13088.32,980.28,7,4.7,No,124,Bank Transfer,Comilla
+2024-01-29,Basmati Rice,Food,15934.06,374.8,17,2.6,No,134,Bank Transfer,Dhaka
+2024-03-29,Walton TV,Electronics,17566.02,1043.6,2,2.0,No,92,bKash,Khulna
+2024-07-07,Blender,Home & Kitchen,9552.26,2014.86,4,3.7,No,125,Bank Transfer,Rangpur
+2024-03-31,Blender,Home & Kitchen,9754.35,2779.1,12,1.7,No,191,Cash on Delivery,Khulna
+2024-01-15,Hilsa Fish,Food,1468.2,1260.04,7,4.4,No,173,bKash,Khulna
+2024-11-29,Hilsa Fish,Food,10508.98,4329.92,1,2.9,No,44,Bank Transfer,Dhaka
+2024-04-24,Singer Fridge,Electronics,12362.71,4717.87,9,2.7,No,89,Card,Khulna
+2024-04-21,Mustard Oil,Food,6391.83,2627.16,20,2.6,No,130,Nagad,Khulna
+2024-06-01,Football,Sports,2608.04,213.23,9,3.6,No,66,Nagad,Rajshahi
+2024-03-17,Basmati Rice,Food,15426.75,4503.45,20,2.6,No,35,Cash on Delivery,Rangpur
+2024-05-31,Singer Fridge,Electronics,18184.78,2052.76,2,3.3,No,48,Nagad,Rajshahi
+2024-12-17,Basmati Rice,Food,12947.12,2404.89,12,3.0,No,168,Bank Transfer,Sylhet
+2024-05-30,Aarong Kurta,Clothing,9680.23,3717.55,18,4.1,No,174,Nagad,Chittagong
+2024-04-23,Xiaomi Smartphone,Electronics,4854.89,4236.26,14,4.2,No,66,Bank Transfer,Khulna
+2024-08-25,Blender,Home & Kitchen,2796.74,197.38,19,3.3,No,120,bKash,Chittagong
+2024-12-14,Hilsa Fish,Food,10831.85,2094.88,5,1.5,No,104,Bank Transfer,Rangpur
+2024-03-14,Xiaomi Smartphone,Electronics,17316.68,942.77,3,3.0,No,45,Nagad,Dhaka
+2024-01-03,Mustard Oil,Food,5833.79,3817.91,6,3.3,No,195,Cash on Delivery,Sylhet
+2024-11-10,Hilsa Fish,Food,12853.01,2046.8,16,2.5,Yes,51,Nagad,Dhaka
+2024-06-13,Rice Cooker,Home & Kitchen,16747.96,993.35,1,3.5,No,177,Nagad,Khulna
+2024-03-07,Aarong Kurta,Clothing,7979.23,2963.92,6,1.3,Yes,74,Card,Comilla
+2024-08-10,Pressure Cooker,Home & Kitchen,13892.21,712.26,16,2.4,No,103,Cash on Delivery,Rajshahi
+2024-04-24,Badminton Racket,Sports,19705.15,1095.39,1,3.4,No,93,Cash on Delivery,Barisal
+2024-11-23,Singer Fridge,Electronics,15539.37,3134.52,20,5.0,No,167,Cash on Delivery,Dhaka
+2024-12-19,Aarong Kurta,Clothing,8627.12,1932.26,18,2.0,No,52,Cash on Delivery,Khulna
+2024-08-03,Football,Sports,2469.11,1308.16,20,3.4,No,26,Bank Transfer,Chittagong
+2024-05-24,Aarong Kurta,Clothing,15802.82,2513.81,20,1.8,No,133,bKash,Comilla
+2024-12-26,Hilsa Fish,Food,6259.35,245.06,16,4.6,No,123,Nagad,Rajshahi
+2024-01-02,Jamdani Saree,Clothing,13596.85,4539.06,19,3.7,No,23,Bank Transfer,Chittagong
+2024-02-21,Pressure Cooker,Home & Kitchen,5489.9,1194.24,10,2.1,Yes,44,Cash on Delivery,Khulna
+2024-07-03,Rice Cooker,Home & Kitchen,13696.95,2158.68,4,1.4,No,11,Cash on Delivery,Sylhet
+2024-12-05,Football,Sports,3824.99,1399.3,15,4.8,No,187,Cash on Delivery,Comilla
+2024-06-24,Panjabi,Clothing,2719.72,1118.16,15,2.1,No,122,Card,Sylhet
+2024-02-27,Panjabi,Clothing,14075.31,340.3,6,1.4,No,123,Bank Transfer,Rangpur
+2024-04-02,Cricket Bat,Sports,7905.14,1825.06,1,4.5,No,186,bKash,Rangpur
+2024-09-06,Aarong Kurta,Clothing,17808.08,2231.41,3,2.0,No,180,Bank Transfer,Rajshahi
+2024-12-08,Blender,Home & Kitchen,7096.86,2639.36,20,1.4,No,63,Card,Comilla
+2024-12-05,Football,Sports,13007.39,785.84,18,4.6,No,2,bKash,Rangpur
+2024-09-10,Blender,Home & Kitchen,3725.38,2811.04,11,2.0,No,12,Bank Transfer,Rajshahi
+2024-10-08,Football,Sports,7883.43,4094.66,3,2.8,No,114,Cash on Delivery,Rangpur
+2024-08-16,Xiaomi Smartphone,Electronics,2814.78,1424.63,1,1.4,No,142,Bank Transfer,Dhaka
+2024-02-16,Rice Cooker,Home & Kitchen,12281.96,3114.38,10,4.6,No,167,Card,Comilla
+2024-07-05,Blender,Home & Kitchen,1558.37,386.02,15,2.3,No,153,Card,Comilla
+2024-08-19,Aarong Kurta,Clothing,2400.02,1597.79,1,2.4,No,74,Bank Transfer,Comilla
+2024-12-25,Aarong Kurta,Clothing,1392.67,270.24,5,4.3,No,104,Cash on Delivery,Khulna
+2024-11-08,Walton TV,Electronics,4157.1,3869.56,13,1.9,No,48,Nagad,Chittagong
+2024-07-31,Jamdani Saree,Clothing,18569.22,4195.46,19,1.5,No,117,Bank Transfer,Sylhet
+2024-09-12,Jamdani Saree,Clothing,10842.1,290.43,14,4.4,No,130,bKash,Sylhet
+2024-03-06,Aarong Kurta,Clothing,8054.41,3022.7,11,3.0,No,155,bKash,Khulna
+2024-07-22,Xiaomi Smartphone,Electronics,19424.59,2291.59,5,1.6,No,191,Bank Transfer,Khulna
+2024-12-25,Basmati Rice,Food,17283.8,3573.78,18,3.5,No,159,Nagad,Comilla
+2024-12-10,Panjabi,Clothing,19636.04,3267.93,6,3.0,No,82,Cash on Delivery,Comilla
+2024-10-14,Mustard Oil,Food,11864.72,4716.23,14,3.7,No,136,Nagad,Barisal
+2024-01-07,Basmati Rice,Food,2576.17,1011.76,2,3.7,No,192,bKash,Khulna
+2024-12-15,Singer Fridge,Electronics,3355.35,254.98,10,1.8,No,91,Card,Chittagong
+2024-11-11,Blender,Home & Kitchen,13672.76,2831.33,8,4.0,No,60,Bank Transfer,Khulna
+2024-12-20,Football,Sports,1416.11,570.9,14,4.8,No,80,Bank Transfer,Dhaka
+2024-01-07,Badminton Racket,Sports,5401.15,3121.78,15,4.3,No,180,Nagad,Rajshahi
+2024-04-09,Singer Fridge,Electronics,9251.89,4918.09,3,1.7,No,131,Cash on Delivery,Barisal
+2024-01-21,Hilsa Fish,Food,5942.69,1357.99,6,3.3,No,84,Card,Sylhet
+2024-01-21,Panjabi,Clothing,18608.25,3004.56,20,4.4,No,146,Bank Transfer,Comilla
+2024-02-07,Rice Cooker,Home & Kitchen,14299.79,2650.71,6,3.1,No,40,Card,Barisal
+2024-02-17,Xiaomi Smartphone,Electronics,4813.36,1066.07,11,2.3,No,192,Bank Transfer,Rangpur
+2024-10-14,Blender,Home & Kitchen,15166.61,3264.04,4,3.7,No,164,Bank Transfer,Rajshahi
+2024-01-21,Football,Sports,17770.37,1937.79,4,2.5,No,72,Cash on Delivery,Comilla
+2024-09-20,Rice Cooker,Home & Kitchen,10420.34,2459.68,10,4.6,No,131,Cash on Delivery,Chittagong
+2024-03-26,Rice Cooker,Home & Kitchen,10990.51,86.29,3,1.8,No,54,Card,Chittagong
+2024-04-15,Basmati Rice,Food,16660.6,4399.25,14,3.6,No,191,bKash,Dhaka
+2024-08-23,Badminton Racket,Sports,6968.45,483.23,2,1.7,No,18,Bank Transfer,Rajshahi
+2024-05-12,Hilsa Fish,Food,8066.64,3169.58,14,2.3,No,30,Bank Transfer,Dhaka
+2024-11-24,Badminton Racket,Sports,12557.81,3792.0,19,1.2,No,91,Bank Transfer,Chittagong
+2024-05-28,Rice Cooker,Home & Kitchen,13874.63,3052.5,10,4.1,No,101,Cash on Delivery,Rangpur
+2024-03-21,Basmati Rice,Food,4787.38,3586.91,18,2.2,No,76,Nagad,Dhaka
+2024-10-10,Blender,Home & Kitchen,11323.86,660.01,1,3.3,No,140,Cash on Delivery,Khulna
+2024-04-17,Badminton Racket,Sports,14957.89,3643.39,7,2.7,No,131,bKash,Sylhet
+2024-04-04,Walton TV,Electronics,12529.26,1301.07,4,1.7,No,13,Bank Transfer,Rangpur
+2024-11-26,Basmati Rice,Food,1926.32,1309.62,9,1.4,No,124,Nagad,Comilla
+2024-03-06,Football,Sports,13281.72,545.22,20,1.3,No,124,Card,Comilla
+2024-11-11,Football,Sports,6460.67,2941.64,19,3.3,No,109,bKash,Dhaka
+2024-06-09,Walton TV,Electronics,15820.37,3575.39,14,2.1,No,173,Nagad,Rangpur
+2024-08-24,Mustard Oil,Food,7495.46,1562.09,18,1.4,No,20,Nagad,Sylhet
+2024-10-02,Walton TV,Electronics,5633.08,4437.36,3,3.9,No,129,Cash on Delivery,Barisal
+2024-10-29,Walton TV,Electronics,18172.92,2780.39,18,4.6,No,167,bKash,Comilla
+2024-07-19,Walton TV,Electronics,17883.03,2968.52,10,1.5,No,23,Card,Comilla
+2024-09-14,Jamdani Saree,Clothing,13422.23,4247.51,20,3.7,No,35,Card,Sylhet
+2024-04-01,Cricket Bat,Sports,18999.88,3314.1,5,3.9,No,91,Cash on Delivery,Rajshahi
+2024-09-06,Walton TV,Electronics,1725.79,668.73,2,3.7,No,92,Card,Rangpur
+2024-08-20,Pressure Cooker,Home & Kitchen,1405.53,1378.24,11,1.4,No,162,Nagad,Khulna
+2024-10-23,Basmati Rice,Food,11618.12,1914.46,13,2.5,No,19,Bank Transfer,Khulna
+2024-07-11,Pressure Cooker,Home & Kitchen,4846.54,1996.23,12,2.9,No,154,Cash on Delivery,Sylhet
+2024-08-13,Panjabi,Clothing,4984.82,2588.65,9,1.8,No,92,Bank Transfer,Chittagong
+2024-12-04,Walton TV,Electronics,8584.97,1684.61,4,2.9,No,53,Bank Transfer,Sylhet
+2024-11-27,Blender,Home & Kitchen,8512.53,1256.17,5,3.3,No,161,Bank Transfer,Dhaka
+2024-10-20,Panjabi,Clothing,1590.28,447.53,6,3.1,No,144,Cash on Delivery,Khulna
+2024-02-13,Walton TV,Electronics,9259.47,4964.24,16,1.7,No,153,bKash,Sylhet
+2024-11-15,Football,Sports,10460.7,880.22,11,4.7,No,17,bKash,Barisal
+2024-07-16,Panjabi,Clothing,2617.12,569.25,17,3.7,No,155,Cash on Delivery,Sylhet
+2024-08-31,Pressure Cooker,Home & Kitchen,12487.59,243.23,18,3.0,No,123,bKash,Dhaka
+2024-12-13,Football,Sports,8914.19,2132.39,2,3.8,No,123,Card,Comilla
+2024-10-28,Rice Cooker,Home & Kitchen,14957.18,3819.62,19,1.4,No,122,bKash,Chittagong
+2024-05-25,Cricket Bat,Sports,17596.94,2072.8,7,1.0,No,1,Bank Transfer,Chittagong
+2024-09-23,Jamdani Saree,Clothing,7813.08,1066.82,11,2.6,No,109,Bank Transfer,Khulna
+2024-05-13,Blender,Home & Kitchen,10954.05,2845.12,20,2.1,No,193,bKash,Barisal
+2024-10-09,Rice Cooker,Home & Kitchen,11372.47,934.66,18,3.2,No,78,Bank Transfer,Comilla
+2024-12-27,Hilsa Fish,Food,14847.76,4282.24,4,4.0,No,179,bKash,Chittagong
+2024-04-19,Basmati Rice,Food,8310.94,1725.27,18,3.5,No,13,bKash,Barisal
+2024-11-21,Jamdani Saree,Clothing,16185.2,4125.11,16,4.7,No,16,Nagad,Rajshahi
+2024-07-08,Aarong Kurta,Clothing,12376.06,3636.25,13,3.5,No,182,Bank Transfer,Dhaka
+2024-03-30,Football,Sports,10140.18,103.02,17,2.1,Yes,153,Bank Transfer,Rajshahi
+2024-11-10,Panjabi,Clothing,13643.48,1830.71,1,4.9,Yes,70,Card,Comilla
+2024-12-08,Hilsa Fish,Food,8406.29,1041.54,1,3.9,Yes,23,Bank Transfer,Khulna
+2024-10-13,Pressure Cooker,Home & Kitchen,11867.18,1770.0,9,1.9,No,116,Card,Dhaka
+2024-05-13,Panjabi,Clothing,8439.13,577.0,3,3.0,No,29,Bank Transfer,Khulna
+2024-10-02,Blender,Home & Kitchen,15971.09,1288.2,15,4.9,No,197,bKash,Comilla
+2024-08-22,Football,Sports,9484.05,2954.79,1,2.9,No,97,bKash,Rajshahi
+2024-06-10,Hilsa Fish,Food,19131.19,2606.7,1,3.8,No,73,Cash on Delivery,Barisal
+2024-12-10,Badminton Racket,Sports,16510.96,426.34,6,2.9,No,146,Nagad,Sylhet
+2024-12-15,Pressure Cooker,Home & Kitchen,18243.59,2520.05,7,1.9,No,67,bKash,Rajshahi
+2024-04-13,Blender,Home & Kitchen,5369.06,3112.05,5,4.1,No,20,Card,Dhaka
+2024-10-04,Jamdani Saree,Clothing,17036.21,1887.42,11,3.0,No,147,Nagad,Rangpur
+2024-04-03,Rice Cooker,Home & Kitchen,18362.13,1437.32,8,4.0,No,134,Card,Rangpur
+2024-10-03,Jamdani Saree,Clothing,10298.27,1998.9,6,2.8,No,132,Card,Comilla
+2024-12-18,Jamdani Saree,Clothing,730.49,193.2,19,1.4,No,66,bKash,Khulna
+2024-05-01,Singer Fridge,Electronics,9691.23,3084.77,12,1.7,No,107,Nagad,Comilla
+2024-07-24,Singer Fridge,Electronics,9289.22,2878.48,19,3.7,No,184,Nagad,Rajshahi
+2024-10-11,Hilsa Fish,Food,17198.02,1020.51,5,2.9,Yes,107,Card,Sylhet
+2024-11-18,Basmati Rice,Food,10912.66,1612.85,16,2.2,No,145,Cash on Delivery,Barisal

@@ -1037,6 +1037,7 @@ export default function DashboardPage() {
     const response = await analyzeCSV(dataToAnalyze, lang);
 
     console.log("AI RESPONSE:", response);
+    console.log("FORECAST DATA:", response.forecast);
 
     setAiInsights(response);
     setInsightLang(lang);

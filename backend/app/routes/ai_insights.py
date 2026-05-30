@@ -29,6 +29,10 @@ async def get_ai_insights(request: InsightRequest):
             request.csv_data,
             request.lang
         )
+        df = pd.DataFrame(request.csv_data)
+        forecast = generate_sales_forecast(df)
+        result["forecast"] = forecast
+        
         ai_text = generate_ai_analysis(
             kpis=result.get("kpis", {}),
             insights=result.get("insights", []),

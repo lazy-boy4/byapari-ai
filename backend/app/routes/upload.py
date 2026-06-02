@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Form
 import pandas as pd
 import shutil
 import os
@@ -69,7 +69,7 @@ def parse_date_safe(val):
         return None
 
 @router.post("/upload")
-async def upload_csv(file: UploadFile = File(...)):
+async def upload_csv(file: UploadFile = File(...), lang: str = Form("bn")):
     # ── 1. Validate file type ──
     if not file.filename.endswith(".csv"):
         return {
@@ -166,7 +166,7 @@ async def upload_csv(file: UploadFile = File(...)):
 
        # ── 8. Run analysis ──
     try:
-        result = analyze_and_generate(df)
+        result = analyze_and_generate(df, lang=lang)
 
         # Generate ML forecast
         forecast = generate_sales_forecast(df)

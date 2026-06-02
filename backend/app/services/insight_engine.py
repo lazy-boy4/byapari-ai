@@ -3,6 +3,58 @@ from typing import Any
 
 import pandas as pd
 
+
+
+# =========================================================
+# BENGALI TRANSLATION MAP
+# =========================================================
+
+BENGALI_INSIGHTS = {
+    # Titles
+    "Top Performer": "🏆 সেরা পণ্য",
+    "Weak Product": "📉 দুর্বল পণ্য",
+    "Sales Growth Detected": "📈 বিক্রয় বৃদ্ধি সনাক্ত",
+    "Sales Decline Detected": "📉 বিক্রয় পতন সনাক্ত",
+    "Excellent Customer Satisfaction": "⭐ চমৎকার গ্রাহক সন্তুষ্টি",
+    "Customer Satisfaction Risk": "⚠️ গ্রাহক সন্তুষ্টির ঝুঁকি",
+    "High Return Rate": "🚨 উচ্চ রিটার্ন হার",
+    "Healthy Return Rate": "✅ স্বাস্থ্যকর রিটার্ন হার",
+    "Low Stock Alert": "📦 কম স্টক সতর্কতা",
+    "Inventory Healthy": "✅ স্বাস্থ্যকর ইনভেন্টরি",
+    "Dead Inventory Risk": "⚠️ মৃত ইনভেন্টরির ঝুঁকি",
+    
+    # Messages (templates)
+    "msg_top_performer": "{product} সর্বোচ্চ বিক্রয় তৈরি করেছে।",
+    "msg_weak_product": "{product} দুর্বলভাবে পারফর্ম করছে।",
+    "msg_sales_growth": "সাম্প্রতিক সময়ে বিক্রয় {growth}% বেড়েছে।",
+    "msg_sales_decline": "বিক্রয় {decline}% কমেছে। প্রমোশন বিবেচনা করুন।",
+    "msg_excellent_rating": "গড় রেটিং {rating}/৫ — চমৎকার!",
+    "msg_rating_risk": "গড় রেটিং মাত্র {rating}/৫। উন্নতি প্রয়োজন।",
+    "msg_high_return": "রিটার্ন হার {rate}%। মান যাচাই করুন।",
+    "msg_healthy_return": "রিটার্ন হার মাত্র {rate}% — স্বাস্থ্যকর।",
+    "msg_low_stock": "{count}টি পণ্যের স্টক কম। রিস্টক করুন।",
+    "msg_inventory_healthy": "সব পণ্যের স্টক স্বাস্থ্যকর।",
+    "msg_dead_inventory": "{count}টি পণ্যে উচ্চ স্টক কিন্তু কম বিক্রয়।",
+}
+print("=" * 60)
+print("🔥 insight_engine.py LOADED")
+print(f"🔥 BENGALI_INSIGHTS has {len(BENGALI_INSIGHTS)} entries")
+print("=" * 60)
+
+def t(key: str, lang: str = "en", **kwargs) -> str:
+    """Translate insight text based on language"""
+    if lang != "bn":
+        return key  # Return English as-is (or you can add English templates too)
+    
+    text = BENGALI_INSIGHTS.get(key, key)
+    if kwargs:
+        try:
+            text = text.format(**kwargs)
+        except:
+            pass  # If formatting fails, return raw text
+    return text
+
+
 # =========================================================
 # CONFIG
 # =========================================================
@@ -25,7 +77,22 @@ def create_insight(
     message: str,
     priority: str = "medium",
     confidence: int = 85,
+    lang: str = "en",
 ):
+    # NUCLEAR DEBUG
+    print("=" * 60)
+    print(f"NUCLEAR DEBUG: lang parameter = '{lang}'")
+    print(f"NUCLEAR DEBUG: lang == 'bn' ? {lang == 'bn'}")
+    print(f"NUCLEAR DEBUG: title = '{title}'")
+    print(f"NUCLEAR DEBUG: title in BENGALI_INSIGHTS ? {title in BENGALI_INSIGHTS}")
+    print(f"NUCLEAR DEBUG: BENGALI_INSIGHTS.get(title) = '{BENGALI_INSIGHTS.get(title, 'NOT FOUND')}'")
+    print("=" * 60)
+    
+    if lang == "bn":
+        translated = BENGALI_INSIGHTS.get(title, title)
+        print(f"NUCLEAR DEBUG: TRANSLATED title = '{translated}'")
+        title = translated
+    
     return {
         "type": insight_type,
         "title": title,
@@ -52,9 +119,11 @@ def safe_sum(df: pd.DataFrame, column: str):
 # =========================================================
 
 def generate_insights(
-    csv_data: list[dict] | pd.DataFrame,
-    lang: str = "en",
-):
+        csv_data: list[dict] | pd.DataFrame,
+        lang: str = "en",
+    ):
+    print(f"🔥 DEBUG: generate_insights called with lang={lang}")
+
     if isinstance(csv_data, list):
         df = pd.DataFrame(csv_data)
     else:
@@ -123,9 +192,11 @@ def generate_insights(
                 create_insight(
                     "growth",
                     "Top Performer",
-                    f"{grouped.index[0]} generated the highest sales.",
+                    t("msg_top_performer", lang, product=grouped.index[0]) if lang == "bn" 
+                    else f"{grouped.index[0]} generated the highest sales.",
                     "medium",
                     95,
+                    lang,
                 )
             )
 
@@ -133,11 +204,13 @@ def generate_insights(
                 create_insight(
                     "warning",
                     "Weak Product",
-                    f"{grouped.index[-1]} is underperforming.",
+                    t("msg_weak_product", lang, product=grouped.index[-1]) if lang == "bn"
+                    else f"{grouped.index[-1]} is underperforming.",
                     "medium",
                     87,
+                    lang,
                 )
-            )
+            ) 
 
     # =====================================================
     # SALES TREND ANALYSIS
@@ -167,9 +240,11 @@ def generate_insights(
                         create_insight(
                             "growth",
                             "Sales Growth Detected",
-                            f"Sales increased by {round(growth,1)}% recently.",
+                            t("msg_sales_growth", lang, growth=round(growth,1)) if lang == "bn"
+                            else f"Sales increased by {round(growth,1)}% recently.",
                             "high",
                             93,
+                            lang,
                         )
                     )
 
@@ -181,9 +256,11 @@ def generate_insights(
                         create_insight(
                             "warning",
                             "Sales Decline Detected",
-                            f"Sales dropped by {abs(round(growth,1))}%. Consider promotions.",
+                            t("msg_sales_decline", lang, decline=abs(round(growth,1))) if lang == "bn"
+                            else f"Sales dropped by {abs(round(growth,1))}%. Consider promotions.",
                             "high",
                             92,
+                            lang,
                         )
                     )
 
@@ -199,9 +276,11 @@ def generate_insights(
             create_insight(
                 "success",
                 "Excellent Customer Satisfaction",
-                f"Average rating is {round(avg_rating,1)}/5.",
+                t("msg_excellent_rating", lang, rating=round(avg_rating,1)) if lang == "bn"
+                else f"Average rating is {round(avg_rating,1)}/5.",
                 "medium",
                 90,
+                lang,
             )
         )
 
@@ -213,12 +292,13 @@ def generate_insights(
             create_insight(
                 "warning",
                 "Customer Satisfaction Risk",
-                f"Average rating is only {round(avg_rating,1)}/5.",
+                t("msg_rating_risk", lang, rating=round(avg_rating,1)) if lang == "bn"
+                else f"Average rating is only {round(avg_rating,1)}/5.",
                 "high",
                 89,
+                lang,
             )
         )
-
         health_score -= 10
 
     # =====================================================
@@ -237,9 +317,11 @@ def generate_insights(
                 create_insight(
                     "risk",
                     "High Return Rate",
-                    f"Return rate is {round(return_rate*100,1)}%.",
+                    t("msg_high_return", lang, rate=round(return_rate*100,1)) if lang == "bn"
+                    else f"Return rate is {round(return_rate*100,1)}%.",
                     "high",
                     91,
+                    lang,
                 )
             )
 
@@ -251,9 +333,11 @@ def generate_insights(
                 create_insight(
                     "success",
                     "Healthy Return Rate",
-                    f"Return rate is only {round(return_rate*100,1)}%.",
+                    t("msg_healthy_return", lang, rate=round(return_rate*100,1)) if lang == "bn"
+                    else f"Return rate is only {round(return_rate*100,1)}%.",
                     "low",
                     88,
+                    lang,
                 )
             )
 
@@ -273,9 +357,11 @@ def generate_insights(
                 create_insight(
                     "inventory",
                     "Low Stock Alert",
-                    f"{len(low_stock)} products need restocking.",
+                    t("msg_low_stock", lang, count=len(low_stock)) if lang == "bn"
+                    else f"{len(low_stock)} products need restocking.",
                     "high",
                     94,
+                    lang,
                 )
             )
 
@@ -287,9 +373,11 @@ def generate_insights(
                 create_insight(
                     "success",
                     "Inventory Healthy",
-                    "All products have healthy stock levels.",
+                    t("msg_inventory_healthy", lang) if lang == "bn"
+                    else "All products have healthy stock levels.",
                     "low",
                     84,
+                    lang,
                 )
             )
 
@@ -312,9 +400,11 @@ def generate_insights(
                 create_insight(
                     "risk",
                     "Dead Inventory Risk",
-                    f"{len(dead_stock)} products have high stock but weak sales.",
+                    t("msg_dead_inventory", lang, count=len(dead_stock)) if lang == "bn"
+                    else f"{len(dead_stock)} products have high stock but weak sales.",
                     "high",
                     90,
+                    lang,
                 )
             )
 

@@ -1,0 +1,1027 @@
+E:\byapari-ai\backend\app\main.py
+from dotenv import load_dotenv
+load_dotenv()
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from app.routes.upload import router as upload_router
+from app.routes.analyze import router as analyze_router
+from app.routes.ai_insights import router as ai_insights_router
+
+app = FastAPI()
+
+# ── CORS — allows frontend to talk to backend ──
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://localhost:3001",
+    "https://byapari-ai.vercel.app", 
+    "https://*.vercel.app", ],
+
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ── Routes ──
+app.include_router(upload_router)
+app.include_router(analyze_router)
+app.include_router(ai_insights_router)
+
+@app.get("/")
+def home():
+    return {"message": "Backend running successfully"}
+
+@app.get("/health")
+def health():
+    return {"status": "ok", "db": "connected"}
+   
+
+
+
+E:\byapari-ai\backend\app\routes\ai_insights.py
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+from app.services.insight_engine import generate_insights
+from app.services.forecast import generate_sales_forecast
+from app.services.gemini_service import generate_ai_analysis
+import traceback
+import pandas as pd
+
+router = APIRouter()
+
+
+class InsightRequest(BaseModel):
+    csv_data: list[dict]
+    lang: str = "en"
+
+
+@router.post("/api/ai-insights")
+async def get_ai_insights(request: InsightRequest):
+
+    if not request.csv_data:
+        raise HTTPException(
+            status_code=400,
+            detail="csv_data is required"
+        )
+
+    try:
+
+        result = generate_insights(
+            request.csv_data,
+            request.lang
+        )
+        df = pd.DataFrame(request.csv_data)
+        forecast = generate_sales_forecast(df)
+        result["forecast"] = forecast
+        
+        ai_text = generate_ai_analysis(
+            kpis=result.get("kpis", {}),
+            insights=result.get("insights", []),
+            lang=request.lang
+        )
+        
+        result["ai_summary"] = ai_text
+
+        return result
+
+    except Exception as e:
+
+        print("AI INSIGHTS ERROR:")
+        print(traceback.format_exc())
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+
+        E:\byapari-ai\backend\app\routes\analyze.py
+
+        from fastapi import APIRouter
+import pandas as pd
+from app.services.insight_engine import analyze_and_generate
+import os
+
+router = APIRouter()
+
+@router.get("/analyze")
+def analyze_data():
+    df = pd.read_csv("data/sales_data.csv")
+    result = analyze_and_generate(df)
+    return result
+
+@router.get("/analytics/categories")
+def get_categories():
+    path = "data/sales_data.csv"
+    
+    if not os.path.exists(path):
+        return []
+    
+    try:
+        df = pd.read_csv(path)
+        
+        grouped = (
+            df.groupby("product_category")
+            .agg(
+                revenue=("sales", "sum"),
+                orders=("sales", "count"),
+                profit=("profit", "sum"),
+                avg_rating=("rating", "mean"),
+            )
+            .reset_index()
+            .rename(columns={"product_category": "name"})
+        )
+        
+        grouped["revenue"] = grouped["revenue"].round(2)
+        grouped["profit"] = grouped["profit"].round(2)
+        grouped["avg_rating"] = grouped["avg_rating"].round(2)
+        
+        return grouped.to_dict(orient="records")
+        
+    except Exception as e:
+        return []
+
+        E:\byapari-ai\backend\app\routes\upload.py
+
+
+
+        from fastapi import APIRouter, UploadFile, File
+import pandas as pd
+import shutil
+import os
+from app.services.insight_engine import analyze_and_generate
+from app.services.csv_service import generate_sales_trend, generate_top_products
+from app.services.forecast import generate_sales_forecast
+
+router = APIRouter()
+
+UPLOAD_DIR = "uploads"
+DATA_PATH = "data/sales_data.csv"
+
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs("data", exist_ok=True)
+
+# ── REQUIRED COLUMNS ──
+REQUIRED_COLUMNS = [
+    "date", "product_name", "product_category", "sales",
+    "profit", "quantity", "rating", "returned",
+    "stock", "payment_method", "customer_city"
+]
+
+# ── COLUMN DEFAULTS FOR AUTO-FIX ──
+COLUMN_DEFAULTS = {
+    "rating": 4.0,
+    "stock": 100,
+    "returned": "No",
+    "quantity": 1,
+    "profit": 0,
+    "sales": 0,
+    "customer_city": "Dhaka",
+    "payment_method": "Cash on Delivery",
+    "product_category": "General",
+}
+
+def normalize_returned(val):
+    """Handle 'yes', 'YES', 'y', '1' → 'Yes' and 'no', 'NO', 'n', '0' → 'No'"""
+    if pd.isna(val):
+        return "No"
+    s = str(val).strip().lower()
+    if s in ["yes", "y", "1", "true"]:
+        return "Yes"
+    return "No"
+
+def normalize_rating(val):
+    """Clamp rating to 1-5, default 4.0"""
+    try:
+        r = float(val)
+        if pd.isna(r):
+            return 4.0
+        return max(1.0, min(5.0, r))
+    except:
+        return 4.0
+
+def parse_date_safe(val):
+    """Try multiple date formats"""
+    if pd.isna(val):
+        return None
+    formats = ["%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y", "%d-%m-%Y", "%Y/%m/%d"]
+    for fmt in formats:
+        try:
+            return pd.to_datetime(str(val), format=fmt)
+        except:
+            continue
+    try:
+        return pd.to_datetime(str(val), dayfirst=True)
+    except:
+        return None
+
+@router.post("/upload")
+async def upload_csv(file: UploadFile = File(...)):
+    # ── 1. Validate file type ──
+    if not file.filename.endswith(".csv"):
+        return {
+            "error": "Invalid file type",
+            "detail": "Only .csv files are supported. Please upload a CSV file.",
+            "received": file.filename
+        }
+
+    # ── 2. Save file ──
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    # ── 3. Read CSV ──
+    try:
+        df = pd.read_csv(file_path)
+    except Exception as e:
+        return {
+            "error": "Cannot read CSV",
+            "detail": f"The file could not be parsed as CSV. Error: {str(e)}",
+            "hint": "Make sure the file is a valid CSV with comma-separated values, not Excel (.xlsx) or other formats."
+        }
+
+    # ── 4. Check if empty ──
+    if len(df) == 0:
+        return {
+            "error": "Empty CSV",
+            "detail": "The CSV file has 0 rows of data.",
+            "hint": "Please include at least one data row below the header."
+        }
+
+    # ── 5. Check required columns ──
+    missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+    if missing_cols:
+        # Suggest similar column names (typo detection)
+        suggestions = []
+        for missing in missing_cols:
+            close = [c for c in df.columns if missing.lower() in c.lower() or c.lower() in missing.lower()]
+            if close:
+                suggestions.append(f"Did you mean '{close[0]}' instead of '{missing}'?")
+        
+        return {
+            "error": "Missing required columns",
+            "missing_columns": missing_cols,
+            "columns_found": df.columns.tolist(),
+            "suggestions": suggestions,
+            "required_columns": REQUIRED_COLUMNS,
+            "hint": f"Your CSV is missing {len(missing_cols)} required column(s). Please add them and re-upload."
+        }
+
+    # ── 6. Auto-fix data quality issues ──
+    fixes_report = []
+    rows_before = len(df)
+
+    # Fix dates
+    df["date_parsed"] = df["date"].apply(parse_date_safe)
+    bad_dates = df["date_parsed"].isna().sum()
+    if bad_dates > 0:
+        # Drop rows with unparseable dates
+        df = df[df["date_parsed"].notna()].copy()
+        fixes_report.append(f"Dropped {bad_dates} rows with invalid dates")
+    df["date"] = df["date_parsed"]
+    df.drop(columns=["date_parsed"], inplace=True)
+
+    # Fix returned column
+    if df["returned"].dtype == object:
+        df["returned"] = df["returned"].apply(normalize_returned)
+    else:
+        # If numeric (0/1), convert
+        df["returned"] = df["returned"].apply(lambda x: "Yes" if str(x) in ["1", "1.0", "True", "true"] else "No")
+
+    # Fix rating
+    df["rating"] = df["rating"].apply(normalize_rating)
+    bad_ratings = (df["rating"] == 4.0) & (df["rating"].isna())  # Actually we set default, so this is fine
+
+    # Fill missing numeric values with defaults
+    for col, default in COLUMN_DEFAULTS.items():
+        if col in df.columns:
+            missing_count = df[col].isna().sum()
+            if missing_count > 0:
+                df[col] = df[col].fillna(default)
+                fixes_report.append(f"Filled {missing_count} missing values in '{col}' with {default}")
+
+    # Ensure numeric columns are actually numeric
+    numeric_cols = ["sales", "profit", "quantity", "stock"]
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0)
+
+    rows_after = len(df)
+    rows_dropped = rows_before - rows_after
+
+    # ── 7. Copy to canonical location ──
+    shutil.copy(file_path, DATA_PATH)
+
+       # ── 8. Run analysis ──
+    try:
+        result = analyze_and_generate(df)
+
+        # Generate ML forecast
+        forecast = generate_sales_forecast(df)
+
+        # Add forecast into response
+        result["forecast"] = forecast
+
+    except Exception as e:
+        return {
+            "error": "Analysis failed",
+            "detail": f"Data validation passed but analysis engine failed: {str(e)}",
+            "hint": "This might be due to unexpected data patterns. Please check your CSV format."
+        }
+
+    # ✅ CORRECT — now outside the except block, no extra indent
+    if "sales_trend" not in result:
+        result["sales_trend"] = generate_sales_trend(df)
+
+    if "top_products" not in result:
+        result["top_products"] = generate_top_products(df)
+
+    # ── 9. Return success with quality report ──
+    result["message"] = f"'{file.filename}' uploaded and analyzed successfully!"
+    result["rows"] = rows_after
+    result["columns"] = df.columns.tolist()
+
+    # ADD THIS
+    result["raw_data"] = (
+        df.where(df.notna(), other=None)
+        .to_dict(orient="records")
+    )
+
+    result["data_quality"] = {
+        "rows_uploaded": rows_before,
+        "rows_analyzed": rows_after,
+        "rows_dropped": rows_dropped,
+        "fixes_applied": fixes_report,
+        "warnings": [] if not fixes_report else [
+            "Some data was auto-corrected. See fixes_applied for details."
+        ]
+    }
+
+    return result
+
+
+
+    E:\byapari-ai\backend\app\services\analyze_service.py
+
+    import pandas as pd
+
+async def analyze_csv(file):
+    df = pd.read_csv(file.file)
+
+    analysis = {
+        "rows": len(df),
+        "columns": len(df.columns),
+        "column_names": df.columns.tolist(),
+        "missing_values": df.isnull().sum().to_dict(),
+        "numeric_analysis": {}
+    }
+
+    numeric_columns = df.select_dtypes(include=['number']).columns
+
+    for col in numeric_columns:
+        analysis["numeric_analysis"][col] = {
+            "average": float(df[col].mean()),
+            "max": float(df[col].max()),
+            "min": float(df[col].min())
+        }
+
+    return analysis
+
+
+    E:\byapari-ai\backend\app\services\csv_service.py
+    import pandas as pd
+
+
+# ─────────────────────────────────────────────
+# BASIC KPI CALCULATION
+# ─────────────────────────────────────────────
+
+def calculate_kpis(df):
+    return {
+        "total_orders": len(df),
+        "total_sales": float(df["sales"].sum()),
+        "total_profit": float(df["profit"].sum()),
+        "average_rating": round(df["rating"].mean(), 2),
+        "returned_orders": int((df["returned"] == "Yes").sum()),
+        "top_category": df["product_category"].mode()[0],
+        "most_used_payment_method": df["payment_method"].mode()[0],
+        "low_stock_products": int((df["stock"] < 30).sum()),
+    }
+
+
+# ─────────────────────────────────────────────
+# SALES TREND CHART DATA
+# ─────────────────────────────────────────────
+
+def generate_sales_trend(df):
+
+    df["date"] = pd.to_datetime(df["date"])
+
+    monthly = (
+        df.groupby(df["date"].dt.strftime("%b"))["sales"]
+        .agg(["sum", "count"])
+        .reset_index()
+    )
+
+    return [
+        {
+            "date": row["date"],
+            "revenue": round(row["sum"], 2),
+            "orders": int(row["count"]),
+        }
+        for _, row in monthly.iterrows()
+    ]
+
+
+# ─────────────────────────────────────────────
+# TOP PRODUCTS CHART DATA
+# ─────────────────────────────────────────────
+
+def generate_top_products(df):
+
+    grouped = (
+        df.groupby("product_name")["sales"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(5)
+        .reset_index()
+    )
+
+    return [
+        {
+            "name": row["product_name"],
+            "revenue": round(row["sales"], 2),
+            "units": 0,
+        }
+        for _, row in grouped.iterrows()
+    ]
+
+
+# ─────────────────────────────────────────────
+# MAIN CSV PROCESSOR
+# ─────────────────────────────────────────────
+
+async def process_csv(file):
+
+    df = pd.read_csv(file.file)
+
+    kpis = calculate_kpis(df)
+
+    sales_trend = generate_sales_trend(df)
+
+    top_products = generate_top_products(df)
+
+    return {
+        "columns": df.columns.tolist(),
+        "rows": len(df),
+        "kpis": kpis,
+        "sales_trend": sales_trend,
+        "top_products": top_products,
+    }
+
+
+    E:\byapari-ai\backend\app\services\forecast.py
+
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+def generate_sales_forecast(df):
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.sort_values("date")
+    df["date_ordinal"] = df["date"].map(pd.Timestamp.toordinal)
+
+    X = df["date_ordinal"].values.reshape(-1, 1)
+    y = df["sales"].values
+
+    model = LinearRegression()
+    model.fit(X, y)
+
+    last_date = df["date"].max()
+    future_dates = [last_date + pd.Timedelta(days=i) for i in range(1, 8)]
+    future_ordinal = np.array([d.toordinal() for d in future_dates]).reshape(-1, 1)
+
+    predictions = model.predict(future_ordinal)
+
+    forecast_data = []
+    for date, pred in zip(future_dates, predictions):
+        forecast_data.append({
+            "date": str(date.date()),
+            "predicted_sales": round(float(pred), 2)
+        })
+
+    return forecast_data
+
+
+    E:\byapari-ai\backend\app\services\gemini_service.py
+    from groq import Groq
+import os
+
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+def generate_ai_analysis(kpis: dict, insights: list, lang: str = "bn") -> str:
+    
+    lang_instruction = (
+        "Respond in Bengali (বাংলা) language only."
+        if lang == "bn"
+        else "Respond in English."
+    )
+
+    prompt = f"""
+You are a business analyst AI for Bangladeshi merchants.
+
+{lang_instruction}
+
+Here is the business data:
+- Total Sales: {kpis.get('total_sales', 0)}
+- Total Orders: {kpis.get('total_orders', 0)}
+- Total Profit: {kpis.get('total_profit', 0)}
+- Average Rating: {kpis.get('average_rating', 0)}
+- Returned Orders: {kpis.get('returned_orders', 0)}
+- Top Category: {kpis.get('top_category', 'N/A')}
+- Low Stock Products: {kpis.get('low_stock_products', 0)}
+
+Key findings:
+{chr(10).join([f"- {i['title']}: {i['message']}" for i in insights])}
+
+Give 3-4 specific actionable business recommendations.
+Be practical and encouraging. Under 200 words.
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=500,
+        )
+        return response.choices[0].message.content
+
+    except Exception as e:
+        error_msg = str(e)
+
+        # ── Quota exceeded ──
+        if "429" in error_msg or "quota" in error_msg.lower() or "rate" in error_msg.lower():
+            if lang == "bn":
+                return "⚠️ এআই বিশ্লেষণ সাময়িকভাবে অনুপলব্ধ। আপনার ডেটা সফলভাবে বিশ্লেষণ করা হয়েছে — উপরের KPI এবং ইনসাইট দেখুন।"
+            return "⚠️ AI analysis temporarily unavailable due to rate limits. Your data was analyzed successfully — please check the KPIs and insights above."
+
+        # ── Invalid API key ──
+        elif "401" in error_msg or "invalid" in error_msg.lower():
+            if lang == "bn":
+                return "⚠️ এআই সংযোগে সমস্যা হয়েছে। এপিআই কী যাচাই করুন।"
+            return "⚠️ AI connection failed. Please check the API key."
+
+        # ── Any other error ──
+        else:
+            if lang == "bn":
+                return "⚠️ এআই বিশ্লেষণ এই মুহূর্তে উপলব্ধ নেই। উপরের ইনসাইটগুলো দেখুন।"
+            return "⚠️ AI analysis not available right now. Please check the insights above."
+
+
+
+   E:\byapari-ai\backend\app\services\insight_engine.py
+
+   from datetime import datetime
+from typing import Any
+
+import pandas as pd
+
+# =========================================================
+# CONFIG
+# =========================================================
+
+RATING_WARNING = 3.5
+RATING_GOOD = 4.5
+
+RETURN_RATE_HIGH = 0.15
+RETURN_RATE_LOW = 0.05
+
+LOW_STOCK_LIMIT = 30
+
+# =========================================================
+# HELPERS
+# =========================================================
+
+def create_insight(
+    insight_type: str,
+    title: str,
+    message: str,
+    priority: str = "medium",
+    confidence: int = 85,
+):
+    return {
+        "type": insight_type,
+        "title": title,
+        "message": message,
+        "priority": priority,
+        "confidence": confidence,
+    }
+
+
+def safe_mean(df: pd.DataFrame, column: str):
+    if column not in df.columns:
+        return 0
+    return float(df[column].mean())
+
+
+def safe_sum(df: pd.DataFrame, column: str):
+    if column not in df.columns:
+        return 0
+    return float(df[column].sum())
+
+
+# =========================================================
+# MAIN ENGINE
+# =========================================================
+
+def generate_insights(
+    csv_data: list[dict] | pd.DataFrame,
+    lang: str = "en",
+):
+    if isinstance(csv_data, list):
+        df = pd.DataFrame(csv_data)
+    else:
+        df = csv_data.copy()
+
+    insights = []
+
+    if len(df) == 0:
+        return {
+            "insights": [],
+            "health_score": 0,
+            "top_performer": None,
+            "worst_performer": None,
+            "period_analyzed": "No data",
+            "confidence": 0,
+            "generated_at": datetime.utcnow().isoformat(),
+            "data_points": 0,
+        }
+
+    # =====================================================
+    # BASIC CLEANING
+    # =====================================================
+
+    if "date" in df.columns:
+        df["date"] = pd.to_datetime(df["date"], errors="coerce")
+
+    health_score = 75
+
+    # =====================================================
+    # KPI CALCULATIONS
+    # =====================================================
+
+    total_sales = safe_sum(df, "sales")
+    total_profit = safe_sum(df, "profit")
+
+    avg_rating = safe_mean(df, "rating")
+
+    # =====================================================
+    # TOP / WORST PRODUCTS
+    # =====================================================
+
+    top_performer = None
+    worst_performer = None
+
+    if "product_name" in df.columns and "sales" in df.columns:
+
+        grouped = (
+            df.groupby("product_name")["sales"]
+            .sum()
+            .sort_values(ascending=False)
+        )
+
+        if len(grouped) > 0:
+
+            top_performer = {
+                "product": grouped.index[0],
+                "revenue": round(float(grouped.iloc[0]), 2),
+            }
+
+            worst_performer = {
+                "product": grouped.index[-1],
+                "revenue": round(float(grouped.iloc[-1]), 2),
+            }
+
+            insights.append(
+                create_insight(
+                    "growth",
+                    "Top Performer",
+                    f"{grouped.index[0]} generated the highest sales.",
+                    "medium",
+                    95,
+                )
+            )
+
+            insights.append(
+                create_insight(
+                    "warning",
+                    "Weak Product",
+                    f"{grouped.index[-1]} is underperforming.",
+                    "medium",
+                    87,
+                )
+            )
+
+    # =====================================================
+    # SALES TREND ANALYSIS
+    # =====================================================
+
+    if "sales" in df.columns and "date" in df.columns:
+
+        recent = (
+            df.sort_values("date")
+            .tail(20)
+        )
+
+        if len(recent) >= 10:
+
+            midpoint = len(recent) // 2
+
+            old_sales = recent.iloc[:midpoint]["sales"].sum()
+            new_sales = recent.iloc[midpoint:]["sales"].sum()
+
+            if old_sales > 0:
+
+                growth = ((new_sales - old_sales) / old_sales) * 100
+
+                if growth > 15:
+
+                    insights.append(
+                        create_insight(
+                            "growth",
+                            "Sales Growth Detected",
+                            f"Sales increased by {round(growth,1)}% recently.",
+                            "high",
+                            93,
+                        )
+                    )
+
+                    health_score += 10
+
+                elif growth < -15:
+
+                    insights.append(
+                        create_insight(
+                            "warning",
+                            "Sales Decline Detected",
+                            f"Sales dropped by {abs(round(growth,1))}%. Consider promotions.",
+                            "high",
+                            92,
+                        )
+                    )
+
+                    health_score -= 15
+
+    # =====================================================
+    # CUSTOMER SATISFACTION
+    # =====================================================
+
+    if avg_rating >= RATING_GOOD:
+
+        insights.append(
+            create_insight(
+                "success",
+                "Excellent Customer Satisfaction",
+                f"Average rating is {round(avg_rating,1)}/5.",
+                "medium",
+                90,
+            )
+        )
+
+        health_score += 5
+
+    elif avg_rating < RATING_WARNING:
+
+        insights.append(
+            create_insight(
+                "warning",
+                "Customer Satisfaction Risk",
+                f"Average rating is only {round(avg_rating,1)}/5.",
+                "high",
+                89,
+            )
+        )
+
+        health_score -= 10
+
+    # =====================================================
+    # RETURN RATE ANALYSIS
+    # =====================================================
+
+    if "returned" in df.columns:
+
+        returned_orders = len(df[df["returned"] == "Yes"])
+
+        return_rate = returned_orders / len(df)
+
+        if return_rate > RETURN_RATE_HIGH:
+
+            insights.append(
+                create_insight(
+                    "risk",
+                    "High Return Rate",
+                    f"Return rate is {round(return_rate*100,1)}%.",
+                    "high",
+                    91,
+                )
+            )
+
+            health_score -= 10
+
+        elif return_rate < RETURN_RATE_LOW:
+
+            insights.append(
+                create_insight(
+                    "success",
+                    "Healthy Return Rate",
+                    f"Return rate is only {round(return_rate*100,1)}%.",
+                    "low",
+                    88,
+                )
+            )
+
+            health_score += 5
+
+    # =====================================================
+    # INVENTORY ANALYSIS
+    # =====================================================
+
+    if "stock" in df.columns:
+
+        low_stock = df[df["stock"] < LOW_STOCK_LIMIT]
+
+        if len(low_stock) > 0:
+
+            insights.append(
+                create_insight(
+                    "inventory",
+                    "Low Stock Alert",
+                    f"{len(low_stock)} products need restocking.",
+                    "high",
+                    94,
+                )
+            )
+
+            health_score -= 8
+
+        else:
+
+            insights.append(
+                create_insight(
+                    "success",
+                    "Inventory Healthy",
+                    "All products have healthy stock levels.",
+                    "low",
+                    84,
+                )
+            )
+
+            health_score += 3
+
+    # =====================================================
+    # DEAD INVENTORY
+    # =====================================================
+
+    if "stock" in df.columns and "sales" in df.columns:
+
+        dead_stock = df[
+            (df["stock"] > 50)
+            & (df["sales"] < 5)
+        ]
+
+        if len(dead_stock) > 0:
+
+            insights.append(
+                create_insight(
+                    "risk",
+                    "Dead Inventory Risk",
+                    f"{len(dead_stock)} products have high stock but weak sales.",
+                    "high",
+                    90,
+                )
+            )
+
+            health_score -= 12
+
+    # =====================================================
+    # FINAL SCORE
+    # =====================================================
+
+    health_score = max(0, min(100, health_score))
+
+    # =====================================================
+    # DATE RANGE
+    # =====================================================
+
+    period_analyzed = "Unknown"
+
+    if "date" in df.columns:
+
+        valid_dates = df[df["date"].notna()]["date"]
+
+        if len(valid_dates) > 0:
+
+            period_analyzed = (
+                f"{valid_dates.min().strftime('%Y-%m-%d')} "
+                f"to "
+                f"{valid_dates.max().strftime('%Y-%m-%d')}"
+            )
+
+    # =====================================================
+    # RESPONSE
+    # =====================================================
+
+    return {
+        "insights": insights,
+        "health_score": int(health_score),
+        "top_performer": top_performer,
+        "worst_performer": worst_performer,
+        "period_analyzed": period_analyzed,
+        "confidence": 91,
+        "generated_at": datetime.utcnow().isoformat(),
+        "data_points": len(df),
+    }
+
+
+# =========================================================
+# MAIN ANALYSIS WRAPPER
+# =========================================================
+
+def analyze_and_generate(
+    df: pd.DataFrame,
+    lang: str = "en",
+) -> dict[str, Any]:
+
+    result = generate_insights(df, lang)
+
+    kpis = {
+        "total_orders": len(df),
+        "total_sales": safe_sum(df, "sales"),
+        "total_profit": safe_sum(df, "profit"),
+        "average_rating": round(safe_mean(df, "rating"), 2),
+        "returned_orders": (
+            len(df[df["returned"] == "Yes"])
+            if "returned" in df.columns
+            else 0
+        ),
+        "low_stock_products": (
+            len(df[df["stock"] < LOW_STOCK_LIMIT])
+            if "stock" in df.columns
+            else 0
+        ),
+         "top_category": (
+        df["product_category"].mode()[0]
+        if "product_category" in df.columns and len(df) > 0 else "N/A"
+        ),
+        "most_used_payment_method": (
+            df["payment_method"].mode()[0]
+            if "payment_method" in df.columns and len(df) > 0 else "N/A"
+        ),
+    }
+
+    from app.services.csv_service import (
+        generate_sales_trend,
+        generate_top_products,
+    )
+
+    sales_trend = generate_sales_trend(df)
+    top_products = generate_top_products(df)
+
+    return {
+        "kpis": kpis,
+        "insights": result["insights"],
+        "health_score": result["health_score"],
+        "top_performer": result["top_performer"],
+        "worst_performer": result["worst_performer"],
+        "period_analyzed": result["period_analyzed"],
+        "confidence": result["confidence"],
+        "generated_at": result["generated_at"],
+        "data_points": result["data_points"],
+        "sales_trend": sales_trend,
+        "top_products": top_products,
+    }
+
+
+
+E:\byapari-ai\backend\app\services\template_generator.py
+
+"""Formats insights into card format for frontend display"""
+
+
+def format_insight_card(insight: str, index: int) -> dict:
+    """Convert insight text to card format with severity"""
+
+    # Determine severity by emoji
+    if "⚠️" in insight or "📉" in insight or "🚨" in insight:
+        severity = "high"
+    elif "🚀" in insight or "🏆" in insight or "⭐" in insight or "✅" in insight:
+        severity = "normal"
+    else:
+        severity = "info"
+
+    # Extract emoji
+    icon = insight.split(" ")[0] if insight else "💡"
+
+    return {
+        "id": index,
+        "text": insight,
+        "icon": icon,
+        "severity": severity
+    }

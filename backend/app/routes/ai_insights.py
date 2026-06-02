@@ -24,7 +24,7 @@ async def get_ai_insights(request: InsightRequest):
         )
 
     try:
-
+        print(f"🔥 DEBUG: lang received = {request.lang}")
         result = generate_insights(
             request.csv_data,
             request.lang

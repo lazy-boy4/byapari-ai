@@ -3,13 +3,24 @@ import os
 
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-def generate_ai_analysis(kpis: dict, insights: list, lang: str = "bn") -> str:
+def generate_ai_analysis(kpis: dict, insights: list, lang: str = "bn", rag_context: str = "") -> str:
     
     lang_instruction = (
         "Respond in Bengali (বাংলা) language only."
         if lang == "bn"
         else "Respond in English."
     )
+
+    # Build RAG-enhanced prompt
+    rag_section = ""
+    if rag_context:
+        rag_section = f"""
+Relevant business knowledge from our database:
+{rag_context}
+
+Use these insights to make your recommendations more specific and actionable.
+Reference specific tips when relevant.
+"""
 
     prompt = f"""
 You are a business analyst AI for Bangladeshi merchants.
@@ -27,6 +38,8 @@ Here is the business data:
 
 Key findings:
 {chr(10).join([f"- {i['title']}: {i['message']}" for i in insights])}
+
+{rag_section}
 
 Give 3-4 specific actionable business recommendations.
 Be practical and encouraging. Under 200 words.

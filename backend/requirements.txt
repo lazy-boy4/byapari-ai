@@ -8,4 +8,3 @@ python-dotenv
 numpy
 prophet>=1.1.5
 chromadb>=0.5.0
-sentence-transformers

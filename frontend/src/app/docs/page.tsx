@@ -612,7 +612,7 @@ export default function DocsPage() {
                 },
                 {
                   plan: "Pro",
-                  price: "৳999",
+                  price: "৳499",
                   period: "/ month",
                   color: "var(--accent)",
                   badge: "Most Popular",
@@ -674,7 +674,7 @@ export default function DocsPage() {
                     ))}
                   </div>
                   <Link
-                    href="/"
+                    href={tier.plan === "Enterprise" ? "mailto:blueberry.poison.1309@gmail.com" : "/"}
                     style={{
                       display: "block",
                       textAlign: "center",

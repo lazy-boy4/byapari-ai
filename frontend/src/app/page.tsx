@@ -471,6 +471,7 @@ function PricingPlansPage() {
               style={{ width: "100%", padding: "9px 0", borderRadius: 8, border: `1px solid ${plan.color}40`, background: plan.popular ? `${plan.color}18` : "transparent", color: plan.color, fontSize: 13, fontWeight: 600, cursor: "pointer", transition: "all 0.2s ease", fontFamily: "var(--font-body)" }}
               onMouseEnter={(e) => { e.currentTarget.style.background = `${plan.color}28`; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = plan.popular ? `${plan.color}18` : "transparent"; }}
+              onClick={() => { if (plan.name === "Enterprise") window.location.href = "mailto:blueberry.poison.1309@gmail.com"; }}
             >
               {plan.cta}
             </button>

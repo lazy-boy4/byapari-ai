@@ -36,10 +36,6 @@ BENGALI_INSIGHTS = {
     "msg_inventory_healthy": "সব পণ্যের স্টক স্বাস্থ্যকর।",
     "msg_dead_inventory": "{count}টি পণ্যে উচ্চ স্টক কিন্তু কম বিক্রয়।",
 }
-print("=" * 60)
-print("🔥 insight_engine.py LOADED")
-print(f"🔥 BENGALI_INSIGHTS has {len(BENGALI_INSIGHTS)} entries")
-print("=" * 60)
 
 def t(key: str, lang: str = "en", **kwargs) -> str:
     """Translate insight text based on language"""
@@ -79,19 +75,8 @@ def create_insight(
     confidence: int = 85,
     lang: str = "en",
 ):
-    # NUCLEAR DEBUG
-    print("=" * 60)
-    print(f"NUCLEAR DEBUG: lang parameter = '{lang}'")
-    print(f"NUCLEAR DEBUG: lang == 'bn' ? {lang == 'bn'}")
-    print(f"NUCLEAR DEBUG: title = '{title}'")
-    print(f"NUCLEAR DEBUG: title in BENGALI_INSIGHTS ? {title in BENGALI_INSIGHTS}")
-    print(f"NUCLEAR DEBUG: BENGALI_INSIGHTS.get(title) = '{BENGALI_INSIGHTS.get(title, 'NOT FOUND')}'")
-    print("=" * 60)
-    
     if lang == "bn":
-        translated = BENGALI_INSIGHTS.get(title, title)
-        print(f"NUCLEAR DEBUG: TRANSLATED title = '{translated}'")
-        title = translated
+        title = BENGALI_INSIGHTS.get(title, title)
     
     return {
         "type": insight_type,
@@ -122,8 +107,6 @@ def generate_insights(
         csv_data: list[dict] | pd.DataFrame,
         lang: str = "en",
     ):
-    print(f"🔥 DEBUG: generate_insights called with lang={lang}")
-
     if isinstance(csv_data, list):
         df = pd.DataFrame(csv_data)
     else:

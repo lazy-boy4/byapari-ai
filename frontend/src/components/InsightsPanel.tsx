@@ -234,6 +234,66 @@ export default function InsightsPanel({
           </div>
         )}
 
+      {/* RAG Knowledge Base Recommendations */}
+        {insights.rag_recommendations && insights.rag_recommendations.length > 0 && (
+          <div style={{
+            padding: "16px 20px",
+            borderRadius: 12,
+            background: "rgba(82,157,255,0.06)",
+            border: "1px solid rgba(82,157,255,0.15)",
+            marginTop: 16,
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 12,
+            }}>
+              <span style={{ fontSize: 16 }}>📚</span>
+              <span style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 14,
+                color: "var(--accent)",
+              }}>
+                {lang === "bn" ? "ব্যবসায়িক জ্ঞানভাণ্ডার থেকে" : "From Knowledge Base"}
+              </span>
+            </div>
+            
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {insights.rag_recommendations.map((tip, i) => (
+                <div key={tip.id} style={{
+                  padding: "10px 14px",
+                  borderRadius: 8,
+                  background: "var(--bg-card)",
+                  border: "1px solid var(--border)",
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                    <span style={{
+                      fontSize: 10,
+                      padding: "2px 8px",
+                      borderRadius: 99,
+                      background: "var(--accent-dim)",
+                      color: "var(--accent)",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                    }}>
+                      {tip.category}
+                    </span>
+                    {tip.relevance !== null && tip.relevance !== undefined && (
+                      <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                        {lang === "bn" ? "প্রাসঙ্গিকতা" : "Relevance"}: {(1 - tip.relevance).toFixed(2)}
+                      </span>
+                    )}
+                  </div>
+                  <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
+                    {tip.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
       {/* Insight Cards */}
       <div className="space-y-3">

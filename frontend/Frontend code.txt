@@ -1,0 +1,4135 @@
+E:\byapari-ai\frontend\src\app\globals.css
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS — B-AI Premium Dark Theme
+───────────────────────────────────────────── */
+:root {
+  /* Base palette — deep space navy */
+  --bg-base:        #050b18;
+  --bg-surface:     #080f1f;
+  --bg-card:        #0c1529;
+  --bg-card-hover:  #101d36;
+  --bg-elevated:    #152040;
+
+  /* Borders */
+  --border:         rgba(99, 130, 200, 0.12);
+  --border-bright:  rgba(99, 130, 200, 0.25);
+  --border-glow:    rgba(82, 157, 255, 0.35);
+
+  /* Accent system */
+  --accent:         #529dff;
+  --accent-dim:     rgba(82, 157, 255, 0.12);
+  --accent-glow:    rgba(82, 157, 255, 0.20);
+  --accent-soft:    rgba(82, 157, 255, 0.08);
+
+  /* Gold accent — for premium feel */
+  --gold:           #e8b84b;
+  --gold-dim:       rgba(232, 184, 75, 0.12);
+  --gold-glow:      rgba(232, 184, 75, 0.20);
+
+  /* Semantic colors */
+  --green:          #34d399;
+  --green-dim:      rgba(52, 211, 153, 0.12);
+  --amber:          #fbbf24;
+  --amber-dim:      rgba(251, 191, 36, 0.12);
+  --red:            #f87171;
+  --red-dim:        rgba(248, 113, 113, 0.12);
+  --purple:         #a78bfa;
+  --purple-dim:     rgba(167, 139, 250, 0.12);
+
+  /* Text */
+  --text-primary:   #e8edf8;
+  --text-secondary: #8a9bbf;
+  --text-muted:     #4a5980;
+  --text-faint:     #2e3b5a;
+
+  /* Typography */
+  --font-display:   'Syne', sans-serif;
+  --font-body:      'DM Sans', sans-serif;
+
+  /* Spacing system */
+  --radius-sm:      8px;
+  --radius-md:      14px;
+  --radius-lg:      20px;
+  --radius-xl:      28px;
+}
+
+/* ─────────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.6;
+  /* Subtle starfield texture */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(82,157,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(167,139,250,0.04) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+button { font-family: var(--font-body); }
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(82, 157, 255, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(82, 157, 255, 0.4); }
+
+/* ─────────────────────────────────────────────
+   CARD COMPONENTS
+───────────────────────────────────────────── */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.glass-card:hover {
+  border-color: var(--border-glow);
+  box-shadow:
+    0 0 0 1px rgba(82,157,255,0.08),
+    0 8px 32px rgba(0,0,0,0.4),
+    0 0 60px rgba(82,157,255,0.04);
+  transform: translateY(-2px);
+}
+
+/* KPI Card variant — more prominent glow on hover */
+.kpi-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(82,157,255,0.15),
+    0 12px 40px rgba(0,0,0,0.5),
+    0 0 80px rgba(82,157,255,0.06);
+}
+
+/* ─────────────────────────────────────────────
+   SIDEBAR
+───────────────────────────────────────────── */
+.sidebar-panel {
+  background: linear-gradient(180deg, #06101f 0%, #050b18 100%);
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+
+.sidebar-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(82,157,255,0.15) 30%,
+    rgba(232,184,75,0.08) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   LOGO MARK
+───────────────────────────────────────────── */
+.logo-mark {
+  background: linear-gradient(135deg, #529dff 0%, #7c6fef 50%, #e8b84b 100%);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.04em;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.logo-mark::after {
+  content: '';
+  position: absolute;
+  top: -30%; left: -30%;
+  width: 60%; height: 60%;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50%;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   NAV ITEMS
+───────────────────────────────────────────── */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item:hover {
+  color: var(--text-primary);
+  background: rgba(82,157,255,0.05);
+  border-color: rgba(82,157,255,0.10);
+}
+
+.nav-item.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-color: rgba(82,157,255,0.20);
+  font-weight: 600;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ─────────────────────────────────────────────
+   BADGE
+───────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 99px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.badge-accent {
+  background: var(--accent);
+  color: white;
+  padding: 3px 7px;
+}
+
+.badge-gold {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border: 1px solid rgba(232,184,75,0.25);
+  padding: 2px 8px;
+}
+
+.badge-high   { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
+.badge-medium { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(251,191,36,0.2); }
+.badge-low    { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(52,211,153,0.2); }
+
+/* ─────────────────────────────────────────────
+   STAT NUMBER
+───────────────────────────────────────────── */
+.stat-number {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+/* ─────────────────────────────────────────────
+   SECTION HEADER
+───────────────────────────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────
+   DIVIDER
+───────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* ─────────────────────────────────────────────
+   BUTTON VARIANTS
+───────────────────────────────────────────── */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--border-bright);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(82,157,255,0.3);
+  background: linear-gradient(135deg, rgba(82,157,255,0.15), rgba(124,111,239,0.15));
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, rgba(82,157,255,0.25), rgba(124,111,239,0.25));
+  box-shadow: 0 0 20px rgba(82,157,255,0.15);
+}
+
+/* ─────────────────────────────────────────────
+   UPLOAD ZONE
+───────────────────────────────────────────── */
+.upload-zone {
+  border: 2px dashed var(--border-bright);
+  border-radius: var(--radius-lg);
+  background: var(--accent-soft);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 40px rgba(82,157,255,0.08);
+}
+
+/* ─────────────────────────────────────────────
+   SHIMMER LOADING
+───────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg,
+    var(--bg-card) 25%,
+    var(--bg-elevated) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(82,157,255,0.15); }
+  50%       { box-shadow: 0 0 40px rgba(82,157,255,0.30); }
+}
+
+.fade-up   { animation: fadeUp 0.45s cubic-bezier(.16,1,.3,1) both; }
+.fade-in   { animation: fadeIn 0.35s ease both; }
+.pulse-dot { animation: pulse-ring 2s ease-in-out infinite; }
+.float     { animation: float 3s ease-in-out infinite; }
+
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.10s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.20s; }
+.delay-5 { animation-delay: 0.25s; }
+.delay-6 { animation-delay: 0.30s; }
+
+/* ─────────────────────────────────────────────
+   PROGRESS BAR
+───────────────────────────────────────────── */
+.progress-bar {
+  height: 5px;
+  border-radius: 99px;
+  background: var(--border);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(.16,1,.3,1);
+}
+
+/* ─────────────────────────────────────────────
+   RECHARTS OVERRIDES
+───────────────────────────────────────────── */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--bg-elevated) !important;
+  border: 1px solid var(--border-bright) !important;
+  border-radius: var(--radius-sm) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+}
+.recharts-cartesian-axis-tick-value {
+  fill: var(--text-muted) !important;
+  font-family: var(--font-body) !important;
+  font-size: 11px !important;
+}
+.recharts-cartesian-grid line {
+  stroke: var(--border) !important;
+}
+
+/* ─────────────────────────────────────────────
+   ABOUT / FOOTER SECTION
+───────────────────────────────────────────── */
+.about-section {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(12,21,41,0.8) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(82,157,255,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   TAG CHIP
+───────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ─────────────────────────────────────────────
+   INSIGHT CARD
+───────────────────────────────────────────── */
+.insight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.insight-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.insight-card.high::after   { background: var(--red);   opacity: 1; }
+.insight-card.medium::after { background: var(--amber); opacity: 1; }
+.insight-card.low::after    { background: var(--green); opacity: 1; }
+.insight-card:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+E:\byapari-ai\frontend\src\app\layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "B-AI · Byapari Intelligence",
+  description:
+    "B-AI is an AI-powered business intelligence platform by Team Nexion. " +
+    "Upload your sales CSV and instantly receive KPIs, forecasts, AI recommendations " +
+    "and a full business health score — designed for Bangladeshi merchants and beyond.",
+  authors: [{ name: "S M Mohaiminul Islam", url: "https://github.com/Arik09013" }],
+  keywords: ["business intelligence", "AI analytics", "sales dashboard", "byapari", "nexion"],
+  openGraph: {
+    title: "B-AI · Byapari Intelligence",
+    description: "AI-powered business analytics for modern merchants",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
+    </html>
+  );
+}
+E:\byapari-ai\frontend\src\app\page.tsx
+"use client";
+
+import { useState, useEffect } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import {
+  DollarSign,
+  ShoppingCart,
+  TrendingUp,
+  Package,
+  RefreshCw,
+  Wifi,
+  WifiOff,
+  Lightbulb,
+  Heart,
+  BarChart3,
+  Sparkles,
+  ArrowRight,
+  Activity,
+  Users,
+  Star,
+  Zap,
+  ExternalLink,
+  Link2,
+  Upload,
+  AlertTriangle,
+} from "lucide-react";
+
+import Sidebar from "@/components/Sidebar";
+import KpiCard from "@/components/KpiCard";
+import { SalesTrendChart, TopProductsChart } from "@/components/AnalyticsChart";
+import CsvUpload from "@/components/CsvUpload";
+import SalesTrendPage from "@/components/SalesTrendPage";
+import ProductsPage from "@/components/ProductsPage";
+import {
+  fetchAnalytics,
+  checkApiHealth,
+  analyzeCSV,
+  KpiData,
+  AiRecommendation,
+  HealthScore,
+  SalesDataPoint,
+  ProductData,
+  InsightResponse,
+} from "@/lib/api";
+
+import InsightsPanel from "@/components/InsightsPanel";
+import { Loader2 } from "lucide-react";
+
+// ─────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────
+interface Alert {
+  severity: "critical" | "warning" | "info";
+  message: string;
+}
+
+// ─────────────────────────────────────────────
+// ALERT SEVERITY CONFIG
+// ─────────────────────────────────────────────
+const ALERT_CONFIG: Record<Alert["severity"], { color: string; bg: string; border: string; label: string }> = {
+  critical: {
+    color: "#f87171",
+    bg: "rgba(248,113,113,0.08)",
+    border: "rgba(248,113,113,0.25)",
+    label: "Critical",
+  },
+  warning: {
+    color: "#e8b84b",
+    bg: "rgba(232,184,75,0.08)",
+    border: "rgba(232,184,75,0.25)",
+    label: "Warning",
+  },
+  info: {
+    color: "#529dff",
+    bg: "rgba(82,157,255,0.08)",
+    border: "rgba(82,157,255,0.25)",
+    label: "Info",
+  },
+};
+
+// ─────────────────────────────────────────────
+// AI ALERT GENERATOR (rule-based, zero API cost)
+// ─────────────────────────────────────────────
+function generateAlerts(kpis: KpiData | null, health: HealthScore | null): Alert[] {
+  if (!kpis || !health) return [];
+
+  const alerts: Alert[] = [];
+
+  // ── Health score ──
+  if (health.score < 50) {
+    alerts.push({
+      severity: "critical",
+      message: "Business health is critically low. Immediate action required.",
+    });
+  } else if (health.score < 70) {
+    alerts.push({
+      severity: "warning",
+      message: "Business health is below optimal level. Review key metrics.",
+    });
+  }
+
+  // ── Profit margin ──
+  if (kpis.total_sales > 0 && kpis.total_profit < kpis.total_sales * 0.1) {
+    alerts.push({
+      severity: "warning",
+      message: "Profit margin is very low compared to sales. Consider reducing costs or adjusting pricing.",
+    });
+  }
+
+  // ── Return rate ──
+  if (kpis.total_orders > 0 && kpis.returned_orders > kpis.total_orders * 0.2) {
+    alerts.push({
+      severity: "critical",
+      message: "High return rate detected (>20% of orders). Check product quality and descriptions.",
+    });
+  } else if (kpis.total_orders > 0 && kpis.returned_orders > kpis.total_orders * 0.1) {
+    alerts.push({
+      severity: "warning",
+      message: "Return rate is above 10%. Monitor closely for product issues.",
+    });
+  }
+
+  // ── Low stock ──
+  if (kpis.low_stock_products > 5) {
+    alerts.push({
+      severity: "warning",
+      message: `${kpis.low_stock_products} products are running low on stock. Restock soon to avoid lost sales.`,
+    });
+  } else if (kpis.low_stock_products > 0) {
+    alerts.push({
+      severity: "info",
+      message: `${kpis.low_stock_products} product(s) are low in stock.`,
+    });
+  }
+
+  // ── Customer rating ──
+  if (kpis.average_rating < 3.0) {
+    alerts.push({
+      severity: "critical",
+      message: "Customer satisfaction is critically low (rating < 3.0). Urgent review needed.",
+    });
+  } else if (kpis.average_rating < 3.5) {
+    alerts.push({
+      severity: "warning",
+      message: "Customer satisfaction is dropping. Consider improving product quality or service.",
+    });
+  }
+
+  return alerts;
+}
+
+// ─────────────────────────────────────────────
+// AI ALERTS BANNER
+// ─────────────────────────────────────────────
+function AlertsBanner({ alerts }: { alerts: Alert[] }) {
+  const [dismissed, setDismissed] = useState(false);
+
+  if (alerts.length === 0 || dismissed) return null;
+
+  // Show highest severity first
+  const sorted = [...alerts].sort((a, b) => {
+    const order = { critical: 0, warning: 1, info: 2 };
+    return order[a.severity] - order[b.severity];
+  });
+
+  // Use the colour of the most severe alert for the banner
+  const topSeverity = sorted[0].severity;
+  const cfg = ALERT_CONFIG[topSeverity];
+
+  return (
+    <div
+      className="fade-up"
+      style={{
+        marginBottom: 20,
+        borderRadius: 12,
+        background: cfg.bg,
+        border: `1px solid ${cfg.border}`,
+        padding: "14px 18px",
+      }}
+    >
+      {/* Header row */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginBottom: alerts.length > 1 ? 12 : 0,
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <AlertTriangle size={15} style={{ color: cfg.color, flexShrink: 0 }} />
+          <span style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 14,
+            color: cfg.color,
+          }}>
+            AI Alerts
+          </span>
+          <span style={{
+            padding: "1px 7px",
+            borderRadius: 99,
+            background: `${cfg.color}18`,
+            border: `1px solid ${cfg.color}30`,
+            fontSize: 10,
+            fontWeight: 700,
+            color: cfg.color,
+            letterSpacing: "0.04em",
+          }}>
+            {alerts.length}
+          </span>
+        </div>
+        <button
+          onClick={() => setDismissed(true)}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: "var(--text-muted)",
+            fontSize: 18,
+            lineHeight: 1,
+            padding: "0 4px",
+          }}
+          aria-label="Dismiss alerts"
+        >
+          ×
+        </button>
+      </div>
+
+      {/* Alert rows */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {sorted.map((alert, i) => {
+          const ac = ALERT_CONFIG[alert.severity];
+          return (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 10,
+                padding: "8px 12px",
+                borderRadius: 8,
+                background: ac.bg,
+                border: `1px solid ${ac.border}`,
+              }}
+            >
+              <span style={{
+                padding: "1px 6px",
+                borderRadius: 4,
+                background: `${ac.color}18`,
+                border: `1px solid ${ac.color}30`,
+                fontSize: 9,
+                fontWeight: 700,
+                color: ac.color,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                flexShrink: 0,
+                marginTop: 1,
+              }}>
+                {ac.label}
+              </span>
+              <span style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                {alert.message}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// HEALTH SCORE CARD
+// ─────────────────────────────────────────────
+function HealthScoreCard({ health }: { health: HealthScore }) {
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius;
+  const progress = (health.score / 100) * circumference;
+
+  return (
+    <div className="glass-card fade-up delay-1" style={{ padding: "22px 24px" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 20,
+        }}
+      >
+        <Activity size={16} style={{ color: health.color }} />
+        <span
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 15,
+            color: "var(--text-primary)",
+          }}
+        >
+          Business Health Score
+        </span>
+        <span
+          className="badge"
+          style={{
+            background: `${health.color}18`,
+            color: health.color,
+            border: `1px solid ${health.color}30`,
+            padding: "2px 8px",
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            marginLeft: "auto",
+          }}
+        >
+          {health.label}
+        </span>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+        {/* Circular progress */}
+        <div style={{ position: "relative", width: 96, height: 96, flexShrink: 0 }}>
+          <svg width="96" height="96" style={{ transform: "rotate(-90deg)" }}>
+            <circle cx="48" cy="48" r={radius} fill="none"
+              stroke="var(--border)" strokeWidth="7" />
+            <circle cx="48" cy="48" r={radius} fill="none"
+              stroke={health.color} strokeWidth="7"
+              strokeDasharray={`${progress} ${circumference}`}
+              strokeLinecap="round"
+              style={{ transition: "stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)" }}
+            />
+          </svg>
+          <div style={{
+            position: "absolute", inset: 0,
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+          }}>
+            <span className="stat-number" style={{
+              fontSize: 24, fontWeight: 800,
+              color: health.color, lineHeight: 1,
+            }}>
+              {health.score}
+            </span>
+            <span style={{ fontSize: 10, color: "var(--text-muted)" }}>/100</span>
+          </div>
+        </div>
+
+        {/* Breakdown bars - only if breakdown exists */}
+        {health.breakdown && Object.values(health.breakdown).length > 0 && (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+              {Object.values(health.breakdown ?? {})
+                .filter(Boolean)
+                .map((item) => (
+              <div key={item.label}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{item.label}</span>
+                  <span style={{ fontSize: 11, color: "var(--text-secondary)", fontWeight: 600 }}>
+                    {item.score}/{item.max}
+                  </span>
+                </div>
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill"
+                    style={{
+                      width: `${(item.score / item.max) * 100}%`,
+                      background: health.color,
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// INSIGHT CARD
+// ─────────────────────────────────────────────
+
+
+// ─────────────────────────────────────────────
+// ABOUT PAGE
+// ─────────────────────────────────────────────
+function AboutPage() {
+  return (
+    <div
+      className="fade-up"
+      style={{ display: "flex", flexDirection: "column", gap: 28, maxWidth: 780 }}
+    >
+      {/* Hero block */}
+      <div
+        className="about-section"
+        style={{ padding: "40px 40px 36px" }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 24 }}>
+          <div
+            className="logo-mark float"
+            style={{ width: 56, height: 56, fontSize: 16, borderRadius: 14 }}
+          >
+            B-AI
+          </div>
+          <div>
+            <h1 style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: 28,
+              letterSpacing: "-0.05em",
+              color: "var(--text-primary)",
+              lineHeight: 1.1,
+            }}>
+              Byapari AI
+            </h1>
+            <p style={{ color: "var(--accent)", fontSize: 13, fontWeight: 500, marginTop: 2 }}>
+              Business Intelligence Platform
+            </p>
+          </div>
+        </div>
+
+        <p style={{
+          fontSize: 15.5, lineHeight: 1.75,
+          color: "var(--text-secondary)",
+          maxWidth: 620,
+          marginBottom: 24,
+        }}>
+          <strong style={{ color: "var(--text-primary)" }}>Byapari AI</strong> is an AI-powered
+          business analytics platform designed for modern merchants. Upload your sales data as a
+          CSV and instantly receive deep KPIs, trend forecasts, AI-generated recommendations,
+          product insights, and a real-time business health score — all without writing a single
+          line of code.
+        </p>
+
+        <p style={{
+          fontSize: 14.5, lineHeight: 1.7,
+          color: "var(--text-muted)",
+          maxWidth: 620,
+        }}>
+          Built for Bangladeshi merchants and small businesses who deserve enterprise-grade
+          intelligence without enterprise-level complexity. "ব্যাপারী" (Byapari) means
+          <em style={{ color: "var(--text-secondary)" }}> merchant</em> in Bengali — this tool
+          was made for you.
+        </p>
+      </div>
+
+      {/* Feature highlights */}
+      <div>
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: 18,
+          color: "var(--text-primary)",
+          marginBottom: 16,
+          letterSpacing: "-0.03em",
+        }}>
+          What B-AI Does
+        </h2>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 14,
+        }}>
+          {[
+            { icon: <BarChart3 size={18} />, color: "#529dff", title: "Instant KPIs", desc: "Sales, profit, orders, ratings, returns — computed the moment you upload." },
+            { icon: <Sparkles size={18} />, color: "#e8b84b", title: "AI Insights", desc: "Claude-powered recommendations tailored to your specific business data." },
+            { icon: <Activity size={18} />, color: "#34d399", title: "Health Score", desc: "A holistic 0–100 score rating your business performance across key dimensions." },
+            { icon: <TrendingUp size={18} />, color: "#a78bfa", title: "Sales Trends", desc: "Time-series charts showing revenue, profit, and volume over time." },
+            { icon: <Package size={18} />, color: "#f87171", title: "Product Intelligence", desc: "Top performers, low stock alerts, and category-level breakdowns." },
+            { icon: <Zap size={18} />, color: "#fbbf24", title: "Zero Config", desc: "No database, no setup. Just drop in a CSV and get answers in seconds." },
+          ].map((feat) => (
+            <div
+              key={feat.title}
+              className="glass-card"
+              style={{ padding: "18px 20px" }}
+            >
+              <div style={{
+                width: 36, height: 36, borderRadius: 9,
+                background: `${feat.color}14`,
+                border: `1px solid ${feat.color}25`,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                color: feat.color, marginBottom: 12,
+              }}>
+                {feat.icon}
+              </div>
+              <div style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700, fontSize: 14,
+                color: "var(--text-primary)", marginBottom: 5,
+              }}>
+                {feat.title}
+              </div>
+              <div style={{ fontSize: 12.5, color: "var(--text-muted)", lineHeight: 1.6 }}>
+                {feat.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Pricing Section */}
+        <div>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 18,
+            color: "var(--text-primary)",
+            marginBottom: 6,
+            letterSpacing: "-0.03em",
+          }}>
+            Simple Pricing
+          </h2>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
+            Start free. Upgrade when you grow.
+          </p>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: 14,
+          }}>
+            {[
+              {
+                name: "Free",
+                price: "৳0",
+                period: "forever",
+                color: "#529dff",
+                features: [
+                  "1 CSV upload/month",
+                  "Basic KPIs",
+                  "Sales trend chart",
+                  "Top 5 products",
+                ],
+                cta: "Get Started",
+                popular: false,
+              },
+              {
+                name: "Pro",
+                price: "৳499",
+                period: "per month",
+                color: "#e8b84b",
+                features: [
+                  "Unlimited CSV uploads",
+                  "Full AI insights",
+                  "Bengali language support",
+                  "Sales forecast",
+                  "Priority support",
+                ],
+                cta: "Start Pro",
+                popular: true,
+              },
+              {
+                name: "Enterprise",
+                price: "Custom",
+                period: "contact us",
+                color: "#a78bfa",
+                features: [
+                  "Everything in Pro",
+                  "API access",
+                  "Custom integrations",
+                  "Dedicated support",
+                  "Team accounts",
+                ],
+                cta: "Contact Us",
+                popular: false,
+              },
+            ].map((plan) => (
+              <div
+                key={plan.name}
+                className="glass-card"
+                style={{
+                  padding: "24px 22px",
+                  position: "relative",
+                  border: plan.popular
+                    ? `1px solid ${plan.color}40`
+                    : "1px solid var(--border)",
+                }}
+              >
+                {/* Popular badge */}
+                {plan.popular && (
+                  <div style={{
+                    position: "absolute",
+                    top: -12,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: plan.color,
+                    color: "white",
+                    fontSize: 10,
+                    fontWeight: 700,
+                    padding: "3px 12px",
+                    borderRadius: 99,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                    whiteSpace: "nowrap",
+                  }}>
+                    Most Popular
+                  </div>
+                )}
+
+                {/* Plan name */}
+                <div style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: 15,
+                  color: plan.color,
+                  marginBottom: 10,
+                }}>
+                  {plan.name}
+                </div>
+
+                {/* Price */}
+                <div style={{ marginBottom: 16 }}>
+                  <span style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 800,
+                    fontSize: 32,
+                    color: "var(--text-primary)",
+                    letterSpacing: "-0.04em",
+                  }}>
+                    {plan.price}
+                  </span>
+                  <span style={{
+                    fontSize: 12,
+                    color: "var(--text-muted)",
+                    marginLeft: 4,
+                  }}>
+                    {plan.period}
+                  </span>
+                </div>
+
+                {/* Divider */}
+                <div className="divider" style={{ marginBottom: 16 }} />
+
+                {/* Features */}
+                <div style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 8,
+                  marginBottom: 20,
+                }}>
+                  {plan.features.map((feature) => (
+                    <div
+                      key={feature}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 8,
+                        fontSize: 12.5,
+                        color: "var(--text-secondary)",
+                      }}
+                    >
+                      <span style={{ color: plan.color, fontSize: 14 }}>✓</span>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <button
+                  style={{
+                    width: "100%",
+                    padding: "9px 0",
+                    borderRadius: 8,
+                    border: `1px solid ${plan.color}40`,
+                    background: plan.popular
+                      ? `${plan.color}18`
+                      : "transparent",
+                    color: plan.color,
+                    fontSize: 13,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    fontFamily: "var(--font-body)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = `${plan.color}28`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = plan.popular
+                      ? `${plan.color}18`
+                      : "transparent";
+                  }}
+                >
+                  {plan.cta}
+                </button>
+              </div>
+            ))}
+          </div>
+      </div>   
+
+      {/* Team & Creator */}
+      <div
+        className="glass-card"
+        style={{ padding: "28px 32px" }}
+      >
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: 17,
+          color: "var(--text-primary)",
+          letterSpacing: "-0.03em",
+          marginBottom: 20,
+        }}>
+          The Team
+        </h2>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
+          <div style={{
+            width: 56, height: 56,
+            borderRadius: "50%",
+            background: "linear-gradient(135deg, #529dff, #7c6fef, #e8b84b)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontFamily: "var(--font-display)",
+            fontWeight: 800, fontSize: 20, color: "white",
+            flexShrink: 0,
+            boxShadow: "0 0 0 3px rgba(82,157,255,0.2)",
+          }}>
+            SM
+          </div>
+
+          <div style={{ flex: 1, minWidth: 180 }}>
+            <div style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800, fontSize: 18,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.03em",
+              marginBottom: 3,
+            }}>
+              S M Mohaiminul Islam
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+              <span className="chip" style={{
+                background: "var(--accent-dim)",
+                color: "var(--accent)",
+                border: "1px solid rgba(82,157,255,0.2)",
+                fontSize: 11,
+              }}>
+                <Users size={11} /> Team Nexion
+              </span>
+              <span className="chip" style={{
+                background: "var(--gold-dim)",
+                color: "var(--gold)",
+                border: "1px solid rgba(232,184,75,0.2)",
+                fontSize: 11,
+              }}>
+                <Star size={11} /> Builder
+              </span>
+            </div>
+          </div>
+
+          <a
+            href="https://github.com/Arik09013/byapari-ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+            style={{ textDecoration: "none" }}
+          >
+            <ExternalLink size={14} />
+            GitHub
+          </a>
+        </div>
+
+        <div
+          style={{
+            marginTop: 20,
+            paddingTop: 18,
+            borderTop: "1px solid var(--border)",
+            fontSize: 13,
+            color: "var(--text-muted)",
+            lineHeight: 1.7,
+          }}
+        >
+          Built with ❤️ for{" "}
+          <a
+            href="https://cloudcampbd.com/the-infinity-ai-buildfest"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 500 }}
+          >
+            The Infinity AI BuildFest 2026
+          </a>{" "}
+          · CloudCamp Bangladesh · Team Nexion
+        </div>
+      </div>
+
+      {/* Tech stack */}
+      <div
+        className="glass-card"
+        style={{ padding: "24px 28px" }}
+      >
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700, fontSize: 16,
+          color: "var(--text-primary)",
+          letterSpacing: "-0.03em",
+          marginBottom: 14,
+        }}>
+          Tech Stack
+        </h2>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {[
+            ["Next.js 14", "#529dff"],
+            ["TypeScript", "#529dff"],
+            ["Python FastAPI", "#34d399"],
+            ["Recharts", "#a78bfa"],
+            ["Tailwind CSS", "#38bdf8"],
+            ["Lucide Icons", "#f87171"],
+            ["Claude AI", "#e8b84b"],
+          ].map(([name, color]) => (
+            <span key={name} className="chip" style={{
+              background: `${color}10`,
+              color,
+              border: `1px solid ${color}22`,
+              padding: "5px 12px",
+              fontSize: 12,
+              fontWeight: 500,
+            }}>
+              {name}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// ANALYTICS SECTION
+// ─────────────────────────────────────────────
+function AnalyticsSection({
+  salesTrend,
+  topProducts,
+  healthScore,
+}: {
+  salesTrend: SalesDataPoint[];
+  topProducts: ProductData[];
+  healthScore: HealthScore | null;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <BarChart3 size={19} style={{ color: "var(--accent)" }} />
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700, fontSize: 20,
+          color: "var(--text-primary)",
+          letterSpacing: "-0.03em",
+        }}>
+          Analytics Overview
+        </h2>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
+        {healthScore && <HealthScoreCard health={healthScore} />}
+        <SalesTrendChart data={salesTrend} />
+      </div>
+      <TopProductsChart data={topProducts} />
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// EMPTY STATE
+// ─────────────────────────────────────────────
+function EmptyState({ onUpload }: { onUpload: () => void }) {
+  return (
+    <div className="fade-up" style={{ maxWidth: 700 }}>
+      {/* Hero */}
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <div
+            className="logo-mark float"
+            style={{ width: 44, height: 44, fontSize: 13, borderRadius: 11 }}
+          >
+            B-AI
+          </div>
+          <span className="section-label" style={{ color: "var(--accent)", letterSpacing: "0.1em" }}>
+            Ready to analyze
+          </span>
+        </div>
+        <h1 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 800,
+          fontSize: 34,
+          letterSpacing: "-0.05em",
+          color: "var(--text-primary)",
+          lineHeight: 1.15,
+          marginBottom: 12,
+        }}>
+          Upload Your Business Data
+        </h1>
+        <p style={{
+          fontSize: 15.5,
+          color: "var(--text-secondary)",
+          lineHeight: 1.7,
+          maxWidth: 560,
+        }}>
+          Drop in a CSV with your sales data and Byapari AI will instantly generate
+          KPIs, sales forecasts, AI-powered recommendations, product insights, and
+          a full business health score.
+        </p>
+      </div>
+
+      {/* Required columns */}
+      <div
+        className="glass-card"
+        style={{ padding: "24px 28px", marginBottom: 20 }}
+      >
+        <div style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700, fontSize: 15,
+          color: "var(--text-primary)",
+          marginBottom: 14,
+          display: "flex", alignItems: "center", gap: 8,
+        }}>
+          <Sparkles size={14} style={{ color: "var(--gold)" }} />
+          Required CSV Columns
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+          gap: 8,
+        }}>
+          {[
+            "date", "product_name", "product_category", "sales",
+            "profit", "quantity", "rating", "returned",
+            "stock", "payment_method",
+          ].map((field) => (
+            <div key={field} style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: "var(--accent-soft)",
+              border: "1px solid rgba(82,157,255,0.12)",
+              fontSize: 12.5,
+              color: "var(--accent)",
+              fontWeight: 500,
+              fontFamily: "monospace",
+            }}>
+              {field}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button
+        onClick={onUpload}
+        className="btn-primary"
+        style={{ fontSize: 14, padding: "11px 22px", gap: 8 }}
+      >
+        <Upload size={15} />
+        Upload CSV to Get Started
+      </button>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// MAIN PAGE
+// ─────────────────────────────────────────────
+export default function DashboardPage() {
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [apiOnline, setApiOnline] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [kpis, setKpis] = useState<KpiData | null>(null);
+  const [insights, setInsights] = useState<AiRecommendation[]>([]);
+  const [insightData, setInsightData] = useState<InsightResponse | null>(null);
+  const [healthScore, setHealthScore] = useState<HealthScore | null>(null);
+  const [salesTrend, setSalesTrend] = useState<SalesDataPoint[]>([]);
+  const [topProducts, setTopProducts] = useState<ProductData[]>([]);
+  const [aiInsights, setAiInsights] = useState<InsightResponse | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [insightLang, setInsightLang] = useState<"bn" | "en">("bn");
+  const [rawCsvData, setRawCsvData] = useState<Record<string, string | number>[]>([]);
+
+  // ── AI Alerts state ──
+  const [alerts, setAlerts] = useState<Alert[]>([]);
+
+  useEffect(() => {
+    checkApiHealth().then((ok) => {
+      setApiOnline(ok);
+      setLoading(false);
+    });
+  }, []);
+
+  // ── Re-generate alerts whenever KPIs or health score change ──
+  useEffect(() => {
+    const newAlerts = generateAlerts(kpis, healthScore);
+    setAlerts(newAlerts);
+  }, [kpis, healthScore]);
+
+  const handleUploadSuccess = (
+  newKpis: KpiData,
+  newInsights: AiRecommendation[],
+  newHealthScore: HealthScore,
+  newSalesTrend: SalesDataPoint[],
+  newTopProducts: ProductData[],
+  rawData?: Record<string, string | number>[]
+) => {
+
+  console.log("RAW DATA RECEIVED:", rawData);
+
+  setKpis(newKpis);
+  setInsights(newInsights);
+  setHealthScore(newHealthScore);
+  setSalesTrend(newSalesTrend);
+  setTopProducts(newTopProducts);
+
+  if (rawData) {
+    setRawCsvData(rawData);
+
+    // IMPORTANT
+    handleGetInsights("bn", rawData);
+  }
+
+  setLastUpdated(new Date());
+};
+
+  const handleGetInsights = async (
+  lang: "bn" | "en" = "bn",
+  dataOverride?: Record<string, string | number>[]
+) => {
+
+  const dataToAnalyze = dataOverride || rawCsvData;
+
+  if (dataToAnalyze.length === 0) return;
+
+  setAnalyzing(true);
+
+  try {
+    const response = await analyzeCSV(dataToAnalyze, lang);
+
+    console.log("AI RESPONSE:", response);
+    console.log("FORECAST DATA:", response.forecast);
+
+    setAiInsights(response);
+    setInsightLang(lang);
+
+  } catch (err) {
+    console.error("Insights error:", err);
+  } finally {
+    setAnalyzing(false);
+  }
+};
+
+  // ── DASHBOARD ──
+  const renderDashboard = () => {
+    if (!kpis || !healthScore) {
+      return <EmptyState onUpload={() => setActiveSection("upload")} />;
+    }
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+
+        {/* ── AI Alerts Banner ── */}
+        <AlertsBanner alerts={alerts} />
+
+        {/* KPI Row 1 */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
+          <KpiCard title="Total Sales"   value={`৳${(kpis.total_sales ?? 0).toLocaleString()}`}
+            icon={<DollarSign size={17} />}  accentColor="#529dff" delay={1} />
+          <KpiCard title="Total Orders"  value={(kpis.total_orders ?? 0).toLocaleString()}
+            icon={<ShoppingCart size={17} />} accentColor="#7c6fef" delay={2} />
+          <KpiCard title="Total Profit"  value={`৳${(kpis.total_profit ?? 0).toLocaleString()}`}
+            icon={<TrendingUp size={17} />}  accentColor="#34d399" delay={3} />
+          <KpiCard title="Top Category"  value={kpis.top_category ?? "N/A"}
+            icon={<Package size={17} />}    accentColor="#e8b84b" delay={4} />
+        </div>
+
+        {/* KPI Row 2 */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
+          <KpiCard title="Avg Rating"    value={`⭐ ${kpis.average_rating ?? 0}`}
+            icon={<Star size={17} />}       accentColor="#fbbf24" delay={1} />
+          <KpiCard title="Returned Orders" value={(kpis.returned_orders ?? 0).toLocaleString()}
+            icon={<ShoppingCart size={17} />} accentColor="#f87171" delay={2} />
+          <KpiCard title="Top Payment"   value={kpis.most_used_payment_method ?? "N/A"}
+            icon={<DollarSign size={17} />}  accentColor="#7c6fef" delay={3} />
+          <KpiCard title="Low Stock Items" value={(kpis.low_stock_products ?? 0).toLocaleString()}
+            icon={<Package size={17} />}    accentColor="#f87171" delay={4} />
+        </div>
+
+        {/* Get AI Insights Button */}
+        <div className="fade-up delay-3" style={{ marginBottom: 8 }}>
+          <button
+            onClick={() => handleGetInsights(insightLang)}
+            disabled={analyzing || rawCsvData.length === 0}
+            className="btn-primary"
+            style={{
+              fontSize: 14,
+              padding: "10px 20px",
+              opacity: analyzing ? 0.6 : 1,
+              cursor: analyzing ? "not-allowed" : "pointer",
+              gap: 8,
+            }}
+          >
+            {analyzing ? (
+              <><Loader2 size={15} className="animate-spin" /> {insightLang === "bn" ? "বিশ্লেষণ হচ্ছে..." : "Analyzing..."}</>
+            ) : (
+              <><Sparkles size={15} /> {insightLang === "bn" ? "এআই ইনসাইট পান" : "Get AI Insights"}</>
+            )}
+          </button>
+        </div>
+
+        {/* AI Insights Panel */}
+        {aiInsights && (
+          <div className="fade-up delay-4" style={{ maxWidth: 800 }}>
+            <InsightsPanel
+              insights={aiInsights}
+              lang={insightLang}
+              isLoading={analyzing}
+              onLanguageChange={(lang) => handleGetInsights(lang)}
+            />
+
+            {/* Forecast Chart */}
+            <div className="mt-6">
+              <h2 className="text-xl font-bold mb-4">
+                AI Sales Forecast
+              </h2>
+              <div
+                style={{
+                  width: "100%",
+                  height: 300,
+                  background: "#111827",
+                  padding: "20px",
+                  borderRadius: "16px",
+                }}
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={aiInsights.forecast}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="predicted_sales"
+                      stroke="#3b82f6"
+                      strokeWidth={3}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Health + Sales Trend */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
+          {healthScore && <HealthScoreCard health={healthScore} />}
+          <SalesTrendChart data={salesTrend} />
+        </div>
+
+        {/* Top Products */}
+        <TopProductsChart data={topProducts} />
+
+        {/* AI Recommendations */}
+        <div className="fade-up delay-4">
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <Lightbulb size={17} style={{ color: "var(--gold)" }} />
+            <h2 style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700, fontSize: 17,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.03em",
+            }}>
+              AI Recommendations
+            </h2>
+            <span className="badge badge-gold" style={{ marginLeft: 4 }}>
+              {insights.length} insights
+            </span>
+          </div> 
+      </div>
+      </div>
+    );
+  };
+
+  // ── UPLOAD ──
+  const renderUpload = () => (
+    <div style={{ maxWidth: 560 }}>
+      <div style={{ marginBottom: 24 }}>
+        <h2 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700, fontSize: 24,
+          color: "var(--text-primary)",
+          letterSpacing: "-0.04em",
+        }}>
+          Upload Data
+        </h2>
+        <p style={{ color: "var(--text-muted)", marginTop: 5, fontSize: 14 }}>
+          Upload a CSV — KPIs, insights and health score all update instantly
+        </p>
+      </div>
+      <CsvUpload onDataLoaded={handleUploadSuccess} />
+    </div>
+  );
+
+  // ── INSIGHTS ──
+  const renderInsights = () => (
+    <div>
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700, fontSize: 24,
+            color: "var(--text-primary)",
+            letterSpacing: "-0.04em",
+          }}>
+            AI Insights
+          </h2>
+          <span className="badge badge-gold">{insights.length} total</span>
+        </div>
+        <p style={{ color: "var(--text-muted)", fontSize: 14 }}>
+          Real business intelligence generated from your data
+        </p>
+      </div>
+      {healthScore && (
+        <div style={{ maxWidth: 500, marginBottom: 24 }}>
+          <HealthScoreCard health={healthScore} />
+        </div>
+      )}
+      {aiInsights && (
+        <InsightsPanel
+          insights={aiInsights}
+          lang={insightLang}
+          isLoading={analyzing}
+          onLanguageChange={(lang) => handleGetInsights(lang)}
+        />
+      )}
+    </div>
+  );
+
+  // ── ROUTER ──
+  const renderSection = () => {
+    if (activeSection === "upload")    return renderUpload();
+    if (activeSection === "insights")  return renderInsights();
+    if (activeSection === "sales")     return <SalesTrendPage data={salesTrend} />;
+    if (activeSection === "products")  return <ProductsPage products={topProducts} />;
+    if (activeSection === "about")     return <AboutPage />;
+    if (activeSection === "pricing")   return <AboutPage />;
+    if (activeSection === "analytics") return (
+      <AnalyticsSection salesTrend={salesTrend} topProducts={topProducts} healthScore={healthScore} />
+    );
+    return renderDashboard();
+  };
+
+  // ── PAGE TITLE ──
+  const sectionTitle: Record<string, string> = {
+    dashboard: "Business Dashboard",
+    analytics: "Analytics",
+    sales: "Sales Trend",
+    products: "Products",
+    upload: "Upload Data",
+    insights: "AI Insights",
+    about: "About B-AI",
+    pricing: "Pricing", 
+    settings: "Settings",
+  };
+
+  return (
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      <Sidebar activeSection={activeSection} onNavigate={setActiveSection} />
+
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        {/* ── Header ── */}
+        <header style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 28px",
+          height: 64,
+          borderBottom: "1px solid var(--border)",
+          background: "rgba(5,11,24,0.85)",
+          backdropFilter: "blur(16px)",
+          position: "sticky",
+          top: 0,
+          zIndex: 20,
+          gap: 16,
+          flexShrink: 0,
+        }}>
+          <div>
+            <h1 style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: 17,
+              color: "var(--text-primary)",
+              letterSpacing: "-0.03em",
+            }}>
+              {sectionTitle[activeSection] ?? activeSection}
+            </h1>
+            {lastUpdated && (
+              <p style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 1 }}>
+                Updated {lastUpdated.toLocaleTimeString()}
+              </p>
+            )}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Health mini badge */}
+            {healthScore && (
+              <div style={{
+                display: "flex", alignItems: "center", gap: 6,
+                borderRadius: 99,
+                padding: "5px 12px",
+                background: `${healthScore.color}12`,
+                border: `1px solid ${healthScore.color}28`,
+                fontSize: 12,
+                color: healthScore.color,
+                fontWeight: 600,
+              }}>
+                <Heart size={12} />
+                {healthScore.score}/100
+                <span style={{ color: `${healthScore.color}90`, fontWeight: 400 }}>
+                  · {healthScore.label}
+                </span>
+              </div>
+            )}
+
+            {/* Alert count badge in header */}
+            {alerts.length > 0 && (
+              <div
+                onClick={() => setActiveSection("dashboard")}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  borderRadius: 99,
+                  padding: "5px 12px",
+                  background: "rgba(248,113,113,0.1)",
+                  border: "1px solid rgba(248,113,113,0.25)",
+                  fontSize: 12,
+                  color: "#f87171",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                <AlertTriangle size={12} />
+                {alerts.length} alert{alerts.length !== 1 ? "s" : ""}
+              </div>
+            )}
+
+            {/* API status */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: 6,
+              borderRadius: 99,
+              padding: "5px 12px",
+              background: apiOnline ? "var(--green-dim)" : "var(--red-dim)",
+              border: `1px solid ${apiOnline ? "rgba(52,211,153,0.2)" : "rgba(248,113,113,0.2)"}`,
+              fontSize: 12,
+              color: apiOnline ? "var(--green)" : "var(--red)",
+              fontWeight: 500,
+            }}>
+              {apiOnline ? <Wifi size={13} /> : <WifiOff size={13} />}
+              {apiOnline === null ? "Checking…" : apiOnline ? "Online" : "Offline"}
+            </div>
+
+            {/* Refresh */}
+            <button
+              onClick={() => window.location.reload()}
+              disabled={loading}
+              className="btn-ghost"
+              style={{ opacity: loading ? 0.5 : 1, cursor: loading ? "not-allowed" : "pointer" }}
+            >
+              <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
+              Refresh
+            </button>
+          </div>
+        </header>
+
+        {/* ── Content ── */}
+        <div style={{ flex: 1, padding: "28px", overflowY: "auto" }}>
+          {loading ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {[90, 200, 200].map((h, i) => (
+                <div key={i} className="shimmer" style={{ height: h, opacity: 0.6 }} />
+              ))}
+            </div>
+          ) : (
+            renderSection()
+          )}
+        </div>
+
+        {/* ── Footer ── */}
+        <footer style={{
+          borderTop: "1px solid var(--border)",
+          padding: "12px 28px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+          flexWrap: "wrap",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div className="logo-mark" style={{ width: 22, height: 22, fontSize: 8, borderRadius: 5 }}>
+              B-AI
+            </div>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+              Byapari AI · Built by{" "}
+              <strong style={{ color: "var(--text-secondary)", fontWeight: 600 }}>
+                S M Mohaiminul Islam
+              </strong>
+              {" "}· Team Nexion
+            </span>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <a
+              href="https://cloudcampbd.com/the-infinity-ai-buildfest"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 11, color: "var(--accent)", textDecoration: "none",
+                fontWeight: 500, display: "flex", alignItems: "center", gap: 4,
+              }}
+            >
+              <Link2 size={11} />
+              Infinity AI BuildFest 2026
+            </a>
+            <a
+              href="https://github.com/Arik09013/byapari-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 11, color: "var(--text-muted)", textDecoration: "none",
+                display: "flex", alignItems: "center", gap: 4,
+              }}
+            >
+              <ExternalLink size={11} />
+              GitHub
+            </a>
+          </div>
+        </footer>
+      </main>
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\AnalyticsChart.tsx
+"use client";
+
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { SalesDataPoint, ProductData } from "@/lib/api";
+
+// ── Custom Tooltip for Revenue Chart ──────────────────────────
+function RevenueTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div
+      style={{
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        borderRadius: 10,
+        padding: "10px 14px",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+      }}
+    >
+      <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>
+        {label}
+      </p>
+      <p style={{ color: "#3b82f6", fontWeight: 700, fontFamily: "Syne, sans-serif" }}>
+        ৳{Number(payload[0].value).toLocaleString()}
+      </p>
+      {payload[1] && (
+        <p style={{ color: "#10b981", fontWeight: 600, fontSize: 13 }}>
+          {payload[1].value} orders
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ── Custom Tooltip for Products Bar Chart ─────────────────────
+function ProductTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div
+      style={{
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        borderRadius: 10,
+        padding: "10px 14px",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+      }}
+    >
+      <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>
+        {label}
+      </p>
+      <p style={{ color: "#6366f1", fontWeight: 700, fontFamily: "Syne, sans-serif" }}>
+        ৳{Number(payload[0].value).toLocaleString()}
+      </p>
+    </div>
+  );
+}
+
+// ── Sales Trend Chart (Area) ──────────────────────────────────
+interface SalesChartProps {
+  data: SalesDataPoint[];
+}
+
+export function SalesTrendChart({ data }: SalesChartProps) {
+  const safeData = data ?? [];
+  
+  if (!safeData.length) {
+    return (
+      <div className="glow-card p-5 fade-in fade-in-delay-2" style={{ height: 340 }}>
+        <h3 style={{ fontFamily: "Syne, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+          Revenue Trend
+        </h3>
+        <div style={{ height: 240, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
+          Upload data to see revenue trends
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glow-card p-5 fade-in fade-in-delay-2" style={{ height: 340 }}>
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <h3
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              color: "var(--text-primary)",
+            }}
+          >
+            Revenue Trend
+          </h3>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+            Monthly revenue over time
+          </p>
+        </div>
+
+        {/* Legend */}
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--text-muted)" }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: "#3b82f6", display: "inline-block" }} />
+            Revenue
+          </span>
+          <span className="flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--text-muted)" }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: "#10b981", display: "inline-block" }} />
+            Orders
+          </span>
+        </div>
+      </div>
+
+      <ResponsiveContainer width="100%" height={240}>
+        <AreaChart data={safeData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+          <defs>
+            <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.25} />
+              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="ordersGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
+              <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+          <XAxis
+            dataKey="date"
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+            axisLine={{ stroke: "var(--border)" }}
+            tickLine={false}
+          />
+          <YAxis
+            yAxisId="left"
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(v) => `৳${(v / 1000).toFixed(0)}k`}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+          />
+          <Tooltip content={<RevenueTooltip />} />
+          <Area
+            yAxisId="left"
+            type="monotone"
+            dataKey="revenue"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            fill="url(#revenueGrad)"
+            dot={false}
+            activeDot={{ r: 5, fill: "#3b82f6" }}
+          />
+          <Area
+            yAxisId="right"
+            type="monotone"
+            dataKey="orders"
+            stroke="#10b981"
+            strokeWidth={2}
+            fill="url(#ordersGrad)"
+            dot={false}
+            activeDot={{ r: 4, fill: "#10b981" }}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+// ── Top Products Chart (Bar) ──────────────────────────────────
+interface ProductsChartProps {
+  data: ProductData[];
+}
+
+export function TopProductsChart({ data }: ProductsChartProps) {
+  const chartData = (data || []).map((p) => ({
+    ...p,
+    shortName: p.name.length > 14 ? p.name.slice(0, 14) + "…" : p.name,
+  }));
+
+  if (!chartData.length) {
+    return (
+      <div className="glow-card p-5 fade-in fade-in-delay-3" style={{ height: 340 }}>
+        <h3 style={{ fontFamily: "Syne, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+          Top Products
+        </h3>
+        <div style={{ height: 240, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
+          Upload data to see top products
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glow-card p-5 fade-in fade-in-delay-3" style={{ height: 340 }}>
+      <div className="mb-5">
+        <h3
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "var(--text-primary)",
+          }}
+        >
+          Top Products
+        </h3>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+          Revenue by product
+        </p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={240}>
+        <BarChart
+          data={chartData}
+          margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
+          barCategoryGap="30%"
+        >
+          <defs>
+            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="#3b82f6" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+          <XAxis
+            dataKey="shortName"
+            tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+            axisLine={{ stroke: "var(--border)" }}
+            tickLine={false}
+          />
+          <YAxis
+            tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(v) => `৳${(v / 1000).toFixed(0)}k`}
+          />
+          <Tooltip content={<ProductTooltip />} cursor={{ fill: "rgba(255,255,255,0.03)" }} />
+          <Bar dataKey="revenue" fill="url(#barGrad)" radius={[6, 6, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\CsvUpload.tsx
+"use client";
+
+import { useState, useRef, DragEvent, ChangeEvent } from "react";
+import {
+  Upload,
+  CheckCircle,
+  XCircle,
+  Loader2,
+  Download,
+} from "lucide-react";
+
+import {
+  uploadCsv,
+  KpiData,
+  AiRecommendation,
+  HealthScore,
+  SalesDataPoint,
+  ProductData,
+} from "@/lib/api";
+
+type UploadState =
+  | "idle"
+  | "dragging"
+  | "uploading"
+  | "success"
+  | "error";
+
+interface CsvUploadProps {
+  onDataLoaded?: (
+    kpis: KpiData,
+    insights: AiRecommendation[],
+    healthScore: HealthScore,
+    salesTrend: SalesDataPoint[],
+    topProducts: ProductData[],
+    rawData?: Record<string, string | number>[]
+  ) => void;
+}
+
+export default function CsvUpload({
+  onDataLoaded,
+}: CsvUploadProps) {
+  const [state, setState] = useState<UploadState>("idle");
+  const [fileName, setFileName] = useState("");
+  const [rows, setRows] = useState(0);
+  const [error, setError] = useState("");
+  const [kpis, setKpis] = useState<KpiData | null>(null);
+  const [qualityReport, setQualityReport] = useState<any>(null);
+  const [rawData, setRawData] = useState<Record<string, string | number>[] | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = async (file: File) => {
+    if (!file.name.endsWith(".csv")) {
+      setError("Please upload a CSV file");
+      setState("error");
+      return;
+    }
+
+    setFileName(file.name);
+    setState("uploading");
+    setError("");
+    setKpis(null);
+
+    try {
+      const data = await uploadCsv(file);
+      console.log("UPLOAD RESPONSE:", data);
+      setRows(data.rows ?? 0);
+      setKpis(data.kpis);
+      setQualityReport(data.data_quality ?? null);
+      setState("success");
+      const rawScore = (data as any).health_score as number ?? 0;
+      const healthScore: HealthScore = {
+        score: rawScore,
+        label: rawScore >= 70 ? "Good" : rawScore >= 40 ? "Fair" : "Poor",
+        color: rawScore >= 70 ? "#34d399" : rawScore >= 40 ? "#fbbf24" : "#f87171",
+      };
+
+      if (onDataLoaded) {
+        onDataLoaded(
+          data.kpis,
+          data.insights,
+          healthScore,
+          data.sales_trend,
+          data.top_products,
+          data.raw_data || []
+        );
+      }
+    } catch (err: any) {
+      setError(err.message || "Upload failed. Is backend running?");
+      setState("error");
+    }
+  };
+
+  const onDragOver = (e: DragEvent) => {
+    e.preventDefault();
+    setState("dragging");
+  };
+
+  const onDragLeave = () => setState("idle");
+
+  const onDrop = (e: DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) handleFile(file);
+  };
+
+  const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  };
+
+  const reset = () => {
+    setState("idle");
+    setError("");
+    setFileName("");
+    setKpis(null);
+    setQualityReport(null);
+    if (inputRef.current) inputRef.current.value = "";
+  };
+
+  const borderColor =
+    state === "dragging"
+      ? "var(--accent)"
+      : state === "error"
+      ? "#ef4444"
+      : "var(--border)";
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="glow-card p-5">
+        <div className="mb-5">
+          <h3
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              color: "var(--text-primary)",
+            }}
+          >
+            Upload Sales Data
+          </h3>
+          <p
+            style={{
+              fontSize: 13,
+              color: "var(--text-muted)",
+              marginTop: 2,
+            }}
+          >
+            Upload CSV and analyze business instantly
+          </p>
+        </div>
+
+        <div
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+          onClick={() => state === "idle" && inputRef.current?.click()}
+          className="rounded-xl flex flex-col items-center justify-center transition-all duration-200"
+          style={{
+            border: `2px dashed ${borderColor}`,
+            background: state === "dragging" ? "rgba(59,130,246,0.05)" : "rgba(255,255,255,0.02)",
+            padding: "32px 20px",
+            cursor: state === "idle" ? "pointer" : "default",
+            minHeight: 160,
+          }}
+        >
+                    {state === "idle" && (
+            <>
+              <Upload size={32} style={{ color: "var(--accent)", marginBottom: 12 }} />
+              <p style={{ color: "var(--text-primary)", fontWeight: 600 }}>
+                Drop CSV here or click to browse
+              </p>
+              <p style={{ color: "var(--text-muted)", fontSize: 12, marginTop: 4, marginBottom: 12 }}>
+                Supports .csv files only
+              </p>
+              <a
+                href="/sample_data.csv"
+                download
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors"
+                style={{
+                  background: "rgba(59,130,246,0.1)",
+                  border: "1px solid rgba(59,130,246,0.2)",
+                  color: "var(--accent)",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(59,130,246,0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(59,130,246,0.1)";
+                }}
+              >
+                <Download size={14} />
+                Download Sample CSV
+              </a>
+              <div style={{ marginTop: 12, padding: "12px 16px", borderRadius: 10, background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", maxWidth: 340 }}>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginBottom: 6 }}>
+                  🤖 Want to test with your own data?
+                </p>
+                <p style={{ fontSize: 11.5, color: "var(--text-muted)", lineHeight: 1.6, marginBottom: 8 }}>
+                  Ask ChatGPT or any AI to generate a CSV with these exact columns:
+                </p>
+                <code style={{
+                  display: "block",
+                  fontSize: 10.5,
+                  color: "var(--accent)",
+                  background: "rgba(82,157,255,0.06)",
+                  border: "1px solid rgba(82,157,255,0.12)",
+                  borderRadius: 6,
+                  padding: "8px 10px",
+                  lineHeight: 1.8,
+                  marginBottom: 8,
+                  wordBreak: "break-all",
+                }}>
+                  date, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city
+                </code>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigator.clipboard.writeText(
+                      `Generate a CSV dataset with 200 rows for an e-commerce business with exactly these columns:\n\ndate, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city\n\nRules:\n- date: between 2024-01-01 and 2024-12-31 (YYYY-MM-DD format)\n- product_category: only Electronics, Clothing, Food, Sports, Home & Kitchen\n- sales: decimal number between 500 and 20000\n- profit: decimal, always less than sales\n- quantity: between 1 and 20\n- rating: between 1.0 and 5.0\n- returned: Yes or No (about 10% Yes)\n- stock: between 0 and 200\n- payment_method: Cash on Delivery, bKash, Nagad, Card, or Bank Transfer\n- customer_city: real cities from your country\n\nGive me only the CSV data, no explanation.`
+                    );
+                    alert("✅ Prompt copied! Paste it into ChatGPT or any AI.");
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "6px 12px",
+                    borderRadius: 6,
+                    background: "rgba(232,184,75,0.10)",
+                    border: "1px solid rgba(232,184,75,0.25)",
+                    color: "var(--gold)",
+                    fontSize: 11.5,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                >
+                  📋 Copy AI Prompt
+                </button>
+              </div>
+            </>
+          )}
+
+          {state === "uploading" && (
+            <>
+              <Loader2 size={32} className="animate-spin" style={{ color: "var(--accent)", marginBottom: 12 }} />
+              <p style={{ color: "var(--text-primary)" }}>Uploading & analyzing...</p>
+            </>
+          )}
+
+          {state === "error" && (
+            <>
+              <XCircle size={36} style={{ color: "#ef4444", marginBottom: 12 }} />
+              <p style={{ color: "#ef4444", fontWeight: 700 }}>Upload Failed</p>
+              <p style={{ color: "var(--text-muted)", fontSize: 13 }}>{error}</p>
+            </>
+          )}
+        </div>
+
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".csv"
+          onChange={onFileChange}
+          style={{ display: "none" }}
+        />
+
+        {(state === "success" || state === "error") && (
+          <button
+            onClick={reset}
+            className="w-full mt-4 rounded-xl py-2.5 font-semibold text-sm"
+            style={{
+              background: "var(--border)",
+              color: "var(--text-secondary)",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            Upload Another File
+          </button>
+        )}
+      </div>
+
+      {state === "success" && kpis && (
+        <div className="glow-card p-5">
+          <h3
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              marginBottom: 16,
+            }}
+          >
+            Live KPI Results
+          </h3>
+          <div
+            className="grid gap-3"
+            style={{
+              gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            }}
+          >
+            {[
+              { label: "Total Sales", value: `৳${(kpis.total_sales ?? 0).toLocaleString()}` },
+              { label: "Total Orders", value: (kpis.total_orders ?? 0).toLocaleString() },
+              { label: "Total Profit", value: `৳${(kpis.total_profit ?? 0).toLocaleString()}` },
+              { label: "Avg Rating", value: `⭐ ${kpis.average_rating ?? 0}` },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="rounded-xl p-3"
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                <p style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>
+                  {item.label}
+                </p>
+                <h4
+                  style={{
+                    fontFamily: "Syne, sans-serif",
+                    fontWeight: 700,
+                    fontSize: 18,
+                    color: "var(--text-primary)",
+                  }}
+                >
+                  {item.value}
+                </h4>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\InsightsPanel.tsx
+"use client";
+
+import { useState } from "react";
+import { InsightResponse, AiRecommendation } from "@/lib/api";
+
+interface InsightsPanelProps {
+  insights: InsightResponse | null;
+  lang: "bn" | "en";
+  onLanguageChange?: (lang: "bn" | "en") => void;
+  isLoading?: boolean;
+}
+
+export default function InsightsPanel({
+  insights,
+  lang,
+  onLanguageChange,
+  isLoading,
+}: InsightsPanelProps) {
+  const handleLangChange = (newLang: "bn" | "en") => {
+    onLanguageChange?.(newLang);
+  };
+
+  const getHealthColor = (score: number) => {
+    if (score >= 70) return "#34d399";
+    if (score >= 40) return "#fbbf24";
+    return "#f87171";
+  };
+
+  const getHealthLabel = (score: number) => {
+    if (score >= 70) return lang === "bn" ? "ভালো" : "Good";
+    if (score >= 40) return lang === "bn" ? "মোটামুটি" : "Fair";
+    return lang === "bn" ? "খারাপ" : "Poor";
+  };
+
+  const getSeverityClass = (insightText: string) => {
+    if (insightText.includes("⚠️") || insightText.includes("📉") || insightText.includes("🚨")) {
+      return "high";
+    }
+    if (insightText.includes("🚀") || insightText.includes("🏆") || insightText.includes("⭐") || insightText.includes("✅")) {
+      return "low";
+    }
+    return "medium";
+  };
+
+  const circumference = 2 * Math.PI * 40;
+
+  if (isLoading) {
+    return (
+      <div className="glass-card p-6">
+        <div className="shimmer" style={{ height: 120, marginBottom: 16 }} />
+        <div className="space-y-3">
+          <div className="shimmer" style={{ height: 60 }} />
+          <div className="shimmer" style={{ height: 60 }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!insights) {
+    return (
+      <div className="glass-card p-6 text-center" style={{ color: "var(--text-muted)" }}>
+        {lang === "bn"
+          ? "📊 CSV আপলোড করুন এবং ইনসাইট দেখতে ড্যাশবোর্ডে যান"
+          : "📊 Upload a CSV and go to Dashboard to see insights"}
+      </div>
+    );
+  }
+
+  const strokeDashoffset = circumference - (insights.health_score / 100) * circumference;
+
+  return (
+    <div className="glass-card p-6 space-y-6">
+      {/* Header with Language Toggle */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 18,
+            color: "var(--text-primary)",
+          }}>
+            {lang === "bn" ? "🧠 এআই বিশ্লেষণ" : "🧠 AI Analysis"}
+          </h2>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 4 }}>
+            AI-Powered by Byapari Engine v2
+          </p>
+        </div>
+
+        <div className="flex" style={{
+          background: "var(--bg-elevated)",
+          borderRadius: 8,
+          padding: 3,
+          gap: 2,
+        }}>
+          <button
+            onClick={() => handleLangChange("bn")}
+            style={{
+              padding: "5px 12px",
+              borderRadius: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              background: lang === "bn" ? "var(--accent)" : "transparent",
+              color: lang === "bn" ? "white" : "var(--text-muted)",
+            }}
+          >
+            বাংলা
+          </button>
+          <button
+            onClick={() => handleLangChange("en")}
+            style={{
+              padding: "5px 12px",
+              borderRadius: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.2s",
+              background: lang === "en" ? "var(--accent)" : "transparent",
+              color: lang === "en" ? "white" : "var(--text-muted)",
+            }}
+          >
+            EN
+          </button>
+        </div>
+      </div>
+
+      {/* Health Score Circle */}
+      <div className="flex items-center gap-6">
+        <div style={{ position: "relative", width: 96, height: 96, flexShrink: 0 }}>
+          <svg width="96" height="96" style={{ transform: "rotate(-90deg)" }}>
+            <circle
+              cx="48" cy="48" r="40"
+              fill="none"
+              stroke="var(--border)"
+              strokeWidth="8"
+            />
+            <circle
+              cx="48" cy="48" r="40"
+              fill="none"
+              stroke={getHealthColor(insights.health_score)}
+              strokeWidth="8"
+              strokeLinecap="round"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffset}
+              style={{ transition: "stroke-dashoffset 1s ease-out" }}
+            />
+          </svg>
+          <div style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+            <span className="stat-number" style={{
+              fontSize: 24,
+              fontWeight: 800,
+              color: getHealthColor(insights.health_score),
+            }}>
+              {insights.health_score}
+            </span>
+            <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+              {getHealthLabel(insights.health_score)}
+            </span>
+          </div>
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <h3 style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 700,
+            fontSize: 15,
+            color: "var(--text-primary)",
+          }}>
+            {lang === "bn" ? "ব্যবসা স্বাস্থ্য স্কোর" : "Business Health Score"}
+          </h3>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 4 }}>
+            {lang === "bn"
+              ? `${insights.data_points}টি লেনদেনের উপর ভিত্তি করে`
+              : `Based on ${insights.data_points} transactions`}
+          </p>
+          {insights.top_performer && (
+            <p style={{ fontSize: 12, color: "var(--green)", marginTop: 6 }}>
+              🏆 {lang === "bn" ? "সেরা: " : "Top: "}
+              {insights.top_performer.product} (৳{insights.top_performer.revenue.toLocaleString()})
+            </p>
+          )}
+          {insights.worst_performer && (
+            <p style={{ fontSize: 12, color: "var(--red)", marginTop: 4 }}>
+              📉 {lang === "bn" ? "দুর্বল: " : "Weak: "}
+              {insights.worst_performer.product}
+            </p>
+          )}
+        </div>
+      </div>
+      
+       {/* AI Summary from Gemini */}
+        {insights.ai_summary && (
+          <div style={{
+            padding: "16px 20px",
+            borderRadius: 12,
+            background: "rgba(232,184,75,0.06)",
+            border: "1px solid rgba(232,184,75,0.15)",
+            marginTop: 8,
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginBottom: 10,
+            }}>
+              <span style={{ fontSize: 16 }}>✨</span>
+              <span style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 14,
+                color: "var(--gold)",
+              }}>
+                {lang === "bn" ? "Byapari এআই বিশ্লেষণ" : "Byapari AI Analysis"}
+              </span>
+            </div>
+            <p style={{
+              fontSize: 13.5,
+              color: "var(--text-secondary)",
+              lineHeight: 1.8,
+              whiteSpace: "pre-wrap",
+            }}>
+              {insights.ai_summary}
+            </p>
+          </div>
+        )}
+
+
+      {/* Insight Cards */}
+      <div className="space-y-3">
+        <h3 style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: 14,
+          color: "var(--text-primary)",
+        }}>
+          {lang === "bn" ? "💡 মূল অনুমাননাগুলো" : "💡 Key Insights"}
+        </h3>
+        {insights.insights.map((insight: AiRecommendation, index: number) => {
+
+          const colorMap: any = {
+            growth: "var(--green)",
+            warning: "var(--red)",
+            risk: "orange",
+            inventory: "gold",
+            success: "deepskyblue",
+          };
+
+          const iconMap: any = {
+            growth: "📈",
+            warning: "⚠️",
+            risk: "🚨",
+            inventory: "📦",
+            success: "✅",
+          };
+
+          return (
+            <div
+              key={index}
+              className="insight-card fade-up"
+              style={{
+                padding: "16px 18px",
+                animationDelay: `${index * 0.05}s`,
+                borderLeft: `4px solid ${colorMap[insight.type]}`,
+              }}
+            >
+              <div className="flex items-start gap-3">
+
+                <span
+                  style={{
+                    fontSize: 20,
+                    flexShrink: 0,
+                  }}
+                >
+                  {iconMap[insight.type]}
+                </span>
+
+                <div style={{ flex: 1 }}>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 6,
+                    }}
+                  >
+                    <h4
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 700,
+                        color: "var(--text-primary)",
+                      }}
+                    >
+                      {insight.title}
+                    </h4>
+
+                    <span
+                      style={{
+                        fontSize: 10,
+                        padding: "3px 8px",
+                        borderRadius: 999,
+                        background: "var(--bg-elevated)",
+                        color: "var(--text-secondary)",
+                      }}
+                    >
+                      {insight.confidence}%
+                    </span>
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: 13,
+                      color: "var(--text-secondary)",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {insight.message}
+                  </p>
+
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Footer */}
+      <div style={{
+        paddingTop: 16,
+        borderTop: "1px solid var(--border)",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}>
+        <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
+          {lang === "bn"
+            ? `${insights.data_points}টি লেনদেন বিশ্লেষণ করা হয়েছে • ${new Date(insights.generated_at).toLocaleString("bn-BD")}`
+            : `${insights.data_points} transactions analyzed • ${new Date(insights.generated_at).toLocaleString()}`}
+        </span>
+        <span style={{
+          background: "var(--bg-elevated)",
+          padding: "3px 10px",
+          borderRadius: 99,
+          fontSize: 11,
+          color: "var(--text-secondary)",
+        }}>
+          {lang === "bn" ? "নিশ্চয়তা" : "Confidence"}: {insights.confidence}%
+        </span>
+      </div>
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\KpiCard.tsx
+"use client";
+
+import { ReactNode } from "react";
+
+interface KpiCardProps {
+  title: string;
+  value: string | number;
+  subtext?: string;
+  icon: ReactNode;
+  accentColor?: string;
+  delay?: number;
+  trend?: "up" | "down" | "neutral";
+  trendValue?: string;
+}
+
+export default function KpiCard({
+  title,
+  value,
+  subtext,
+  icon,
+  accentColor = "#529dff",
+  delay = 1,
+  trend,
+  trendValue,
+}: KpiCardProps) {
+  const trendColor =
+    trend === "up"
+      ? "#34d399"
+      : trend === "down"
+      ? "#f87171"
+      : "var(--text-muted)";
+
+  return (
+    <div
+      className={`glass-card kpi-card fade-up delay-${delay}`}
+      style={{ padding: "20px 22px" }}
+    >
+      {/* Top row: icon + trend */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          marginBottom: 14,
+        }}
+      >
+        {/* Icon bubble */}
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 10,
+            background: `${accentColor}16`,
+            border: `1px solid ${accentColor}28`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: accentColor,
+            flexShrink: 0,
+          }}
+        >
+          {icon}
+        </div>
+
+        {/* Trend badge */}
+        {trend && trendValue && (
+          <span
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: trendColor,
+              background: `${trendColor}14`,
+              border: `1px solid ${trendColor}28`,
+              borderRadius: 99,
+              padding: "3px 8px",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
+            {trend === "up" ? "↑" : trend === "down" ? "↓" : "→"} {trendValue}
+          </span>
+        )}
+      </div>
+
+      {/* Value */}
+      <div
+        className="stat-number"
+        style={{
+          fontSize: 28,
+          fontWeight: 800,
+          color: "var(--text-primary)",
+          lineHeight: 1,
+          marginBottom: 6,
+          letterSpacing: "-0.04em",
+        }}
+      >
+        {value}
+      </div>
+
+      {/* Title */}
+      <div
+        style={{
+          fontSize: 12.5,
+          color: "var(--text-secondary)",
+          fontWeight: 500,
+          letterSpacing: "0.02em",
+        }}
+      >
+        {title}
+      </div>
+
+      {/* Optional subtext */}
+      {subtext && (
+        <div
+          style={{
+            fontSize: 11,
+            color: "var(--text-muted)",
+            marginTop: 4,
+          }}
+        >
+          {subtext}
+        </div>
+      )}
+
+      {/* Accent line at bottom */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "15%",
+          right: "15%",
+          height: 2,
+          borderRadius: "2px 2px 0 0",
+          background: `linear-gradient(90deg, transparent, ${accentColor}40, transparent)`,
+        }}
+      />
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\ProductsPage.tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend,
+} from "recharts";
+import { ProductData } from "@/lib/api";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const PIE_COLORS = ["#3b82f6", "#6366f1", "#10b981", "#f59e0b", "#ef4444"];
+
+interface CategoryRow {
+  name: string;
+  revenue: number;
+  orders: number;
+  profit: number;
+  avg_rating: number;
+}
+
+interface ProductsPageProps {
+  products?: ProductData[];
+}
+
+export default function ProductsPage({ products = [] }: ProductsPageProps) {
+  const safeProducts = products ?? [];
+  const [categories, setCategories] = useState<CategoryRow[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // ── Fetch category data from backend ──
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/analytics/categories`, {
+          cache: "no-store",
+        });
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        const data = await res.json();
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Categories fetch error:", err);
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  if (!safeProducts.length) {
+    return (
+      <div className="flex flex-col gap-4">
+        {[1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl"
+            style={{
+              height: 180,
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              opacity: 0.5,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Top Products Bar Chart */}
+      <div className="glow-card p-5">
+        <h3
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "var(--text-primary)",
+            marginBottom: 4,
+          }}
+        >
+          Top 5 Products by Revenue
+        </h3>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
+          Real data from your uploaded CSV
+        </p>
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart
+            data={safeProducts}
+            margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
+            barCategoryGap="30%"
+          >
+            <defs>
+              <linearGradient id="prodGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#3b82f6" />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+            <XAxis
+              dataKey="name"
+              tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+              axisLine={{ stroke: "var(--border)" }}
+              tickLine={false}
+              tickFormatter={(v) => (v.length > 12 ? v.slice(0, 12) + "…" : v)}
+            />
+            <YAxis
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => `৳${(v / 1000).toFixed(0)}k`}
+            />
+            <Tooltip
+              contentStyle={{
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+              }}
+              labelStyle={{ color: "var(--text-muted)", fontSize: 12 }}
+              formatter={(v: any) => [`৳${Number(v).toLocaleString()}`, "Revenue"]}
+              cursor={{ fill: "rgba(255,255,255,0.03)" }}
+            />
+            <Bar dataKey="revenue" fill="url(#prodGrad)" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Products table + Pie chart */}
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
+      >
+        {/* Products table */}
+        <div className="glow-card p-5">
+          <h3
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              color: "var(--text-primary)",
+              marginBottom: 16,
+            }}
+          >
+            Top Products Detail
+          </h3>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                {["Product", "Revenue", "Units"].map((h) => (
+                  <th
+                    key={h}
+                    style={{
+                      textAlign: "left",
+                      padding: "6px 8px",
+                      fontSize: 11,
+                      color: "var(--text-muted)",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      borderBottom: "1px solid var(--border)",
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {safeProducts.map((p, i) => (
+                <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                  <td
+                    style={{
+                      padding: "10px 8px",
+                      fontSize: 13,
+                      color: "var(--text-primary)",
+                    }}
+                  >
+                    {p.name.length > 18 ? p.name.slice(0, 18) + "…" : p.name}
+                  </td>
+                  <td
+                    style={{
+                      padding: "10px 8px",
+                      fontSize: 13,
+                      color: "#3b82f6",
+                      fontWeight: 600,
+                    }}
+                  >
+                    ৳{p.revenue.toLocaleString()}
+                  </td>
+                  <td
+                    style={{
+                      padding: "10px 8px",
+                      fontSize: 13,
+                      color: "var(--text-secondary)",
+                    }}
+                  >
+                    {p.units.toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Category pie chart */}
+        <div className="glow-card p-5">
+          <h3
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 700,
+              fontSize: 16,
+              color: "var(--text-primary)",
+              marginBottom: 16,
+            }}
+          >
+            Revenue by Category
+          </h3>
+          {loading ? (
+            <div
+              className="rounded-xl"
+              style={{
+                height: 220,
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                opacity: 0.5,
+              }}
+            />
+          ) : categories.length === 0 ? (
+            <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", padding: "80px 0" }}>
+              No category data available
+            </p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie
+                  data={categories}
+                  dataKey="revenue"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  innerRadius={40}
+                  paddingAngle={3}
+                >
+                  {categories.map((_, i) => (
+                    <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    background: "var(--bg-card)",
+                    border: "1px solid var(--border)",
+                    borderRadius: 10,
+                  }}
+                  formatter={(v: any) => [`৳${Number(v).toLocaleString()}`, "Revenue"]}
+                />
+                <Legend
+                  formatter={(value) => (
+                    <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>{value}</span>
+                  )}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
+      {/* Category details table */}
+      <div className="glow-card p-5">
+        <h3
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "var(--text-primary)",
+            marginBottom: 16,
+          }}
+        >
+          Category Performance
+        </h3>
+        {loading ? (
+          <div
+            className="rounded-xl"
+            style={{
+              height: 200,
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              opacity: 0.5,
+            }}
+          />
+        ) : categories.length === 0 ? (
+          <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", padding: "60px 0" }}>
+            Upload data to see category performance
+          </p>
+        ) : (
+          <div style={{ overflowX: "auto" }}>
+            <table
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                minWidth: 500,
+              }}
+            >
+              <thead>
+                <tr>
+                  {["Category", "Revenue", "Orders", "Profit", "Avg Rating"].map((h) => (
+                    <th
+                      key={h}
+                      style={{
+                        textAlign: "left",
+                        padding: "8px 12px",
+                        fontSize: 11,
+                        color: "var(--text-muted)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                        borderBottom: "1px solid var(--border)",
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {categories.map((c, i) => (
+                  <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                    <td
+                      style={{
+                        padding: "12px",
+                        fontSize: 14,
+                        color: "var(--text-primary)",
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: "inline-block",
+                          width: 10,
+                          height: 10,
+                          borderRadius: "50%",
+                          background: PIE_COLORS[i % PIE_COLORS.length],
+                          marginRight: 8,
+                        }}
+                      />
+                      {c.name}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        fontSize: 13,
+                        color: "#3b82f6",
+                        fontWeight: 600,
+                      }}
+                    >
+                      ৳{c.revenue.toLocaleString()}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        fontSize: 13,
+                        color: "var(--text-secondary)",
+                      }}
+                    >
+                      {c.orders.toLocaleString()}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px",
+                        fontSize: 13,
+                        color: "#10b981",
+                        fontWeight: 600,
+                      }}
+                    >
+                      ৳{c.profit.toLocaleString()}
+                    </td>
+                    <td style={{ padding: "12px", fontSize: 13, color: "#f59e0b" }}>
+                      ⭐ {c.avg_rating}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\SalesTrendPage.tsx
+"use client";
+
+import {
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { SalesDataPoint } from "@/lib/api";
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div
+      style={{
+        background: "var(--bg-card)",
+        border: "1px solid var(--border)",
+        borderRadius: 10,
+        padding: "10px 14px",
+      }}
+    >
+      <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>
+        {label}
+      </p>
+      <p style={{ color: "#3b82f6", fontWeight: 700, fontFamily: "Syne, sans-serif" }}>
+        ৳{Number(payload[0]?.value).toLocaleString()}
+      </p>
+      {payload[1] && (
+        <p style={{ color: "#10b981", fontWeight: 600, fontSize: 13 }}>
+          {payload[1].value} orders
+        </p>
+      )}
+    </div>
+  );
+}
+
+interface SalesTrendPageProps {
+  data?: SalesDataPoint[];
+}
+
+export default function SalesTrendPage({ data }: SalesTrendPageProps) {
+  const safeData = data ?? [];
+
+  const totalRevenue = safeData.reduce((s, d) => s + (d.revenue || 0), 0);
+  const totalOrders = safeData.reduce((s, d) => s + (d.orders || 0), 0);
+  const bestMonth =
+    safeData.length > 0
+      ? safeData.reduce((a, b) => (a.revenue > b.revenue ? a : b))
+      : null;
+  const avgRevenue = safeData.length > 0 ? totalRevenue / safeData.length : 0;
+
+  if (!safeData.length) {
+    return (
+      <div className="flex flex-col gap-4">
+        {[1, 2].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl"
+            style={{
+              height: 220,
+              background: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              opacity: 0.5,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Summary cards */}
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}
+      >
+        {[
+          {
+            label: "Total Revenue",
+            value: `৳${totalRevenue.toLocaleString()}`,
+            color: "#3b82f6",
+          },
+          {
+            label: "Total Orders",
+            value: totalOrders.toLocaleString(),
+            color: "#6366f1",
+          },
+          {
+            label: "Best Month",
+            value: bestMonth?.date || "N/A",
+            color: "#10b981",
+          },
+          {
+            label: "Monthly Avg",
+            value: `৳${Math.round(avgRevenue).toLocaleString()}`,
+            color: "#f59e0b",
+          },
+        ].map((s) => (
+          <div key={s.label} className="glow-card p-4">
+            <p
+              style={{
+                fontSize: 12,
+                color: "var(--text-muted)",
+                textTransform: "uppercase",
+                marginBottom: 6,
+              }}
+            >
+              {s.label}
+            </p>
+            <p
+              style={{
+                fontFamily: "Syne, sans-serif",
+                fontWeight: 700,
+                fontSize: 22,
+                color: s.color,
+              }}
+            >
+              {s.value}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Area chart — Revenue */}
+      <div className="glow-card p-5">
+        <h3
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "var(--text-primary)",
+            marginBottom: 16,
+          }}
+        >
+          Monthly Revenue
+        </h3>
+        <ResponsiveContainer width="100%" height={260}>
+          <AreaChart data={safeData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
+            <defs>
+              <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+            <XAxis
+              dataKey="date"
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+              axisLine={{ stroke: "var(--border)" }}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => `৳${(v / 1000).toFixed(0)}k`}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <Area
+              type="monotone"
+              dataKey="revenue"
+              stroke="#3b82f6"
+              strokeWidth={2}
+              fill="url(#revGrad)"
+              dot={false}
+              activeDot={{ r: 5 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Bar chart — Orders */}
+      <div className="glow-card p-5">
+        <h3
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 700,
+            fontSize: 16,
+            color: "var(--text-primary)",
+            marginBottom: 16,
+          }}
+        >
+          Monthly Orders
+        </h3>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={safeData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }} barCategoryGap="30%">
+            <defs>
+              <linearGradient id="ordGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#10b981" />
+                <stop offset="100%" stopColor="#059669" />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+            <XAxis
+              dataKey="date"
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+              axisLine={{ stroke: "var(--border)" }}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fill: "var(--text-muted)", fontSize: 12 }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              cursor={{ fill: "rgba(255,255,255,0.03)" }}
+              contentStyle={{
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+              }}
+              labelStyle={{ color: "var(--text-muted)", fontSize: 12 }}
+              itemStyle={{ color: "#10b981", fontWeight: 700 }}
+            />
+            <Bar dataKey="orders" fill="url(#ordGrad)" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+}
+E:\byapari-ai\frontend\src\components\Sidebar.tsx
+"use client";
+
+import { useState } from "react";
+import {
+  LayoutDashboard,
+  BarChart3,
+  Upload,
+  Lightbulb,
+  Settings,
+  ChevronLeft,
+  ChevronRight,
+  TrendingUp,
+  Package,
+  Info,
+  DollarSign,
+} from "lucide-react";
+
+interface NavItem {
+  icon: React.ReactNode;
+  label: string;
+  id: string;
+  badge?: number;
+}
+
+interface SidebarProps {
+  activeSection: string;
+  onNavigate: (section: string) => void;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { icon: <LayoutDashboard size={18} />, label: "Dashboard",   id: "dashboard" },
+  { icon: <BarChart3 size={18} />,       label: "Analytics",   id: "analytics" },
+  { icon: <TrendingUp size={18} />,      label: "Sales Trend", id: "sales"     },
+  { icon: <Package size={18} />,         label: "Products",    id: "products"  },
+  { icon: <Upload size={18} />,          label: "Upload Data", id: "upload"    },
+  { icon: <Lightbulb size={18} />,       label: "AI Insights", id: "insights", badge: 3 },
+  { icon: <Info size={18} />,            label: "About",       id: "about"     },
+  { icon: <DollarSign size={18} />,      label: "Pricing",     id: "pricing"   },
+];
+
+export default function Sidebar({ activeSection, onNavigate }: SidebarProps) {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <aside
+      className="sidebar-panel flex flex-col transition-all duration-300 ease-in-out"
+      style={{ width: collapsed ? 68 : 236, minHeight: "100vh", flexShrink: 0 }}
+    >
+      {/* ── Logo ── */}
+      <div
+        style={{
+          padding: collapsed ? "20px 14px" : "20px 16px",
+          borderBottom: "1px solid var(--border)",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        {/* B-AI Logo mark */}
+        <div
+          className="logo-mark"
+          style={{ width: 38, height: 38, fontSize: 14 }}
+        >
+          B-AI
+        </div>
+
+        {!collapsed && (
+          <div style={{ overflow: "hidden" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 800,
+                fontSize: 17,
+                color: "var(--text-primary)",
+                letterSpacing: "-0.04em",
+                lineHeight: 1.15,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Byapari AI
+            </div>
+            <div
+              style={{
+                fontSize: 10,
+                color: "var(--text-muted)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                marginTop: 1,
+              }}
+            >
+              Intelligence Platform
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── Section label ── */}
+      {!collapsed && (
+        <div style={{ padding: "18px 16px 6px" }}>
+          <span className="section-label">Navigation</span>
+        </div>
+      )}
+
+      {/* ── Navigation ── */}
+      <nav
+        style={{
+          flex: 1,
+          padding: collapsed ? "16px 8px" : "8px 10px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
+        {NAV_ITEMS.map((item) => {
+          const isActive = activeSection === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => onNavigate(item.id)}
+              className={`nav-item ${isActive ? "active" : ""}`}
+              style={{
+                padding: collapsed ? "10px 0" : "9px 12px",
+                justifyContent: collapsed ? "center" : "flex-start",
+              }}
+              title={collapsed ? item.label : undefined}
+            >
+              <span style={{ flexShrink: 0, opacity: isActive ? 1 : 0.7 }}>
+                {item.icon}
+              </span>
+
+              {!collapsed && (
+                <span style={{ flex: 1, fontSize: 13.5 }}>{item.label}</span>
+              )}
+
+              {!collapsed && item.badge && (
+                <span
+                  className="badge badge-accent"
+                  style={{ fontSize: 10, minWidth: 20, height: 20 }}
+                >
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* ── Team credit (visible when expanded) ── */}
+      {!collapsed && (
+        <div
+          style={{
+            margin: "0 10px 12px",
+            padding: "12px 14px",
+            borderRadius: "var(--radius-md)",
+            background: "rgba(82,157,255,0.04)",
+            border: "1px solid rgba(82,157,255,0.10)",
+          }}
+        >
+          <div
+            style={{
+              fontSize: 10,
+              color: "var(--text-muted)",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              fontWeight: 600,
+              marginBottom: 5,
+            }}
+          >
+            Built by
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: 13,
+              color: "var(--text-primary)",
+              lineHeight: 1.3,
+            }}
+          >
+            S M Mohaiminul Islam
+          </div>
+          <div
+            style={{
+              fontSize: 11,
+              color: "var(--accent)",
+              marginTop: 2,
+              fontWeight: 500,
+            }}
+          >
+            Team Nexion
+          </div>
+        </div>
+      )}
+
+      {/* ── Bottom controls ── */}
+      <div
+        style={{
+          padding: collapsed ? "8px" : "8px 10px",
+          borderTop: "1px solid var(--border)",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
+        <button
+          onClick={() => onNavigate("settings")}
+          className="nav-item"
+          style={{
+            padding: collapsed ? "10px 0" : "9px 12px",
+            justifyContent: collapsed ? "center" : "flex-start",
+          }}
+          title={collapsed ? "Settings" : undefined}
+        >
+          <Settings size={18} style={{ opacity: 0.6 }} />
+          {!collapsed && (
+            <span style={{ fontSize: 13.5, color: "var(--text-secondary)" }}>
+              Settings
+            </span>
+          )}
+        </button>
+
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="nav-item"
+          style={{
+            padding: collapsed ? "10px 0" : "9px 12px",
+            justifyContent: collapsed ? "center" : "flex-start",
+          }}
+          title={collapsed ? "Expand" : "Collapse sidebar"}
+        >
+          {collapsed ? (
+            <ChevronRight size={18} style={{ opacity: 0.5 }} />
+          ) : (
+            <>
+              <ChevronLeft size={18} style={{ opacity: 0.5 }} />
+              <span style={{ fontSize: 12.5, color: "var(--text-muted)" }}>
+                Collapse
+              </span>
+            </>
+          )}
+        </button>
+      </div>
+    </aside>
+  );
+}
+E:\byapari-ai\frontend\src\lib\api.ts
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// ─────────────────────────────────────────────
+// TYPES
+// ─────────────────────────────────────────────
+
+export interface KpiData {
+  total_orders: number;
+  total_sales: number;
+  total_profit: number;
+  average_rating: number;
+  returned_orders: number;
+  top_category: string;
+  most_used_payment_method: string;
+  low_stock_products: number;
+}
+
+export interface AiRecommendation {
+  type:
+    | "growth"
+    | "warning"
+    | "risk"
+    | "inventory"
+    | "success";
+
+  title: string;
+
+  message: string;
+
+  priority:
+    | "low"
+    | "medium"
+    | "high";
+
+  confidence: number;
+}
+
+export interface HealthScoreBreakdown {
+  score: number;
+  max: number;
+  value: string | number;
+  label: string;
+}
+
+export interface HealthScore {
+  score: number;
+  label: string;
+  color: string;
+  breakdown?: {
+    rating?: HealthScoreBreakdown;
+    returns?: HealthScoreBreakdown;
+    stock?: HealthScoreBreakdown;
+    profit?: HealthScoreBreakdown;
+  };
+}
+
+export interface SalesDataPoint {
+  date: string;
+  revenue: number;
+  orders: number;
+}
+
+export interface ProductData {
+  name: string;
+  revenue: number;
+  units: number;
+}
+
+export interface AnalyzeResponse {
+  kpis: KpiData;
+  insights: AiRecommendation[];
+  health_score: HealthScore;
+  sales_trend: SalesDataPoint[];
+  top_products: ProductData[];
+
+    forecast: {
+    date: string;
+    predicted_sales: number;
+  }[];
+}
+
+export interface UploadResponse {
+  message?: string;
+  rows: number;
+  columns: string[];
+
+  kpis: KpiData;
+  insights: AiRecommendation[];
+  health_score: HealthScore;
+  sales_trend: SalesDataPoint[];
+  top_products: ProductData[];
+
+  raw_data?: Record<string, string | number>[];
+
+  error?: string;
+
+  data_quality?: {
+    rows_uploaded: number;
+    rows_analyzed: number;
+    rows_dropped: number;
+    fixes_applied: string[];
+    warnings: string[];
+  };
+}
+
+// NEW: InsightResponse for the /api/ai-insights endpoint
+export interface InsightResponse {
+  insights: AiRecommendation[];
+
+  health_score: number;
+
+  top_performer: {
+    product: string;
+    revenue: number;
+  } | null;
+
+  worst_performer: {
+    product: string;
+    revenue: number;
+  } | null;
+
+  period_analyzed: string;
+
+  confidence: number;
+
+  generated_at: string;
+
+  data_points: number;
+
+  forecast?: ForecastItem[];
+
+  ai_summary?: string;
+}
+export interface ForecastItem {
+  date: string;
+  predicted_sales: number;
+  product?: string;
+  lower_bound?: number;
+  upper_bound?: number;
+
+}
+
+// ─────────────────────────────────────────────
+// API FUNCTIONS
+// ─────────────────────────────────────────────
+
+export async function fetchAnalytics(): Promise<AnalyzeResponse> {
+  const res = await fetch(`${BASE_URL}/analyze`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+  return res.json();
+}
+
+export async function uploadCsv(file: File): Promise<UploadResponse> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch(`${BASE_URL}/upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  console.log("UPLOAD STATUS:", res.status);
+
+  const text = await res.text();
+
+  console.log("RAW RESPONSE:", text);
+
+  return JSON.parse(text);
+}
+
+// NEW: Analyze CSV via /api/ai-insights endpoint
+export async function analyzeCSV(
+  data: Record<string, string | number>[],
+  lang: "bn" | "en" = "bn"
+): Promise<InsightResponse> {
+  const res = await fetch(`${BASE_URL}/api/ai-insights`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ csv_data: data, lang }),
+  });
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ detail: "Analysis failed" }));
+    throw new Error(error.detail || `Analysis failed: ${res.status}`);
+  }
+  return res.json();
+}
+
+export async function checkApiHealth(): Promise<boolean> {
+  try {
+    const res = await fetch(`${BASE_URL}/health`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(3000),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}

@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.upload import router as upload_router
 from app.routes.analyze import router as analyze_router
 from app.routes.ai_insights import router as ai_insights_router
+from app.routes.pricing import router as pricing_router
 
 app = FastAPI()
 
@@ -24,6 +25,7 @@ app.add_middleware(
 app.include_router(upload_router)
 app.include_router(analyze_router)
 app.include_router(ai_insights_router)
+app.include_router(pricing_router)
 
 @app.get("/")
 def home():

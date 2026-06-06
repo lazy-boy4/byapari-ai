@@ -83,7 +83,6 @@ class BusinessKnowledgeBase:
         )
         self._seed_data()
         self._initialized = True
-        print("🔥 RAG Knowledge Base initialized with", len(BENGALI_BUSINESS_TIPS), "tips")
     
     def _seed_data(self):
         """Add all tips to vector store"""
@@ -100,7 +99,6 @@ class BusinessKnowledgeBase:
             ids=ids,
             metadatas=metadatas
         )
-        print(f"🔥 Seeded {len(texts)} business tips into ChromaDB")
     
     def query(self, business_context: str, n_results: int = 3):
         """

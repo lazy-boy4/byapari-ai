@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Area,
 } from "recharts";
 
 import {
@@ -54,6 +55,9 @@ import {
 
 import InsightsPanel from "@/components/InsightsPanel";
 import { Loader2 } from "lucide-react";
+
+import { getPricingSuggestions, PricingResponse } from "@/lib/api";
+import PricingPanel from "@/components/PricingPanel";
 
 // ─────────────────────────────────────────────
 // TYPES
@@ -389,6 +393,95 @@ function HealthScoreCard({ health }: { health: HealthScore }) {
 
 
 // ─────────────────────────────────────────────
+// PRICING PLANS PAGE
+// ─────────────────────────────────────────────
+function PricingPlansPage() {
+  const plans = [
+    {
+      name: "Free",
+      price: "৳0",
+      period: "forever",
+      color: "#529dff",
+      features: ["1 CSV upload/month", "Basic KPIs", "Sales trend chart", "Top 5 products"],
+      cta: "Get Started",
+      popular: false,
+    },
+    {
+      name: "Pro",
+      price: "৳499",
+      period: "per month",
+      color: "#e8b84b",
+      features: ["Unlimited CSV uploads", "Full AI insights", "Bengali language support", "Sales forecast", "Priority support"],
+      cta: "Start Pro",
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "contact us",
+      color: "#a78bfa",
+      features: ["Everything in Pro", "API access", "Custom integrations", "Dedicated support", "Team accounts"],
+      cta: "Contact Us",
+      popular: false,
+    },
+  ];
+
+  return (
+    <div className="fade-up" style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 780 }}>
+      <div>
+        <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 28, letterSpacing: "-0.05em", color: "var(--text-primary)", lineHeight: 1.1 }}>
+          Simple Pricing
+        </h1>
+        <p style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 6 }}>
+          Start free. Upgrade when you grow.
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
+        {plans.map((plan) => (
+          <div
+            key={plan.name}
+            className="glass-card"
+            style={{ padding: "24px 22px", position: "relative", border: plan.popular ? `1px solid ${plan.color}40` : "1px solid var(--border)" }}
+          >
+            {plan.popular && (
+              <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: plan.color, color: "white", fontSize: 10, fontWeight: 700, padding: "3px 12px", borderRadius: 99, letterSpacing: "0.06em", textTransform: "uppercase", whiteSpace: "nowrap" }}>
+                Most Popular
+              </div>
+            )}
+            <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: plan.color, marginBottom: 10 }}>
+              {plan.name}
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 32, color: "var(--text-primary)", letterSpacing: "-0.04em" }}>
+                {plan.price}
+              </span>
+              <span style={{ fontSize: 12, color: "var(--text-muted)", marginLeft: 4 }}>{plan.period}</span>
+            </div>
+            <div className="divider" style={{ marginBottom: 16 }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+              {plan.features.map((feature) => (
+                <div key={feature} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12.5, color: "var(--text-secondary)" }}>
+                  <span style={{ color: plan.color, fontSize: 14 }}>✓</span>
+                  {feature}
+                </div>
+              ))}
+            </div>
+            <button
+              style={{ width: "100%", padding: "9px 0", borderRadius: 8, border: `1px solid ${plan.color}40`, background: plan.popular ? `${plan.color}18` : "transparent", color: plan.color, fontSize: 13, fontWeight: 600, cursor: "pointer", transition: "all 0.2s ease", fontFamily: "var(--font-body)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = `${plan.color}28`; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = plan.popular ? `${plan.color}18` : "transparent"; }}
+            >
+              {plan.cta}
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // ABOUT PAGE
 // ─────────────────────────────────────────────
 function AboutPage() {
@@ -504,196 +597,6 @@ function AboutPage() {
           ))}
         </div>
       </div>
-
-      {/* Pricing Section */}
-        <div>
-          <h2 style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: 18,
-            color: "var(--text-primary)",
-            marginBottom: 6,
-            letterSpacing: "-0.03em",
-          }}>
-            Simple Pricing
-          </h2>
-          <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
-            Start free. Upgrade when you grow.
-          </p>
-
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: 14,
-          }}>
-            {[
-              {
-                name: "Free",
-                price: "৳0",
-                period: "forever",
-                color: "#529dff",
-                features: [
-                  "1 CSV upload/month",
-                  "Basic KPIs",
-                  "Sales trend chart",
-                  "Top 5 products",
-                ],
-                cta: "Get Started",
-                popular: false,
-              },
-              {
-                name: "Pro",
-                price: "৳499",
-                period: "per month",
-                color: "#e8b84b",
-                features: [
-                  "Unlimited CSV uploads",
-                  "Full AI insights",
-                  "Bengali language support",
-                  "Sales forecast",
-                  "Priority support",
-                ],
-                cta: "Start Pro",
-                popular: true,
-              },
-              {
-                name: "Enterprise",
-                price: "Custom",
-                period: "contact us",
-                color: "#a78bfa",
-                features: [
-                  "Everything in Pro",
-                  "API access",
-                  "Custom integrations",
-                  "Dedicated support",
-                  "Team accounts",
-                ],
-                cta: "Contact Us",
-                popular: false,
-              },
-            ].map((plan) => (
-              <div
-                key={plan.name}
-                className="glass-card"
-                style={{
-                  padding: "24px 22px",
-                  position: "relative",
-                  border: plan.popular
-                    ? `1px solid ${plan.color}40`
-                    : "1px solid var(--border)",
-                }}
-              >
-                {/* Popular badge */}
-                {plan.popular && (
-                  <div style={{
-                    position: "absolute",
-                    top: -12,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: plan.color,
-                    color: "white",
-                    fontSize: 10,
-                    fontWeight: 700,
-                    padding: "3px 12px",
-                    borderRadius: 99,
-                    letterSpacing: "0.06em",
-                    textTransform: "uppercase",
-                    whiteSpace: "nowrap",
-                  }}>
-                    Most Popular
-                  </div>
-                )}
-
-                {/* Plan name */}
-                <div style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 700,
-                  fontSize: 15,
-                  color: plan.color,
-                  marginBottom: 10,
-                }}>
-                  {plan.name}
-                </div>
-
-                {/* Price */}
-                <div style={{ marginBottom: 16 }}>
-                  <span style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 800,
-                    fontSize: 32,
-                    color: "var(--text-primary)",
-                    letterSpacing: "-0.04em",
-                  }}>
-                    {plan.price}
-                  </span>
-                  <span style={{
-                    fontSize: 12,
-                    color: "var(--text-muted)",
-                    marginLeft: 4,
-                  }}>
-                    {plan.period}
-                  </span>
-                </div>
-
-                {/* Divider */}
-                <div className="divider" style={{ marginBottom: 16 }} />
-
-                {/* Features */}
-                <div style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  marginBottom: 20,
-                }}>
-                  {plan.features.map((feature) => (
-                    <div
-                      key={feature}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        fontSize: 12.5,
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      <span style={{ color: plan.color, fontSize: 14 }}>✓</span>
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <button
-                  style={{
-                    width: "100%",
-                    padding: "9px 0",
-                    borderRadius: 8,
-                    border: `1px solid ${plan.color}40`,
-                    background: plan.popular
-                      ? `${plan.color}18`
-                      : "transparent",
-                    color: plan.color,
-                    fontSize: 13,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    transition: "all 0.2s ease",
-                    fontFamily: "var(--font-body)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = `${plan.color}28`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = plan.popular
-                      ? `${plan.color}18`
-                      : "transparent";
-                  }}
-                >
-                  {plan.cta}
-                </button>
-              </div>
-            ))}
-          </div>
-      </div>   
 
       {/* Team & Creator */}
       <div
@@ -978,7 +881,7 @@ export default function DashboardPage() {
   const [analyzing, setAnalyzing] = useState(false);
   const [insightLang, setInsightLang] = useState<"bn" | "en">("bn");
   const [rawCsvData, setRawCsvData] = useState<Record<string, string | number>[]>([]);
-
+  const [pricingData, setPricingData] = useState<PricingResponse | null>(null);
   // ── AI Alerts state ──
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
@@ -1004,8 +907,6 @@ export default function DashboardPage() {
   rawData?: Record<string, string | number>[]
 ) => {
 
-  console.log("RAW DATA RECEIVED:", rawData);
-
   setKpis(newKpis);
   setInsights(newInsights);
   setHealthScore(newHealthScore);
@@ -1017,6 +918,7 @@ export default function DashboardPage() {
 
     // IMPORTANT
     handleGetInsights("bn", rawData);
+    fetchPricing(rawData);
   }
 
   setLastUpdated(new Date());
@@ -1036,9 +938,6 @@ export default function DashboardPage() {
   try {
     const response = await analyzeCSV(dataToAnalyze, lang);
 
-    console.log("AI RESPONSE:", response);
-    console.log("FORECAST DATA:", response.forecast);
-
     setAiInsights(response);
     setInsightLang(lang);
 
@@ -1046,6 +945,16 @@ export default function DashboardPage() {
     console.error("Insights error:", err);
   } finally {
     setAnalyzing(false);
+  }
+};
+
+// ADD fetchPricing RIGHT HERE
+  const fetchPricing = async (data: Record<string, string | number>[]) => {
+  try {
+    const response = await getPricingSuggestions(data, insightLang);
+    setPricingData(response);
+  } catch (err) {
+    console.error("Pricing error:", err);
   }
 };
 
@@ -1107,6 +1016,20 @@ export default function DashboardPage() {
           </button>
         </div>
 
+
+        {/* Pricing button */}
+        <div className="fade-up delay-3" style={{ marginBottom: 8 }}>
+          <button
+            onClick={() => rawCsvData.length > 0 && fetchPricing(rawCsvData)}
+            disabled={rawCsvData.length === 0}
+            className="btn-primary"
+            style={{ fontSize: 14, padding: "10px 20px", gap: 8 }}
+          >
+            💰 {insightLang === "bn" ? "প্রাইসিং পরামর্শ পান" : "Get Pricing Suggestions"}
+          </button>
+        </div>
+
+
         {/* AI Insights Panel */}
         {aiInsights && (
           <div className="fade-up delay-4" style={{ maxWidth: 800 }}>
@@ -1117,36 +1040,84 @@ export default function DashboardPage() {
               onLanguageChange={(lang) => handleGetInsights(lang)}
             />
 
-            {/* Forecast Chart */}
-            <div className="mt-6">
-              <h2 className="text-xl font-bold mb-4">
-                AI Sales Forecast
-              </h2>
-              <div
-                style={{
-                  width: "100%",
-                  height: 300,
-                  background: "#111827",
-                  padding: "20px",
-                  borderRadius: "16px",
-                }}
-              >
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={aiInsights.forecast}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line
-                      type="monotone"
-                      dataKey="predicted_sales"
-                      stroke="#3b82f6"
-                      strokeWidth={3}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+          {/* Forecast Chart */}
+          {aiInsights.forecast && (
+              <div className="mt-6">
+                <h2 className="text-xl font-bold mb-4">
+                  {insightLang === "bn" ? "এআই বিক্রয় পূর্বাভাস" : "AI Sales Forecast"}
+                </h2>
+                <div style={{ width: "100%", height: 300, background: "var(--bg-card)", padding: "20px", borderRadius: "16px", border: "1px solid var(--border)" }}>
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={aiInsights.forecast}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                      <XAxis 
+                        dataKey="date" 
+                        tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+                        tickFormatter={(v) => { const d = new Date(v); return `${d.getMonth()+1}/${d.getDate()}`; }}
+                      />
+                      <YAxis 
+                        tick={{ fill: "var(--text-muted)", fontSize: 11 }}
+                        tickFormatter={(v) => `৳${(v/1000).toFixed(0)}k`}
+                      />
+                      <Tooltip 
+                        contentStyle={{ background: "var(--bg-elevated)", border: "1px solid var(--border-bright)", borderRadius: 8 }}
+                        formatter={(value: any, name: any) => {
+                          const label = name === "predicted_sales"
+                            ? "Forecast"
+                            : name === "upper_bound"
+                              ? "Upper"
+                              : "Lower";
+
+                          return [
+                            `৳${Number(value).toLocaleString()}`,
+                            label,
+                          ];
+                        }}
+                      />
+                      
+                      {/* Confidence interval band */}
+                      {aiInsights.forecast[0]?.upper_bound !== undefined && (
+                        <Area 
+                          type="monotone" 
+                          dataKey="upper_bound" 
+                          stroke="none" 
+                          fill="rgba(59,130,246,0.08)" 
+                        />
+                      )}
+                      {aiInsights.forecast[0]?.lower_bound !== undefined && (
+                        <Area 
+                          type="monotone" 
+                          dataKey="lower_bound" 
+                          stroke="none" 
+                          fill="var(--bg-base)" 
+                        />
+                      )}
+                      
+                      <Line 
+                        type="monotone" 
+                        dataKey="predicted_sales" 
+                        stroke="#3b82f6" 
+                        strokeWidth={3}
+                        dot={{ r: 4, fill: "#3b82f6" }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8, textAlign: "center" }}>
+                  {insightLang === "bn" 
+                    ? "Facebook Prophet দ্বারা চালিত — মৌসুমী প্রভাব সহ" 
+                    : "Powered by Facebook Prophet — with seasonality effects"}
+                </p>
               </div>
-            </div>
+          )}
+        </div>
+      )}
+
+        {/* Pricing Suggestions */}
+        {pricingData && (
+          <div className="fade-up delay-5" style={{ maxWidth: 800 }}>
+            <PricingPanel data={pricingData} lang={insightLang} />
           </div>
         )}
 
@@ -1242,7 +1213,7 @@ export default function DashboardPage() {
     if (activeSection === "sales")     return <SalesTrendPage data={salesTrend} />;
     if (activeSection === "products")  return <ProductsPage products={topProducts} />;
     if (activeSection === "about")     return <AboutPage />;
-    if (activeSection === "pricing")   return <AboutPage />;
+    if (activeSection === "pricing")   return <PricingPlansPage />;
     if (activeSection === "analytics") return (
       <AnalyticsSection salesTrend={salesTrend} topProducts={topProducts} healthScore={healthScore} />
     );

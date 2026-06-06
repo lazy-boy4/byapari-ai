@@ -25,8 +25,6 @@ async def get_ai_insights(request: InsightRequest):
         )
 
     try:
-        print(f"🔥 DEBUG: lang received = {request.lang}")
-        
         # Generate base insights
         result = generate_insights(
             request.csv_data,
@@ -62,12 +60,10 @@ async def get_ai_insights(request: InsightRequest):
             rag_context_parts.append("growth scaling expansion")
         
         rag_context = " ".join(rag_context_parts)
-        print(f"🔥 RAG Context: {rag_context}")
-        
+
         # Retrieve relevant tips
         rag_tips = knowledge_base.query(rag_context, n_results=3)
         result["rag_recommendations"] = rag_tips
-        print(f"🔥 RAG Retrieved: {len(rag_tips)} tips")
         
         # Build RAG text for AI prompt
         rag_text = "\n".join([f"- {tip['text']}" for tip in rag_tips])

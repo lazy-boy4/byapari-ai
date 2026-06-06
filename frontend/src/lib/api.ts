@@ -102,9 +102,17 @@ export interface UploadResponse {
   };
 }
 
+export interface RagTip {
+  id: string;
+  text: string;
+  category: string;
+  relevance: number | null;
+}
+
 // NEW: InsightResponse for the /api/ai-insights endpoint
 export interface InsightResponse {
   insights: AiRecommendation[];
+  rag_recommendations?: RagTip[];
 
   health_score: number;
 
@@ -138,6 +146,40 @@ export interface ForecastItem {
   upper_bound?: number;
 
 }
+
+export interface PricingSuggestion {
+  product: string;
+  current_metrics: {
+    total_sales: number;
+    profit_margin: number;
+    avg_rating: number;
+    return_rate: number;
+    stock_days_remaining: number;
+    velocity: number;
+  };
+  suggestion: string;
+  reason: string;
+  price_change_percent: number;
+  priority: "high" | "medium" | "low";
+  expected_impact: string;
+  display_text: string;
+}
+
+export interface PricingSummary {
+  total_opportunities: number;
+  revenue_at_risk: number;
+  potential_uplift: number;
+  top_priority: string | null;
+  stable_products: number;
+  total_products: number;
+}
+
+export interface PricingResponse {
+  suggestions: PricingSuggestion[];
+  summary: PricingSummary;
+  generated_at: string;
+}
+
 
 // ─────────────────────────────────────────────
 // API FUNCTIONS
@@ -194,4 +236,20 @@ export async function checkApiHealth(): Promise<boolean> {
   } catch {
     return false;
   }
+}
+
+export async function getPricingSuggestions(
+  data: Record<string, string | number>[],
+  lang: "bn" | "en" = "bn"
+): Promise<PricingResponse> {
+  const res = await fetch(`${BASE_URL}/api/pricing-suggestions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ csv_data: data, lang }),
+  });
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ detail: "Pricing analysis failed" }));
+    throw new Error(error.detail || `Pricing failed: ${res.status}`);
+  }
+  return res.json();
 }

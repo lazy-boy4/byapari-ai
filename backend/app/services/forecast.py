@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 from prophet import Prophet
 
-print("🔥🔥🔥 PROPHET FORECAST.PY LOADED v2.0")
-
 def generate_sales_forecast(df):
     df = df.copy()
     df["date"] = pd.to_datetime(df["date"])
@@ -14,8 +12,6 @@ def generate_sales_forecast(df):
     }).reset_index()
     daily_sales.columns = ["ds", "y"]
     daily_sales["ds"] = pd.to_datetime(daily_sales["ds"])
-    
-    print(f"🔥 PROPHET: {len(daily_sales)} days, sales {daily_sales['y'].min():.0f}-{daily_sales['y'].max():.0f}")
     
     if len(daily_sales) < 2:
         last_date = daily_sales["ds"].max() if len(daily_sales) > 0 else pd.Timestamp.now()
@@ -48,9 +44,6 @@ def generate_sales_forecast(df):
     future = model.make_future_dataframe(periods=7)
     forecast = model.predict(future)
     forecast_future = forecast.tail(7)
-    
-    values = forecast_future["yhat"].tolist()
-    print(f"🔥 PROPHET: Forecast values = {[round(v, 0) for v in values]}")
     
     forecast_data = []
     for _, row in forecast_future.iterrows():

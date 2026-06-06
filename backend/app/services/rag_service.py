@@ -73,13 +73,18 @@ class BusinessKnowledgeBase:
     def __init__(self):
         if self._initialized:
             return
-        
+
+        try:
+            embed_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name="paraphrase-multilingual-MiniLM-L12-v2"
+            )
+        except (ImportError, ValueError):
+            embed_fn = embedding_functions.DefaultEmbeddingFunction()
+
         self.client = chromadb.Client()
         self.collection = self.client.get_or_create_collection(
             name="business_tips",
-            embedding_function=embedding_functions.SentenceTransformerEmbeddingFunction(
-                model_name="paraphrase-multilingual-MiniLM-L12-v2"
-            )
+            embedding_function=embed_fn,
         )
         self._seed_data()
         self._initialized = True

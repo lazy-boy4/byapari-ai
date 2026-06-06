@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   LayoutDashboard,
   BarChart3,
@@ -13,6 +14,7 @@ import {
   Package,
   Info,
   DollarSign,
+  BookOpen,
 } from "lucide-react";
 
 interface NavItem {
@@ -203,6 +205,24 @@ export default function Sidebar({ activeSection, onNavigate }: SidebarProps) {
           gap: 3,
         }}
       >
+        <Link
+          href="/docs"
+          className="nav-item"
+          style={{
+            padding: collapsed ? "10px 0" : "9px 12px",
+            justifyContent: collapsed ? "center" : "flex-start",
+            textDecoration: "none",
+          }}
+          title={collapsed ? "Docs" : undefined}
+        >
+          <BookOpen size={18} style={{ opacity: 0.7 }} />
+          {!collapsed && (
+            <span style={{ fontSize: 13.5, color: "var(--text-secondary)" }}>
+              Docs
+            </span>
+          )}
+        </Link>
+
         <button
           onClick={() => onNavigate("settings")}
           className="nav-item"

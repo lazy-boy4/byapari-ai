@@ -1,6 +1,4 @@
-import chromadb
-from chromadb.utils import embedding_functions
-import os
+import re
 
 # =========================================================
 # BENGALI BUSINESS KNOWLEDGE BASE
@@ -58,73 +56,74 @@ BENGALI_BUSINESS_TIPS = [
 ]
 
 # =========================================================
-# RAG SERVICE
+# RAG SERVICE — keyword-based (no model download, instant startup)
 # =========================================================
 
+# Maps English keywords → tip IDs that are relevant
+_KEYWORD_MAP = {
+    "electronic": ["price_1", "inv_5", "sea_3"],
+    "fashion":    ["sea_1", "sea_2", "price_3"],
+    "food":       ["inv_2", "sea_3"],
+    "stock":      ["inv_1", "inv_2", "inv_3", "ops_1"],
+    "clearance":  ["price_4", "inv_3"],
+    "eid":        ["price_1", "inv_2"],
+    "ramadan":    ["inv_2", "price_1"],
+    "discount":   ["price_2", "price_3", "price_4"],
+    "return":     ["cs_4", "price_4"],
+    "rating":     ["cs_2", "price_3"],
+    "payment":    ["price_2", "dig_1", "dig_5"],
+    "delivery":   ["ops_2", "cs_3"],
+    "customer":   ["cs_1", "cs_2", "cs_3", "cs_5"],
+    "marketing":  ["mkt_1", "mkt_2", "mkt_3"],
+    "seasonal":   ["sea_1", "sea_2", "sea_3", "sea_4", "sea_5"],
+    "digital":    ["dig_1", "dig_2", "dig_3", "dig_4"],
+    "inventory":  ["inv_1", "inv_2", "inv_3", "inv_4"],
+    "pricing":    ["price_1", "price_2", "price_4", "price_5"],
+    "wholesale":  ["price_5"],
+    "low":        ["inv_3", "price_4"],
+    "high":       ["price_1", "mkt_2"],
+    "home":       ["sea_3", "ops_4"],
+    "mobile":     ["inv_5", "dig_3"],
+    "sales":      ["inv_1", "mkt_3", "price_3"],
+    "profit":     ["price_4", "price_5", "inv_4"],
+    "cash":       ["price_4", "inv_4", "dig_1"],
+}
+
+_TIP_BY_ID = {tip["id"]: tip for tip in BENGALI_BUSINESS_TIPS}
+
+
 class BusinessKnowledgeBase:
-    _instance = None
-    
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            cls._instance._initialized = False
-        return cls._instance
-    
-    def __init__(self):
-        if self._initialized:
-            return
-
-        self.client = chromadb.Client()
-        self.collection = self.client.get_or_create_collection(
-            name="business_tips",
-            embedding_function=embedding_functions.DefaultEmbeddingFunction(),
-        )
-        self._seed_data()
-        self._initialized = True
-    
-    def _seed_data(self):
-        """Add all tips to vector store"""
-        existing = self.collection.get()
-        if existing and len(existing["ids"]) > 0:
-            return  # Already seeded
-        
-        texts = [tip["text"] for tip in BENGALI_BUSINESS_TIPS]
-        ids = [tip["id"] for tip in BENGALI_BUSINESS_TIPS]
-        metadatas = [{"category": tip["category"], "tags": ",".join(tip["tags"])} for tip in BENGALI_BUSINESS_TIPS]
-        
-        self.collection.add(
-            documents=texts,
-            ids=ids,
-            metadatas=metadatas
-        )
-    
     def query(self, business_context: str, n_results: int = 3):
-        """
-        Retrieve relevant business tips based on context.
-        business_context: e.g., "electronics sales low stock eid"
-        """
-        results = self.collection.query(
-            query_texts=[business_context],
-            n_results=n_results
-        )
-        
-        tips = []
-        for i in range(len(results["ids"][0])):
-            tips.append({
-                "id": results["ids"][0][i],
-                "text": results["documents"][0][i],
-                "category": results["metadatas"][0][i]["category"],
-                "relevance": round(float(results["distances"][0][i]), 3) if results["distances"] else None
-            })
-        
-        return tips
-    
-    def get_by_category(self, category: str, n_results: int = 5):
-        """Get tips by category"""
-        results = self.collection.get(
-            where={"category": category}
-        )
-        return results["documents"][:n_results] if results["documents"] else []
+        context_lower = re.sub(r"[^\w\s]", " ", business_context.lower())
+        words = set(context_lower.split())
 
-# Singleton instance
+        scores: dict[str, int] = {}
+        for word in words:
+            for keyword, tip_ids in _KEYWORD_MAP.items():
+                if keyword in word or word in keyword:
+                    for tip_id in tip_ids:
+                        scores[tip_id] = scores.get(tip_id, 0) + 1
+
+        # Fall back to random selection if no keyword match
+        if not scores:
+            import random
+            sample = random.sample(BENGALI_BUSINESS_TIPS, min(n_results, len(BENGALI_BUSINESS_TIPS)))
+            return [{"id": t["id"], "text": t["text"], "category": t["category"], "relevance": 0.5} for t in sample]
+
+        ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:n_results]
+        return [
+            {
+                "id": tip_id,
+                "text": _TIP_BY_ID[tip_id]["text"],
+                "category": _TIP_BY_ID[tip_id]["category"],
+                "relevance": round(score / max(scores.values()), 3),
+            }
+            for tip_id, score in ranked
+            if tip_id in _TIP_BY_ID
+        ]
+
+    def get_by_category(self, category: str, n_results: int = 5):
+        return [t["text"] for t in BENGALI_BUSINESS_TIPS if t["category"] == category][:n_results]
+
+
 knowledge_base = BusinessKnowledgeBase()

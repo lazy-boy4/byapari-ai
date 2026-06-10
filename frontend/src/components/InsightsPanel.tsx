@@ -21,9 +21,9 @@ export default function InsightsPanel({
   };
 
   const getHealthColor = (score: number) => {
-    if (score >= 70) return "#34d399";
-    if (score >= 40) return "#fbbf24";
-    return "#f87171";
+    if (score >= 70) return "var(--green)";
+    if (score >= 40) return "var(--amber)";
+    return "var(--red)";
   };
 
   const getHealthLabel = (score: number) => {
@@ -46,7 +46,7 @@ export default function InsightsPanel({
 
   if (isLoading) {
     return (
-      <div className="glass-card p-6">
+      <div className="paper-panel p-6">
         <div className="shimmer" style={{ height: 120, marginBottom: 16 }} />
         <div className="space-y-3">
           <div className="shimmer" style={{ height: 60 }} />
@@ -58,7 +58,7 @@ export default function InsightsPanel({
 
   if (!insights) {
     return (
-      <div className="glass-card p-6 text-center" style={{ color: "var(--text-muted)" }}>
+      <div className="paper-panel p-6 text-center" style={{ color: "var(--text-muted)" }}>
         {lang === "bn"
           ? "📊 CSV আপলোড করুন এবং ইনসাইট দেখতে ড্যাশবোর্ডে যান"
           : "📊 Upload a CSV and go to Dashboard to see insights"}
@@ -69,7 +69,7 @@ export default function InsightsPanel({
   const strokeDashoffset = circumference - (insights.health_score / 100) * circumference;
 
   return (
-    <div className="glass-card p-6 space-y-6">
+    <div className="paper-panel p-6 space-y-6">
       {/* Header with Language Toggle */}
       <div className="flex items-center justify-between">
         <div>
@@ -102,8 +102,8 @@ export default function InsightsPanel({
               border: "none",
               cursor: "pointer",
               transition: "all 0.2s",
-              background: lang === "bn" ? "var(--accent)" : "transparent",
-              color: lang === "bn" ? "white" : "var(--text-muted)",
+              background: lang === "bn" ? "var(--secondary)" : "transparent",
+              color: lang === "bn" ? "var(--text-inverse)" : "var(--text-muted)",
             }}
           >
             বাংলা
@@ -118,8 +118,8 @@ export default function InsightsPanel({
               border: "none",
               cursor: "pointer",
               transition: "all 0.2s",
-              background: lang === "en" ? "var(--accent)" : "transparent",
-              color: lang === "en" ? "white" : "var(--text-muted)",
+              background: lang === "en" ? "var(--secondary)" : "transparent",
+              color: lang === "en" ? "var(--text-inverse)" : "var(--text-muted)",
             }}
           >
             EN
@@ -203,8 +203,8 @@ export default function InsightsPanel({
           <div style={{
             padding: "16px 20px",
             borderRadius: 12,
-            background: "rgba(232,184,75,0.06)",
-            border: "1px solid rgba(232,184,75,0.15)",
+            background: "var(--amber-dim)",
+            border: "1px solid oklch(0.681 0.162 65 / 0.25)",
             marginTop: 8,
           }}>
             <div style={{
@@ -218,7 +218,7 @@ export default function InsightsPanel({
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
                 fontSize: 14,
-                color: "var(--gold)",
+                color: "oklch(0.450 0.120 65)",
               }}>
                 {lang === "bn" ? "Byapari এআই বিশ্লেষণ" : "Byapari AI Analysis"}
               </span>
@@ -239,8 +239,8 @@ export default function InsightsPanel({
           <div style={{
             padding: "16px 20px",
             borderRadius: 12,
-            background: "rgba(82,157,255,0.06)",
-            border: "1px solid rgba(82,157,255,0.15)",
+            background: "var(--accent-dim)",
+            border: "1px solid oklch(0.585 0.215 292 / 0.25)",
             marginTop: 16,
           }}>
             <div style={{
@@ -254,7 +254,7 @@ export default function InsightsPanel({
                 fontFamily: "var(--font-display)",
                 fontWeight: 700,
                 fontSize: 14,
-                color: "var(--accent)",
+                color: "var(--secondary)",
               }}>
                 {lang === "bn" ? "ব্যবসায়িক জ্ঞানভাণ্ডার থেকে" : "From Knowledge Base"}
               </span>
@@ -274,7 +274,7 @@ export default function InsightsPanel({
                       padding: "2px 8px",
                       borderRadius: 99,
                       background: "var(--accent-dim)",
-                      color: "var(--accent)",
+                      color: "var(--secondary)",
                       fontWeight: 600,
                       textTransform: "uppercase",
                     }}>
@@ -495,7 +495,6 @@ export default function InsightsPanel({
               style={{
                 padding: "16px 18px",
                 animationDelay: `${index * 0.05}s`,
-                borderLeft: `4px solid ${colorMap[insight.type]}`,
               }}
             >
               <div className="flex items-start gap-3">

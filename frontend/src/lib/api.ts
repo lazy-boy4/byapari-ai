@@ -249,9 +249,10 @@ export async function fetchAnalytics(): Promise<AnalyzeResponse> {
   return res.json();
 }
 
-export async function uploadCsv(file: File): Promise<UploadResponse> {
+export async function uploadCsv(file: File, lang: string = "en"): Promise<UploadResponse> {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("lang", lang);
 
   const res = await fetch(`${BASE_URL}/upload`, {
     method: "POST",

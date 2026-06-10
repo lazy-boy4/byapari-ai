@@ -6,9 +6,16 @@ import {
   Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend,
 } from "recharts";
 import { ProductData } from "@/lib/api";
+import { useLang } from "@/lib/language-context";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-const PIE_COLORS = ["#3b82f6", "#6366f1", "#10b981", "#f59e0b", "#ef4444"];
+const PIE_COLORS = [
+  "var(--primary)",
+  "var(--secondary)",
+  "var(--green)",
+  "var(--amber)",
+  "var(--red)",
+];
 
 interface CategoryRow {
   name: string;
@@ -23,11 +30,11 @@ interface ProductsPageProps {
 }
 
 export default function ProductsPage({ products = [] }: ProductsPageProps) {
+  const { t } = useLang();
   const safeProducts = products ?? [];
   const [categories, setCategories] = useState<CategoryRow[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // ── Fetch category data from backend ──
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -52,52 +59,35 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
     return (
       <div className="flex flex-col gap-4">
         {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="rounded-xl"
-            style={{
-              height: 180,
-              background: "var(--bg-card)",
-              border: "1px solid var(--border)",
-              opacity: 0.5,
-            }}
-          />
+          <div key={i} className="paper-panel shimmer" style={{ height: 180, opacity: 0.6 }} />
         ))}
       </div>
     );
   }
 
+  const thStyle = {
+    textAlign: "left" as const,
+    padding: "8px 12px",
+    fontFamily: "var(--font-mono)",
+    fontSize: 10,
+    color: "var(--text-muted)",
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.08em",
+    borderBottom: "1px solid var(--border)",
+  };
+
   return (
     <div className="flex flex-col gap-6">
-      {/* Top Products Bar Chart */}
-      <div className="glow-card p-5">
-        <h3
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 700,
-            fontSize: 16,
-            color: "var(--text-primary)",
-            marginBottom: 4,
-          }}
-        >
-          Top 5 Products by Revenue
+      <div className="paper-panel p-5">
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)", marginBottom: 4 }}>
+            {t("products.top5")}
         </h3>
         <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>
-          Real data from your uploaded CSV
+            {t("products.real_data")}
         </p>
         <ResponsiveContainer width="100%" height={240}>
-          <BarChart
-            data={safeProducts}
-            margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
-            barCategoryGap="30%"
-          >
-            <defs>
-              <linearGradient id="prodGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#6366f1" />
-                <stop offset="100%" stopColor="#3b82f6" />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+          <BarChart data={safeProducts} margin={{ top: 4, right: 4, bottom: 0, left: 0 }} barCategoryGap="30%">
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
             <XAxis
               dataKey="name"
               tick={{ fill: "var(--text-muted)", fontSize: 11 }}
@@ -115,85 +105,43 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
               contentStyle={{
                 background: "var(--bg-card)",
                 border: "1px solid var(--border)",
-                borderRadius: 10,
+                borderRadius: "var(--radius-sm)",
               }}
               labelStyle={{ color: "var(--text-muted)", fontSize: 12 }}
               formatter={(v: any) => [`৳${Number(v).toLocaleString()}`, "Revenue"]}
-              cursor={{ fill: "rgba(255,255,255,0.03)" }}
+              cursor={{ fill: "var(--accent-soft)" }}
             />
-            <Bar dataKey="revenue" fill="url(#prodGrad)" radius={[6, 6, 0, 0]} />
+            <Bar dataKey="revenue" fill="var(--secondary)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Products table + Pie chart */}
       <div
         className="grid gap-4"
         style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))" }}
       >
-        {/* Products table */}
-        <div className="glow-card p-5">
-          <h3
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontWeight: 700,
-              fontSize: 16,
-              color: "var(--text-primary)",
-              marginBottom: 16,
-            }}
-          >
-            Top Products Detail
+        <div className="paper-panel p-5">
+          <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)", marginBottom: 16 }}>
+            {t("products.detail")}
           </h3>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
-                {["Product", "Revenue", "Units"].map((h) => (
-                  <th
-                    key={h}
-                    style={{
-                      textAlign: "left",
-                      padding: "6px 8px",
-                      fontSize: 11,
-                      color: "var(--text-muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                      borderBottom: "1px solid var(--border)",
-                    }}
-                  >
-                    {h}
-                  </th>
+                {[t("products.table_product"), t("products.table_revenue"), t("products.table_units")].map((h) => (
+                  <th key={h} style={thStyle}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {safeProducts.map((p, i) => (
-                <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                  <td
-                    style={{
-                      padding: "10px 8px",
-                      fontSize: 13,
-                      color: "var(--text-primary)",
-                    }}
-                  >
+                <tr key={i} style={{ borderBottom: "1px solid var(--border)" }}>
+                  <td style={{ padding: "10px 12px", fontSize: 13, color: "var(--text-primary)" }}>
                     {p.name.length > 18 ? p.name.slice(0, 18) + "…" : p.name}
                   </td>
-                  <td
-                    style={{
-                      padding: "10px 8px",
-                      fontSize: 13,
-                      color: "#3b82f6",
-                      fontWeight: 600,
-                    }}
-                  >
+                  <td style={{ padding: "10px 12px", fontSize: 13, color: "var(--primary)", fontWeight: 600 }}>
                     ৳{p.revenue.toLocaleString()}
                   </td>
-                  <td
-                    style={{
-                      padding: "10px 8px",
-                      fontSize: 13,
-                      color: "var(--text-secondary)",
-                    }}
-                  >
+                  <td style={{ padding: "10px 12px", fontSize: 13, color: "var(--text-secondary)" }}>
                     {p.units.toLocaleString()}
                   </td>
                 </tr>
@@ -202,32 +150,15 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
           </table>
         </div>
 
-        {/* Category pie chart */}
-        <div className="glow-card p-5">
-          <h3
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontWeight: 700,
-              fontSize: 16,
-              color: "var(--text-primary)",
-              marginBottom: 16,
-            }}
-          >
-            Revenue by Category
+        <div className="paper-panel p-5">
+          <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)", marginBottom: 16 }}>
+            {t("products.by_category")}
           </h3>
           {loading ? (
-            <div
-              className="rounded-xl"
-              style={{
-                height: 220,
-                background: "var(--bg-card)",
-                border: "1px solid var(--border)",
-                opacity: 0.5,
-              }}
-            />
+            <div className="paper-panel shimmer" style={{ height: 220, opacity: 0.6 }} />
           ) : categories.length === 0 ? (
             <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", padding: "80px 0" }}>
-              No category data available
+              {t("products.no_category")}
             </p>
           ) : (
             <ResponsiveContainer width="100%" height={220}>
@@ -241,6 +172,7 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
                   outerRadius={80}
                   innerRadius={40}
                   paddingAngle={3}
+                  stroke="var(--bg-card)"
                 >
                   {categories.map((_, i) => (
                     <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
@@ -250,7 +182,7 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
                   contentStyle={{
                     background: "var(--bg-card)",
                     border: "1px solid var(--border)",
-                    borderRadius: 10,
+                    borderRadius: "var(--radius-sm)",
                   }}
                   formatter={(v: any) => [`৳${Number(v).toLocaleString()}`, "Revenue"]}
                 />
@@ -265,73 +197,30 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
         </div>
       </div>
 
-      {/* Category details table */}
-      <div className="glow-card p-5">
-        <h3
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 700,
-            fontSize: 16,
-            color: "var(--text-primary)",
-            marginBottom: 16,
-          }}
-        >
-          Category Performance
+      <div className="paper-panel p-5">
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)", marginBottom: 16 }}>
+            {t("products.category_perf")}
         </h3>
         {loading ? (
-          <div
-            className="rounded-xl"
-            style={{
-              height: 200,
-              background: "var(--bg-card)",
-              border: "1px solid var(--border)",
-              opacity: 0.5,
-            }}
-          />
+          <div className="paper-panel shimmer" style={{ height: 200, opacity: 0.6 }} />
         ) : categories.length === 0 ? (
           <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", padding: "60px 0" }}>
-            Upload data to see category performance
+            {t("products.upload_for_category")}
           </p>
         ) : (
           <div style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                minWidth: 500,
-              }}
-            >
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 500 }}>
               <thead>
                 <tr>
-                  {["Category", "Revenue", "Orders", "Profit", "Avg Rating"].map((h) => (
-                    <th
-                      key={h}
-                      style={{
-                        textAlign: "left",
-                        padding: "8px 12px",
-                        fontSize: 11,
-                        color: "var(--text-muted)",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
-                        borderBottom: "1px solid var(--border)",
-                      }}
-                    >
-                      {h}
-                    </th>
+                  {[t("products.cat_category"), t("products.cat_revenue"), t("products.cat_orders"), t("products.cat_profit"), t("products.cat_rating")].map((h) => (
+                    <th key={h} style={thStyle}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {categories.map((c, i) => (
-                  <tr key={i} style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                    <td
-                      style={{
-                        padding: "12px",
-                        fontSize: 14,
-                        color: "var(--text-primary)",
-                        fontWeight: 600,
-                      }}
-                    >
+                  <tr key={i} style={{ borderBottom: "1px solid var(--border)" }}>
+                    <td style={{ padding: "12px", fontSize: 14, color: "var(--text-primary)", fontWeight: 600 }}>
                       <span
                         style={{
                           display: "inline-block",
@@ -344,36 +233,16 @@ export default function ProductsPage({ products = [] }: ProductsPageProps) {
                       />
                       {c.name}
                     </td>
-                    <td
-                      style={{
-                        padding: "12px",
-                        fontSize: 13,
-                        color: "#3b82f6",
-                        fontWeight: 600,
-                      }}
-                    >
+                    <td style={{ padding: "12px", fontSize: 13, color: "var(--primary)", fontWeight: 600 }}>
                       ৳{c.revenue.toLocaleString()}
                     </td>
-                    <td
-                      style={{
-                        padding: "12px",
-                        fontSize: 13,
-                        color: "var(--text-secondary)",
-                      }}
-                    >
+                    <td style={{ padding: "12px", fontSize: 13, color: "var(--text-secondary)" }}>
                       {c.orders.toLocaleString()}
                     </td>
-                    <td
-                      style={{
-                        padding: "12px",
-                        fontSize: 13,
-                        color: "#10b981",
-                        fontWeight: 600,
-                      }}
-                    >
+                    <td style={{ padding: "12px", fontSize: 13, color: "var(--green)", fontWeight: 600 }}>
                       ৳{c.profit.toLocaleString()}
                     </td>
-                    <td style={{ padding: "12px", fontSize: 13, color: "#f59e0b" }}>
+                    <td style={{ padding: "12px", fontSize: 13, color: "var(--amber)" }}>
                       ⭐ {c.avg_rating}
                     </td>
                   </tr>

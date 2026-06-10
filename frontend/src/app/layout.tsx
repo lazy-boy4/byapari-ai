@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { GrainOverlay } from "@/components/grain-overlay";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { LanguageProvider } from "@/lib/language-context";
+import { LangBody } from "@/components/lang-body";
 
 export const metadata: Metadata = {
   title: "B-AI · Byapari Intelligence",
@@ -23,7 +28,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>{children}</body>
+      <LanguageProvider>
+        <LangBody className="font-body min-h-screen flex flex-col relative">
+          <GrainOverlay />
+          <SiteHeader />
+          <main className="flex-1 flex flex-col relative z-10">{children}</main>
+          <SiteFooter />
+        </LangBody>
+      </LanguageProvider>
     </html>
   );
 }

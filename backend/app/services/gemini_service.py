@@ -1,7 +1,8 @@
 from groq import Groq
 import os
 
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+api_key = os.environ.get("GROQ_API_KEY") or "DUMMY_KEY"
+client = Groq(api_key=api_key)
 
 def generate_ai_analysis(
     kpis: dict,

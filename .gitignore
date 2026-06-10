@@ -25,3 +25,10 @@ npm-debug.log*
 # mac/windows
 .DS_Store
 Thumbs.db
+
+# generated
+graphify-out/
+.agents/
+
+# uploads
+backend/uploads/

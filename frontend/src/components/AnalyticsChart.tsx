@@ -12,28 +12,20 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { SalesDataPoint, ProductData } from "@/lib/api";
+import { useLang } from "@/lib/language-context";
 
-// ── Custom Tooltip for Revenue Chart ──────────────────────────
 function RevenueTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div
-      style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border)",
-        borderRadius: 10,
-        padding: "10px 14px",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-      }}
-    >
+    <div className="paper-panel" style={{ padding: "10px 14px" }}>
       <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>
         {label}
       </p>
-      <p style={{ color: "#3b82f6", fontWeight: 700, fontFamily: "Syne, sans-serif" }}>
+      <p style={{ color: "var(--primary)", fontWeight: 700, fontFamily: "var(--font-display)" }}>
         ৳{Number(payload[0].value).toLocaleString()}
       </p>
       {payload[1] && (
-        <p style={{ color: "#10b981", fontWeight: 600, fontSize: 13 }}>
+        <p style={{ color: "var(--green)", fontWeight: 600, fontSize: 13 }}>
           {payload[1].value} orders
         </p>
       )}
@@ -41,95 +33,67 @@ function RevenueTooltip({ active, payload, label }: any) {
   );
 }
 
-// ── Custom Tooltip for Products Bar Chart ─────────────────────
 function ProductTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div
-      style={{
-        background: "var(--bg-card)",
-        border: "1px solid var(--border)",
-        borderRadius: 10,
-        padding: "10px 14px",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-      }}
-    >
+    <div className="paper-panel" style={{ padding: "10px 14px" }}>
       <p style={{ color: "var(--text-muted)", fontSize: 12, marginBottom: 4 }}>
         {label}
       </p>
-      <p style={{ color: "#6366f1", fontWeight: 700, fontFamily: "Syne, sans-serif" }}>
+      <p style={{ color: "var(--secondary)", fontWeight: 700, fontFamily: "var(--font-display)" }}>
         ৳{Number(payload[0].value).toLocaleString()}
       </p>
     </div>
   );
 }
 
-// ── Sales Trend Chart (Area) ──────────────────────────────────
 interface SalesChartProps {
   data: SalesDataPoint[];
 }
 
 export function SalesTrendChart({ data }: SalesChartProps) {
+  const { t } = useLang();
   const safeData = data ?? [];
-  
+
   if (!safeData.length) {
     return (
-      <div className="glow-card p-5 fade-in fade-in-delay-2" style={{ height: 340 }}>
-        <h3 style={{ fontFamily: "Syne, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
-          Revenue Trend
+      <div className="paper-panel p-5 fade-in" style={{ height: 340 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+          {t("analytics.revenue")}
         </h3>
         <div style={{ height: 240, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
-          Upload data to see revenue trends
+          {t("analytics.empty_revenue")}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="glow-card p-5 fade-in fade-in-delay-2" style={{ height: 340 }}>
+    <div className="paper-panel p-5 fade-in" style={{ height: 340 }}>
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontWeight: 700,
-              fontSize: 16,
-              color: "var(--text-primary)",
-            }}
-          >
-            Revenue Trend
+          <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+            {t("analytics.revenue")}
           </h3>
           <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
-            Monthly revenue over time
+            {t("analytics.revenue_desc")}
           </p>
         </div>
-
-        {/* Legend */}
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--text-muted)" }}>
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: "#3b82f6", display: "inline-block" }} />
-            Revenue
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: "var(--primary)", display: "inline-block" }} />
+            {t("analytics.revenue_label")}
           </span>
           <span className="flex items-center gap-1.5" style={{ fontSize: 12, color: "var(--text-muted)" }}>
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: "#10b981", display: "inline-block" }} />
-            Orders
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: "var(--green)", display: "inline-block" }} />
+            {t("analytics.orders_label")}
           </span>
         </div>
       </div>
 
       <ResponsiveContainer width="100%" height={240}>
         <AreaChart data={safeData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
-          <defs>
-            <linearGradient id="revenueGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.25} />
-              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="ordersGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis
             dataKey="date"
             tick={{ fill: "var(--text-muted)", fontSize: 12 }}
@@ -155,21 +119,21 @@ export function SalesTrendChart({ data }: SalesChartProps) {
             yAxisId="left"
             type="monotone"
             dataKey="revenue"
-            stroke="#3b82f6"
+            stroke="var(--primary)"
             strokeWidth={2}
-            fill="url(#revenueGrad)"
+            fill="oklch(0.205 0.010 280 / 0.08)"
             dot={false}
-            activeDot={{ r: 5, fill: "#3b82f6" }}
+            activeDot={{ r: 5, fill: "var(--primary)" }}
           />
           <Area
             yAxisId="right"
             type="monotone"
             dataKey="orders"
-            stroke="#10b981"
+            stroke="var(--green)"
             strokeWidth={2}
-            fill="url(#ordersGrad)"
+            fill="oklch(0.627 0.194 142 / 0.08)"
             dot={false}
-            activeDot={{ r: 4, fill: "#10b981" }}
+            activeDot={{ r: 4, fill: "var(--green)" }}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -177,12 +141,12 @@ export function SalesTrendChart({ data }: SalesChartProps) {
   );
 }
 
-// ── Top Products Chart (Bar) ──────────────────────────────────
 interface ProductsChartProps {
   data: ProductData[];
 }
 
 export function TopProductsChart({ data }: ProductsChartProps) {
+  const { t } = useLang();
   const chartData = (data || []).map((p) => ({
     ...p,
     shortName: p.name.length > 14 ? p.name.slice(0, 14) + "…" : p.name,
@@ -190,32 +154,25 @@ export function TopProductsChart({ data }: ProductsChartProps) {
 
   if (!chartData.length) {
     return (
-      <div className="glow-card p-5 fade-in fade-in-delay-3" style={{ height: 340 }}>
-        <h3 style={{ fontFamily: "Syne, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
-          Top Products
+      <div className="paper-panel p-5 fade-in" style={{ height: 340 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+          {t("analytics.top_products")}
         </h3>
         <div style={{ height: 240, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-muted)" }}>
-          Upload data to see top products
+          {t("analytics.empty_products")}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="glow-card p-5 fade-in fade-in-delay-3" style={{ height: 340 }}>
+    <div className="paper-panel p-5 fade-in" style={{ height: 340 }}>
       <div className="mb-5">
-        <h3
-          style={{
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 700,
-            fontSize: 16,
-            color: "var(--text-primary)",
-          }}
-        >
-          Top Products
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 16, color: "var(--text-primary)" }}>
+          {t("analytics.top_products")}
         </h3>
         <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
-          Revenue by product
+          {t("analytics.top_products_desc")}
         </p>
       </div>
 
@@ -225,13 +182,7 @@ export function TopProductsChart({ data }: ProductsChartProps) {
           margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
           barCategoryGap="30%"
         >
-          <defs>
-            <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#6366f1" />
-              <stop offset="100%" stopColor="#3b82f6" />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
           <XAxis
             dataKey="shortName"
             tick={{ fill: "var(--text-muted)", fontSize: 11 }}
@@ -244,8 +195,8 @@ export function TopProductsChart({ data }: ProductsChartProps) {
             tickLine={false}
             tickFormatter={(v) => `৳${(v / 1000).toFixed(0)}k`}
           />
-          <Tooltip content={<ProductTooltip />} cursor={{ fill: "rgba(255,255,255,0.03)" }} />
-          <Bar dataKey="revenue" fill="url(#barGrad)" radius={[6, 6, 0, 0]} />
+          <Tooltip content={<ProductTooltip />} cursor={{ fill: "var(--accent-soft)" }} />
+          <Bar dataKey="revenue" fill="var(--secondary)" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -8,6 +8,7 @@ import {
   Loader2,
   Download,
 } from "lucide-react";
+import { useLang } from "@/lib/language-context";
 
 import {
   uploadCsv,
@@ -32,7 +33,8 @@ interface CsvUploadProps {
     healthScore: HealthScore,
     salesTrend: SalesDataPoint[],
     topProducts: ProductData[],
-    rawData?: Record<string, string | number>[]
+    rawData?: Record<string, string | number>[],
+    fileName?: string
   ) => void;
 }
 
@@ -47,6 +49,7 @@ export default function CsvUpload({
   const [qualityReport, setQualityReport] = useState<any>(null);
   const [rawData, setRawData] = useState<Record<string, string | number>[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t } = useLang();
 
   const handleFile = async (file: File) => {
     if (!file.name.endsWith(".csv")) {
@@ -71,7 +74,7 @@ export default function CsvUpload({
       const healthScore: HealthScore = {
         score: rawScore,
         label: rawScore >= 70 ? "Good" : rawScore >= 40 ? "Fair" : "Poor",
-        color: rawScore >= 70 ? "#34d399" : rawScore >= 40 ? "#fbbf24" : "#f87171",
+        color: rawScore >= 70 ? "var(--green)" : rawScore >= 40 ? "var(--amber)" : "var(--red)",
       };
 
       if (onDataLoaded) {
@@ -81,7 +84,8 @@ export default function CsvUpload({
           healthScore,
           data.sales_trend,
           data.top_products,
-          data.raw_data || []
+          data.raw_data || [],
+          file.name
         );
       }
     } catch (err: any) {
@@ -117,184 +121,162 @@ export default function CsvUpload({
     if (inputRef.current) inputRef.current.value = "";
   };
 
-  const borderColor =
-    state === "dragging"
-      ? "var(--accent)"
-      : state === "error"
-      ? "#ef4444"
-      : "var(--border)";
-
   return (
     <div className="flex flex-col gap-4">
-      <div className="glow-card p-5">
-        <div className="mb-5">
-          <h3
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontWeight: 700,
-              fontSize: 16,
-              color: "var(--text-primary)",
-            }}
-          >
-            Upload Sales Data
-          </h3>
-          <p
-            style={{
-              fontSize: 13,
-              color: "var(--text-muted)",
-              marginTop: 2,
-            }}
-          >
-            Upload CSV and analyze business instantly
-          </p>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* ── LEFT COLUMN: Upload Zone ── */}
+        <div className="paper-panel p-5 flex flex-col">
+          <div className="mb-5">
+            <h3 className="font-display font-bold text-base text-[var(--text-primary)]">
+              {t("upload.title")}
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mt-0.5">
+              {t("upload.subtitle")}
+            </p>
+          </div>
 
-        <div
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-          onClick={() => state === "idle" && inputRef.current?.click()}
-          className="rounded-xl flex flex-col items-center justify-center transition-all duration-200"
-          style={{
-            border: `2px dashed ${borderColor}`,
-            background: state === "dragging" ? "rgba(59,130,246,0.05)" : "rgba(255,255,255,0.02)",
-            padding: "32px 20px",
-            cursor: state === "idle" ? "pointer" : "default",
-            minHeight: 160,
-          }}
-        >
-                    {state === "idle" && (
-            <>
-              <Upload size={32} style={{ color: "var(--accent)", marginBottom: 12 }} />
-              <p style={{ color: "var(--text-primary)", fontWeight: 600 }}>
-                Drop CSV here or click to browse
-              </p>
-              <p style={{ color: "var(--text-muted)", fontSize: 12, marginTop: 4, marginBottom: 12 }}>
-                Supports .csv files only
-              </p>
-              <a
-                href="/sample_data.csv"
-                download
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors"
+          <div className="flex-1 flex flex-col">
+            <div
+              onDragOver={onDragOver}
+              onDragLeave={onDragLeave}
+              onDrop={onDrop}
+              onClick={() => state === "idle" && inputRef.current?.click()}
+              className={`upload-zone rounded-xl flex flex-col items-center justify-center ${state === "dragging" ? "drag-over" : ""}`}
+              style={{
+                padding: "40px 24px",
+                cursor: state === "idle" ? "pointer" : "default",
+                minHeight: 220,
+                border: "2px dashed var(--border)",
+                transition: "border-color 0.2s, background 0.2s",
+              }}
+            >
+              {state === "idle" && (
+                <>
+                  <div className="size-14 rounded-full bg-ink/5 border border-ink/10 flex items-center justify-center mb-4">
+                    <Upload size={28} style={{ color: "var(--text-muted)" }} />
+                  </div>
+                  <p className="text-[var(--text-primary)] font-semibold text-base">
+                    {t("upload.drop_here")}
+                  </p>
+                  <p className="text-[var(--text-muted)] text-xs mt-1.5 mb-4">
+                    {t("upload.csv_only")}
+                  </p>
+                </>
+              )}
+
+              {state === "uploading" && (
+                <>
+                  <Loader2 size={36} className="animate-spin" style={{ color: "var(--secondary)", marginBottom: 12 }} />
+                  <p style={{ color: "var(--text-primary)" }}>{t("upload.generating")}</p>
+                </>
+              )}
+
+              {state === "error" && (
+                <>
+                  <XCircle size={40} style={{ color: "var(--red)", marginBottom: 12 }} />
+                  <p style={{ color: "var(--red)", fontWeight: 700 }}>{t("upload.failed")}</p>
+                  <p style={{ color: "var(--text-muted)", fontSize: 13 }}>{error}</p>
+                </>
+              )}
+            </div>
+
+            <input
+              ref={inputRef}
+              type="file"
+              accept=".csv"
+              onChange={onFileChange}
+              style={{ display: "none" }}
+            />
+
+            {(state === "success" || state === "error") && (
+              <button
+                onClick={reset}
+                className="w-full mt-4 rounded-xl py-2.5 font-semibold text-sm"
                 style={{
-                  background: "rgba(59,130,246,0.1)",
-                  border: "1px solid rgba(59,130,246,0.2)",
-                  color: "var(--accent)",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(59,130,246,0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "rgba(59,130,246,0.1)";
+                  background: "var(--border)",
+                  color: "var(--text-secondary)",
+                  border: "none",
+                  cursor: "pointer",
                 }}
               >
-                <Download size={14} />
-                Download Sample CSV
-              </a>
-              <div style={{ marginTop: 12, padding: "12px 16px", borderRadius: 10, background: "rgba(232,184,75,0.06)", border: "1px solid rgba(232,184,75,0.15)", maxWidth: 340 }}>
-                <p style={{ fontSize: 12, fontWeight: 700, color: "var(--gold)", marginBottom: 6 }}>
-                  🤖 Want to test with your own data?
-                </p>
-                <p style={{ fontSize: 11.5, color: "var(--text-muted)", lineHeight: 1.6, marginBottom: 8 }}>
-                  Ask ChatGPT or any AI to generate a CSV with these exact columns:
-                </p>
-                <code style={{
-                  display: "block",
-                  fontSize: 10.5,
-                  color: "var(--accent)",
-                  background: "rgba(82,157,255,0.06)",
-                  border: "1px solid rgba(82,157,255,0.12)",
-                  borderRadius: 6,
-                  padding: "8px 10px",
-                  lineHeight: 1.8,
-                  marginBottom: 8,
-                  wordBreak: "break-all",
-                }}>
-                  date, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city
-                </code>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigator.clipboard.writeText(
-                      `Generate a CSV dataset with 200 rows for an e-commerce business with exactly these columns:\n\ndate, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city\n\nRules:\n- date: between 2024-01-01 and 2024-12-31 (YYYY-MM-DD format)\n- product_category: only Electronics, Clothing, Food, Sports, Home & Kitchen\n- sales: decimal number between 500 and 20000\n- profit: decimal, always less than sales\n- quantity: between 1 and 20\n- rating: between 1.0 and 5.0\n- returned: Yes or No (about 10% Yes)\n- stock: between 0 and 200\n- payment_method: Cash on Delivery, bKash, Nagad, Card, or Bank Transfer\n- customer_city: real cities from your country\n\nGive me only the CSV data, no explanation.`
-                    );
-                    alert("✅ Prompt copied! Paste it into ChatGPT or any AI.");
-                  }}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    padding: "6px 12px",
-                    borderRadius: 6,
-                    background: "rgba(232,184,75,0.10)",
-                    border: "1px solid rgba(232,184,75,0.25)",
-                    color: "var(--gold)",
-                    fontSize: 11.5,
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    width: "100%",
-                    justifyContent: "center",
-                  }}
-                >
-                  📋 Copy AI Prompt
-                </button>
-              </div>
-            </>
-          )}
-
-          {state === "uploading" && (
-            <>
-              <Loader2 size={32} className="animate-spin" style={{ color: "var(--accent)", marginBottom: 12 }} />
-              <p style={{ color: "var(--text-primary)" }}>Uploading & analyzing...</p>
-            </>
-          )}
-
-          {state === "error" && (
-            <>
-              <XCircle size={36} style={{ color: "#ef4444", marginBottom: 12 }} />
-              <p style={{ color: "#ef4444", fontWeight: 700 }}>Upload Failed</p>
-              <p style={{ color: "var(--text-muted)", fontSize: 13 }}>{error}</p>
-            </>
-          )}
+                {t("upload.retry")}
+              </button>
+            )}
+          </div>
         </div>
 
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".csv"
-          onChange={onFileChange}
-          style={{ display: "none" }}
-        />
+        {/* ── RIGHT COLUMN: Prompt + Download ── */}
+        <div className="paper-panel p-5 flex flex-col">
+          <div className="mb-5">
+            <h3 className="font-display font-bold text-base text-[var(--text-primary)]">
+              {t("upload.generate_title")}
+            </h3>
+            <p className="text-sm text-[var(--text-muted)] mt-0.5">
+              {t("upload.generate_subtitle")}
+            </p>
+          </div>
 
-        {(state === "success" || state === "error") && (
-          <button
-            onClick={reset}
-            className="w-full mt-4 rounded-xl py-2.5 font-semibold text-sm"
-            style={{
-              background: "var(--border)",
-              color: "var(--text-secondary)",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Upload Another File
-          </button>
-        )}
+          <div className="flex-1 flex flex-col justify-between gap-4">
+            <div style={{ padding: "16px", borderRadius: "var(--radius-sm)", background: "var(--amber-dim)", border: "1px solid var(--border)" }}>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "oklch(0.450 0.120 65)", marginBottom: 8 }}>
+                {t("upload.prompt_title")}
+              </p>
+              <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, marginBottom: 10 }}>
+                {t("upload.prompt_desc")}
+              </p>
+              <code style={{
+                display: "block",
+                fontSize: 10.5,
+                fontFamily: "var(--font-mono)",
+                color: "var(--text-primary)",
+                background: "var(--bg-elevated)",
+                border: "1px solid var(--border)",
+                borderRadius: 6,
+                padding: "8px 10px",
+                lineHeight: 1.8,
+                marginBottom: 10,
+                wordBreak: "break-all",
+              }}>
+                date, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city
+              </code>
+              <button
+                onClick={(e) => {
+                  navigator.clipboard.writeText(
+                    `Generate a CSV dataset with 200 rows for an e-commerce business with exactly these columns:\n\ndate, product_name, product_category, sales, profit, quantity, rating, returned, stock, payment_method, customer_city\n\nRules:\n- date: between 2024-01-01 and 2024-12-31 (YYYY-MM-DD format)\n- product_category: only Electronics, Clothing, Food, Sports, Home & Kitchen\n- sales: decimal number between 500 and 20000\n- profit: decimal, always less than sales\n- quantity: between 1 and 20\n- rating: between 1.0 and 5.0\n- returned: Yes or No (about 10% Yes)\n- stock: between 0 and 200\n- payment_method: Cash on Delivery, bKash, Nagad, Card, or Bank Transfer\n- customer_city: real cities from your country\n\nGive me only the CSV data, no explanation.`
+                  );
+                  alert("✅ Prompt copied! Paste it into ChatGPT or any AI.");
+                }}
+                className="btn-ghost"
+                style={{ width: "100%", justifyContent: "center", fontSize: 12 }}
+              >
+                📋 {t("upload.copy_prompt")}
+              </button>
+            </div>
+
+            <a
+              href="/sample_data.csv"
+              download
+              className="btn-ghost flex items-center justify-center gap-2 py-2.5 text-sm"
+              style={{ textDecoration: "none" }}
+            >
+              <Download size={16} />
+              {t("upload.download_sample")}
+            </a>
+          </div>
+        </div>
       </div>
 
       {state === "success" && kpis && (
-        <div className="glow-card p-5">
+        <div className="paper-panel p-5">
           <h3
             style={{
-              fontFamily: "Syne, sans-serif",
+              fontFamily: "var(--font-display)",
               fontWeight: 700,
               fontSize: 16,
               marginBottom: 16,
             }}
           >
-            Live KPI Results
+            {t("upload.kpi_title")}
           </h3>
           <div
             className="grid gap-3"
@@ -303,25 +285,21 @@ export default function CsvUpload({
             }}
           >
             {[
-              { label: "Total Sales", value: `৳${(kpis.total_sales ?? 0).toLocaleString()}` },
-              { label: "Total Orders", value: (kpis.total_orders ?? 0).toLocaleString() },
-              { label: "Total Profit", value: `৳${(kpis.total_profit ?? 0).toLocaleString()}` },
-              { label: "Avg Rating", value: `⭐ ${kpis.average_rating ?? 0}` },
+              { label: t("upload.kpi_sales"), value: `৳${(kpis.total_sales ?? 0).toLocaleString()}` },
+              { label: t("upload.kpi_orders"), value: (kpis.total_orders ?? 0).toLocaleString() },
+              { label: t("upload.kpi_profit"), value: `৳${(kpis.total_profit ?? 0).toLocaleString()}` },
+              { label: t("upload.kpi_rating"), value: `⭐ ${kpis.average_rating ?? 0}` },
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-xl p-3"
-                style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid var(--border)",
-                }}
+                className="paper-panel p-3"
               >
                 <p style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>
                   {item.label}
                 </p>
                 <h4
                   style={{
-                    fontFamily: "Syne, sans-serif",
+                    fontFamily: "var(--font-display)",
                     fontWeight: 700,
                     fontSize: 18,
                     color: "var(--text-primary)",

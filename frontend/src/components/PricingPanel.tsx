@@ -10,30 +10,30 @@ interface PricingPanelProps {
 
 const PRIORITY_CONFIG = {
   high: {
-    bg: "rgba(248,113,113,0.08)",
-    border: "rgba(248,113,113,0.3)",
-    color: "#f87171",
+    bg: "var(--red-dim)",
+    border: "oklch(0.577 0.215 27 / 0.30)",
+    color: "var(--red)",
     label: { bn: "🔴 জরুরি", en: "🔴 High Priority" },
   },
   medium: {
-    bg: "rgba(251,191,36,0.08)",
-    border: "rgba(251,191,36,0.3)",
-    color: "#fbbf24",
+    bg: "var(--amber-dim)",
+    border: "oklch(0.681 0.162 65 / 0.30)",
+    color: "var(--amber)",
     label: { bn: "🟡 মাঝারি", en: "🟡 Medium" },
   },
   low: {
-    bg: "rgba(52,211,153,0.08)",
-    border: "rgba(52,211,153,0.3)",
-    color: "#34d399",
+    bg: "var(--green-dim)",
+    border: "oklch(0.627 0.194 142 / 0.30)",
+    color: "var(--green)",
     label: { bn: "🟢 কম", en: "🟢 Low" },
   },
 };
 
 const SUGGESTION_CONFIG: Record<string, { icon: string; color: string; label: Record<string, string> }> = {
-  reduce_price:  { icon: "📉", color: "#f87171", label: { bn: "দাম কমান",    en: "Reduce Price"    } },
-  increase_price:{ icon: "📈", color: "#34d399", label: { bn: "দাম বাড়ান",  en: "Increase Price"  } },
-  clearance:     { icon: "🏷️", color: "#fbbf24", label: { bn: "Clearance",   en: "Clearance"       } },
-  bundle:        { icon: "📦", color: "#a78bfa", label: { bn: "বান্ডেল",     en: "Bundle"          } },
+  reduce_price:  { icon: "📉", color: "var(--red)", label: { bn: "দাম কমান",    en: "Reduce Price"    } },
+  increase_price:{ icon: "📈", color: "var(--green)", label: { bn: "দাম বাড়ান",  en: "Increase Price"  } },
+  clearance:     { icon: "🏷️", color: "var(--amber)", label: { bn: "Clearance",   en: "Clearance"       } },
+  bundle:        { icon: "📦", color: "var(--secondary)", label: { bn: "বান্ডেল",     en: "Bundle"          } },
 };
 
 const PAGE_SIZE = 10;
@@ -43,7 +43,7 @@ export default function PricingPanel({ data, lang }: PricingPanelProps) {
 
   if (!data || !data.suggestions || data.suggestions.length === 0) {
     return (
-      <div className="glass-card p-6 text-center" style={{ color: "var(--text-muted)" }}>
+      <div className="paper-panel p-6 text-center" style={{ color: "var(--text-muted)" }}>
         {lang === "bn" ? "প্রাইসিং ডেটা লোড করুন" : "Upload data to see pricing suggestions"}
       </div>
     );
@@ -54,7 +54,7 @@ export default function PricingPanel({ data, lang }: PricingPanelProps) {
   const remaining = suggestions.length - shown;
 
   return (
-    <div className="glass-card p-6 space-y-6">
+    <div className="paper-panel p-6 space-y-6">
       {/* Header */}
       <div>
         <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 18, color: "var(--text-primary)" }}>
@@ -73,21 +73,21 @@ export default function PricingPanel({ data, lang }: PricingPanelProps) {
           {
             label: lang === "bn" ? "অ্যাকশন প্রয়োজন" : "Need Action",
             value: summary.total_opportunities,
-            color: "#529dff",
+            color: "var(--secondary)",
           },
           {
             label: lang === "bn" ? "ঝুঁকিতে রাজস্ব" : "Revenue at Risk",
             value: summary.revenue_at_risk > 0
               ? `৳${Math.round(summary.revenue_at_risk).toLocaleString()}`
               : lang === "bn" ? "কোনো ঝুঁকি নেই" : "None",
-            color: summary.revenue_at_risk > 0 ? "#f87171" : "#34d399",
+            color: summary.revenue_at_risk > 0 ? "var(--red)" : "var(--green)",
           },
           {
             label: lang === "bn" ? "সম্ভাব্য উন্নতি" : "Potential Uplift",
             value: summary.potential_uplift > 0
               ? `৳${Math.round(summary.potential_uplift).toLocaleString()}`
               : lang === "bn" ? "মূল্য বৃদ্ধি নেই" : "No increases",
-            color: summary.potential_uplift > 0 ? "#34d399" : "var(--text-muted)",
+            color: summary.potential_uplift > 0 ? "var(--green)" : "var(--text-muted)",
           },
         ].map((item) => (
           <div
@@ -113,7 +113,7 @@ export default function PricingPanel({ data, lang }: PricingPanelProps) {
 
         {visible.map((s, i) => {
           const pc = PRIORITY_CONFIG[s.priority];
-          const sc = SUGGESTION_CONFIG[s.suggestion] ?? { icon: "💡", color: "#529dff", label: { bn: "পরামর্শ", en: "Suggestion" } };
+          const sc = SUGGESTION_CONFIG[s.suggestion] ?? { icon: "💡", color: "var(--secondary)", label: { bn: "পরামর্শ", en: "Suggestion" } };
           const changeLabel = s.price_change_percent === 0
             ? lang === "bn" ? "মূল্য অপরিবর্তিত" : "No price change"
             : `${s.price_change_percent > 0 ? "+" : ""}${s.price_change_percent}%`;
@@ -170,7 +170,7 @@ export default function PricingPanel({ data, lang }: PricingPanelProps) {
 
         {/* Stable products footer */}
         {summary.stable_products > 0 && (
-          <div style={{ padding: "12px 16px", borderRadius: 10, background: "rgba(52,211,153,0.06)", border: "1px solid rgba(52,211,153,0.2)", display: "flex", alignItems: "center", gap: 8 }}>
+          <div style={{ padding: "12px 16px", borderRadius: "var(--radius-sm)", background: "var(--green-dim)", border: "1px solid oklch(0.627 0.194 142 / 0.30)", display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ fontSize: 14 }}>✅</span>
             <span style={{ fontSize: 13, color: "var(--text-muted)" }}>
               {lang === "bn"

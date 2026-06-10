@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowRight,
   Download,
   BookOpen,
@@ -22,6 +21,12 @@ import {
   Lightbulb,
 } from "lucide-react";
 
+import { PaperCard } from "@/components/paper-card";
+import { MonoLabel } from "@/components/mono-label";
+import { SectionHeading } from "@/components/section-heading";
+import { cn } from "@/lib/utils";
+import { useLang } from "@/lib/language-context";
+
 // ─── Sample CSV ───────────────────────────────────────────────────────────────
 const SAMPLE_CSV = [
   "date,product_name,product_category,sales,profit,quantity,rating,returned,stock,payment_method,customer_city",
@@ -36,64 +41,58 @@ const SAMPLE_CSV = [
   "2025-01-22,Singer Sewing Machine,Home Appliances,320000,80000.00,8,4.4,No,35,Mobile Banking,Rajshahi",
 ].join("\n");
 
-// ─── Nav sections ─────────────────────────────────────────────────────────────
-const NAV = [
-  { id: "about",        label: "What is Byapari AI" },
-  { id: "how-it-works", label: "How It Works"       },
-  { id: "api",          label: "API Reference"      },
-  { id: "architecture", label: "Architecture"       },
-  { id: "rag",          label: "RAG Knowledge Base" },
-  { id: "responsible-ai", label: "Responsible AI"   },
-  { id: "sample-csv",   label: "Sample CSV"         },
-  { id: "pricing",      label: "Pricing"            },
-];
 
 // ─── Code Block ───────────────────────────────────────────────────────────────
 function CodeBlock({ code, lang = "json" }: { code: string; lang?: string }) {
   const [copied, setCopied] = useState(false);
+  const { t } = useLang();
   return (
-    <div style={{ position: "relative", borderRadius: 12, overflow: "hidden", border: "1px solid var(--border)", background: "#030711" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", background: "rgba(255,255,255,0.03)", borderBottom: "1px solid var(--border)" }}>
-        <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "monospace", fontWeight: 600, letterSpacing: "0.08em" }}>{lang.toUpperCase()}</span>
+    <PaperCard className="overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-rule bg-secondary/30">
+        <span className="font-mono text-[10px] text-muted-foreground font-semibold tracking-wider">
+          {lang.toUpperCase()}
+        </span>
         <button
-          onClick={() => { navigator.clipboard.writeText(code); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-          style={{ fontSize: 11, color: copied ? "var(--green)" : "var(--text-muted)", background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-body)" }}
+          onClick={() => {
+            navigator.clipboard.writeText(code).then(() => {
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }).catch(() => {
+              // Clipboard write failed — silently ignore
+            });
+          }}
+          className="font-mono text-[10px] text-muted-foreground hover:text-ink cursor-pointer"
         >
-          {copied ? "✓ Copied" : "Copy"}
+          {copied ? t("docs.code_copied") : t("docs.code_copy")}
         </button>
       </div>
-      <pre style={{ margin: 0, padding: "20px", fontSize: 12.5, lineHeight: 1.7, color: "#c9d1d9", overflowX: "auto", fontFamily: "'JetBrains Mono', 'Fira Code', Consolas, monospace" }}>
+      <pre className="m-0 p-5 text-xs leading-relaxed text-ink overflow-x-auto font-mono bg-transparent">
         <code>{code}</code>
       </pre>
-    </div>
+    </PaperCard>
   );
 }
 
 // ─── Section Wrapper ──────────────────────────────────────────────────────────
 function Section({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <section id={id} style={{ paddingTop: 80, scrollMarginTop: 80 }}>
+    <section id={id} className="pt-20 -mt-20 scroll-mt-20">
       {children}
     </section>
   );
 }
 
-// ─── Section Heading ──────────────────────────────────────────────────────────
-function SectionHeading({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle?: string }) {
-  return (
-    <div style={{ marginBottom: 32 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-        <span style={{ color: "var(--accent)", display: "flex" }}>{icon}</span>
-        <h2 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", margin: 0 }}>{title}</h2>
-      </div>
-      {subtitle && <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0, paddingLeft: 34 }}>{subtitle}</p>}
-      <div style={{ height: 1, background: "linear-gradient(90deg, var(--accent-dim), transparent)", marginTop: 16 }} />
-    </div>
-  );
-}
-
-// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function DocsPage() {
+  const { t, lang } = useLang();
+  const NAV = [
+    { id: "about",        label: t("docs.nav_about") },
+    { id: "how-it-works", label: t("docs.nav_how")    },
+    { id: "api",          label: t("docs.nav_api")     },
+    { id: "architecture", label: t("docs.nav_arch")   },
+    { id: "rag",          label: t("docs.nav_rag")     },
+    { id: "sample-csv",   label: t("docs.nav_sample") },
+    { id: "pricing",      label: t("docs.nav_pricing") },
+  ];
   const [activeNav, setActiveNav] = useState("about");
 
   const scrollTo = (id: string) => {
@@ -112,192 +111,148 @@ export default function DocsPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-base)", color: "var(--text-primary)", fontFamily: "var(--font-body)" }}>
+    <div className="mx-auto max-w-7xl px-6 py-12 flex flex-col lg:flex-row gap-12 bg-background text-foreground">
+      {/* ── Sidebar Nav ── */}
+      <aside className="w-full lg:w-60 shrink-0">
+        <nav className="sticky top-24 space-y-1">
+          <MonoLabel className="block mb-4">{t("docs.on_this_page")}</MonoLabel>
+          {NAV.map((item) => {
+            const active = activeNav === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className={cn(
+                  "w-full text-left px-3 py-2 text-xs mono-caps border-l-2 transition-colors cursor-pointer block",
+                  active
+                    ? "border-ink text-ink font-semibold bg-secondary/50"
+                    : "border-transparent text-muted-foreground hover:text-ink hover:border-ink"
+                )}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+      </aside>
 
-      {/* ── Top Bar ── */}
-      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(5,11,24,0.92)", backdropFilter: "blur(16px)", borderBottom: "1px solid var(--border)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 6, color: "var(--text-muted)", textDecoration: "none", fontSize: 13 }}>
-              <ArrowLeft size={15} />
-              Dashboard
-            </Link>
-            <span style={{ color: "var(--border-bright)" }}>|</span>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <div className="logo-mark" style={{ width: 28, height: 28, fontSize: 11 }}>B</div>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, color: "var(--text-primary)" }}>
-                Byapari AI <span style={{ color: "var(--text-muted)", fontWeight: 400 }}>/ Docs</span>
-              </span>
-            </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span className="badge badge-gold">Infinity AI BuildFest 2026</span>
-            <span className="badge badge-accent">v1.0</span>
-          </div>
+      {/* ── Main Content ── */}
+      <main className="flex-1 max-w-3xl space-y-20 min-w-0">
+        {/* ── Hero ── */}
+        <div className="fade-up space-y-4">
+          <h1 className="font-display text-4xl font-extrabold tracking-tight text-ink leading-tight">
+            {t("docs.title")}
+          </h1>
+          <p className="text-base text-muted-foreground leading-relaxed">
+            {t("docs.subtitle")}
+          </p>
         </div>
-      </header>
 
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px", display: "flex", gap: 40 }}>
+        {/* ── What is Byapari AI ── */}
+        <Section id="about">
+          <SectionHeading index="01" eyebrow={t("docs.eyebrow")} title={t("docs.nav_about")} />
 
-        {/* ── Sidebar Nav ── */}
-        <aside style={{ width: 200, flexShrink: 0, paddingTop: 48 }}>
-          <nav style={{ position: "sticky", top: 80 }}>
-            <p className="section-label" style={{ marginBottom: 12 }}>On this page</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              {NAV.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollTo(item.id)}
-                  style={{
-                    textAlign: "left",
-                    background: "none",
-                    border: "none",
-                    padding: "8px 12px",
-                    borderRadius: 8,
-                    fontSize: 13,
-                    cursor: "pointer",
-                    color: activeNav === item.id ? "var(--accent)" : "var(--text-muted)",
-                    background: activeNav === item.id ? "var(--accent-dim)" : "transparent",
-                    fontWeight: activeNav === item.id ? 600 : 400,
-                    transition: "all 0.15s",
-                    borderLeft: activeNav === item.id ? "2px solid var(--accent)" : "2px solid transparent",
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </nav>
-        </aside>
+          <div className="grid gap-6">
+            {/* English */}
+            <PaperCard className="p-8 space-y-3">
+              <div className="flex items-center gap-3">
+                <span className="mono-caps text-[9px] bg-coffee/15 border border-coffee/30 px-2 py-0.5 text-coffee font-semibold">EN</span>
+                <MonoLabel>{t("docs.desc_en")}</MonoLabel>
+              </div>
+              <p className="text-sm text-ink leading-relaxed">
+                {t("docs.about_en")}
+              </p>
+            </PaperCard>
 
-        {/* ── Main Content ── */}
-        <main style={{ flex: 1, paddingTop: 48, paddingBottom: 120, minWidth: 0 }}>
+            {/* Bengali */}
+            <PaperCard className="p-8 space-y-3 bg-secondary/20">
+              <div className="flex items-center gap-3">
+                <span className="mono-caps text-[9px] bg-ink/10 border border-ink/20 px-2 py-0.5 text-ink font-semibold">{t("docs.lang_bn")}</span>
+                <MonoLabel>{t("docs.desc_bn")}</MonoLabel>
+              </div>
+              <p className="text-sm text-ink leading-relaxed">
+                {t("docs.about_bn")}
+              </p>
+            </PaperCard>
 
-          {/* ── Hero ── */}
-          <div className="fade-up" style={{ marginBottom: 16 }}>
-            <h1 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 800, lineHeight: 1.2, marginBottom: 12, background: "linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 60%, #a78bfa 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              Byapari AI Documentation
-            </h1>
-            <p style={{ fontSize: 16, color: "var(--text-secondary)", lineHeight: 1.7, maxWidth: 600 }}>
-              Everything judges and developers need to understand the platform — architecture, APIs, the ML stack, and how to get started.
-            </p>
+            {/* Feature pills */}
+          <div className="flex flex-wrap gap-2 pt-2">
+            {(lang === "bn"
+              ? ["KPI ড্যাশবোর্ড", "৩০-দিনের পূর্বাভাস", "ডাইনামিক প্রাইসিং", "AI ইনসাইট", "স্বাস্থ্য স্কোর", "RAG নলেজ বেস", "বাংলা + ইংরেজি"]
+              : ["KPI Dashboard", "30-Day Forecast", "Dynamic Pricing", "AI Insights", "Health Score", "RAG Knowledge Base", "Bengali + English"]
+            ).map((f) => (
+              <span key={f} className="mono-caps text-[9px] bg-secondary/50 border border-rule px-2.5 py-1 text-ink flex items-center gap-1.5">
+                <CheckCircle size={10} className="text-coffee shrink-0" /> {f}
+              </span>
+            ))}
+          </div>
+          </div>
+        </Section>
+
+        {/* ── How It Works ── */}
+        <Section id="how-it-works">
+          <SectionHeading index="02" eyebrow={t("docs.how_eyebrow")} title={t("docs.how_title")} lead={t("docs.how_lead")} />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              { icon: <Upload size={22} />, step: "01", title: t("docs.step1_title"), sub: t("docs.step1_sub"), desc: t("docs.step1_desc"), color: "text-ink" },
+              { icon: <BarChart3 size={22} />, step: "02", title: t("docs.step2_title"), sub: t("docs.step2_sub"), desc: t("docs.step2_desc"), color: "text-coffee" },
+              { icon: <Lightbulb size={22} />, step: "03", title: t("docs.step3_title"), sub: t("docs.step3_sub"), desc: t("docs.step3_desc"), color: "text-ink" },
+            ].map((item, i) => (
+              <PaperCard key={i} className="p-6 text-center space-y-3">
+                <div className={cn("size-12 rounded-none bg-secondary/50 border border-rule flex items-center justify-center mx-auto", item.color)}>
+                  {item.icon}
+                </div>
+                <div className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest">{t("docs.step_label")} {item.step}</div>
+                <div className="font-display text-sm font-bold text-ink">{item.title}</div>
+                <div className="font-mono text-[10px] text-coffee font-semibold">{item.sub}</div>
+                <div className="text-xs text-muted-foreground leading-relaxed">{item.desc}</div>
+              </PaperCard>
+            ))}
           </div>
 
-          {/* ── What is Byapari AI ── */}
-          <Section id="about">
-            <SectionHeading icon={<BookOpen size={18} />} title="What is Byapari AI" />
-
-            <div style={{ display: "grid", gap: 16 }}>
-              {/* English */}
-              <div className="glass-card" style={{ padding: "24px 28px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                  <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 99, background: "var(--accent-dim)", color: "var(--accent)", fontWeight: 700, letterSpacing: "0.05em" }}>EN</span>
-                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>English</span>
-                </div>
-                <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.8 }}>
-                  <strong style={{ color: "var(--text-primary)" }}>Byapari AI</strong> is an AI-powered business intelligence platform designed for Bangladeshi merchants — upload your sales CSV and instantly receive KPIs, a 30-day Prophet forecast, AI-generated recommendations, a dynamic pricing engine, and a full business health score.
-                  Built for <strong style={{ color: "var(--accent)" }}>Infinity AI BuildFest 2026</strong> by Team Nexion, it combines a FastAPI backend with a Next.js frontend to deliver real-time insights with zero manual configuration.
-                </p>
-              </div>
-
-              {/* Bengali */}
-              <div className="glass-card" style={{ padding: "24px 28px", background: "rgba(232,184,75,0.04)", borderColor: "rgba(232,184,75,0.15)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                  <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 99, background: "var(--gold-dim)", color: "var(--gold)", fontWeight: 700, letterSpacing: "0.05em" }}>বাংলা</span>
-                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Bengali</span>
-                </div>
-                <p style={{ fontSize: 15, color: "var(--text-secondary)", lineHeight: 1.9 }}>
-                  <strong style={{ color: "var(--gold)" }}>ব্যাপারী AI</strong> বাংলাদেশি ব্যবসায়ীদের জন্য একটি এআই-চালিত বিজনেস ইন্টেলিজেন্স প্ল্যাটফর্ম — আপনার সেলস CSV আপলোড করুন এবং সাথে সাথে পান KPI, ৩০-দিনের বিক্রয় পূর্বাভাস, AI পরামর্শ, ডাইনামিক প্রাইসিং ইঞ্জিন এবং সম্পূর্ণ বিজনেস হেলথ স্কোর।
-                  টিম নেক্সিয়নের তৈরি এই প্ল্যাটফর্ম ব্যবহারকারীকে কোনো কনফিগারেশন ছাড়াই রিয়েল-টাইম ব্যবসায়িক অন্তর্দৃষ্টি দেয়।
-                </p>
-              </div>
-
-              {/* Feature pills */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, paddingTop: 4 }}>
-                {["KPI Dashboard", "30-Day Forecast", "Dynamic Pricing", "AI Insights", "Health Score", "RAG Knowledge Base", "Bengali + English"].map((f) => (
-                  <span key={f} className="chip" style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent-dim)" }}>
-                    <CheckCircle size={10} /> {f}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Section>
-
-          {/* ── How It Works ── */}
-          <Section id="how-it-works">
-            <SectionHeading icon={<Zap size={18} />} title="How It Works" subtitle="Three steps from raw CSV to actionable intelligence" />
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr auto 1fr", alignItems: "center", gap: 12, marginBottom: 32 }}>
-              {[
-                { icon: <Upload size={22} />, step: "01", title: "Upload", sub: "Drop your sales CSV", desc: "Supports any CSV with date, product, sales, profit, quantity, rating, stock columns. Auto-detects and fixes encoding issues.", color: "var(--accent)" },
-                null,
-                { icon: <BarChart3 size={22} />, step: "02", title: "Analyze", sub: "ML processes your data", desc: "Prophet forecasts 30 days ahead. Rule-based engine scores health. RAG retrieves relevant business tips from 35-tip knowledge base.", color: "var(--purple)" },
-                null,
-                { icon: <Lightbulb size={22} />, step: "03", title: "Act", sub: "Get prioritized actions", desc: "Dynamic pricing suggestions per product, high-priority AI alerts, Bengali/English insights, and a downloadable action plan.", color: "var(--green)" },
-              ].map((item, i) => {
-                if (item === null) {
-                  return (
-                    <div key={i} style={{ display: "flex", justifyContent: "center" }}>
-                      <ArrowRight size={20} color="var(--text-muted)" />
-                    </div>
-                  );
-                }
-                return (
-                  <div key={i} className="glass-card" style={{ padding: "24px 20px", textAlign: "center" }}>
-                    <div style={{ width: 52, height: 52, borderRadius: 14, background: `${item.color}15`, border: `1px solid ${item.color}30`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 14px", color: item.color }}>
-                      {item.icon}
-                    </div>
-                    <div style={{ fontSize: 10, color: "var(--text-muted)", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 4 }}>STEP {item.step}</div>
-                    <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, color: "var(--text-primary)", marginBottom: 4 }}>{item.title}</div>
-                    <div style={{ fontSize: 12, color: item.color, fontWeight: 600, marginBottom: 10 }}>{item.sub}</div>
-                    <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6 }}>{item.desc}</div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Required columns */}
-            <div className="glass-card" style={{ padding: "20px 24px" }}>
-              <p style={{ fontSize: 12, fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>Required CSV Columns</p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {["date", "product_name", "product_category", "sales", "profit", "quantity", "rating", "returned", "stock", "payment_method", "customer_city"].map((col) => (
-                  <code key={col} style={{ fontSize: 12, padding: "4px 10px", borderRadius: 6, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "var(--accent)", fontFamily: "monospace" }}>{col}</code>
-                ))}
-              </div>
-            </div>
-          </Section>
-
-          {/* ── API Documentation ── */}
-          <Section id="api">
-            <SectionHeading icon={<Server size={18} />} title="API Reference" subtitle="REST endpoints — all accept JSON, return JSON" />
-
-            {/* Endpoint list */}
-            <div style={{ display: "grid", gap: 12, marginBottom: 32 }}>
-              {[
-                { method: "POST", path: "/api/ai-insights",        color: "#529dff", desc: "Full AI analysis: KPIs, insights, health score, forecast, RAG tips"  },
-                { method: "POST", path: "/api/pricing-suggestions", color: "#34d399", desc: "Per-product dynamic pricing suggestions with priority ranking"         },
-                { method: "POST", path: "/upload",                  color: "#fbbf24", desc: "Upload CSV file (multipart/form-data), returns parsed data + quick KPIs" },
-                { method: "GET",  path: "/health",                  color: "#a78bfa", desc: "Backend health check — used by frontend connection indicator"          },
-              ].map((ep) => (
-                <div key={ep.path} className="glass-card" style={{ padding: "16px 20px", display: "flex", alignItems: "center", gap: 14 }}>
-                  <span style={{ fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 6, background: `${ep.color}15`, color: ep.color, border: `1px solid ${ep.color}25`, fontFamily: "monospace", flexShrink: 0 }}>
-                    {ep.method}
-                  </span>
-                  <code style={{ fontSize: 13, color: "var(--text-primary)", fontFamily: "monospace", flex: 1 }}>{ep.path}</code>
-                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{ep.desc}</span>
-                </div>
+          {/* Required columns */}
+          <PaperCard className="p-6">
+            <MonoLabel className="block mb-4">{t("docs.required_cols")}</MonoLabel>
+            <div className="flex flex-wrap gap-2">
+              {["date", "product_name", "product_category", "sales", "profit", "quantity", "rating", "returned", "stock", "payment_method", "customer_city"].map((col) => (
+                <code key={col} className="font-mono text-xs bg-secondary/50 border border-rule px-2 py-1 text-ink">{col}</code>
               ))}
             </div>
+          </PaperCard>
+        </Section>
 
-            {/* /api/ai-insights detail */}
-            <div style={{ marginBottom: 28 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                <span style={{ fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 6, background: "rgba(82,157,255,0.12)", color: "#529dff", border: "1px solid rgba(82,157,255,0.2)", fontFamily: "monospace" }}>POST</span>
-                <code style={{ fontFamily: "monospace", fontSize: 15, color: "var(--text-primary)" }}>/api/ai-insights</code>
-              </div>
+        {/* ── API Documentation ── */}
+        <Section id="api">
+          <SectionHeading index="03" eyebrow={t("docs.api_eyebrow")} title={t("docs.api_title")} lead={t("docs.api_lead")} />
 
-              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>Request body (Content-Type: application/json):</p>
-              <CodeBlock lang="json" code={`{
+          {/* Endpoint list */}
+          <div className="space-y-4 mb-8">
+            {[
+              { method: "POST", path: "/api/ai-insights",        color: "bg-secondary text-ink border-rule", desc: t("docs.api_desc_insights")  },
+              { method: "POST", path: "/api/pricing-suggestions", color: "bg-coffee/10 text-coffee border-coffee/20", desc: t("docs.api_desc_pricing") },
+              { method: "POST", path: "/upload",                  color: "bg-secondary text-ink border-rule", desc: t("docs.api_desc_upload") },
+              { method: "GET",  path: "/health",                  color: "bg-secondary text-ink border-rule", desc: t("docs.api_desc_health") },
+            ].map((ep) => (
+              <PaperCard key={ep.path} className="p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <span className={cn("font-mono text-[10px] font-bold px-2.5 py-1 border uppercase tracking-wider shrink-0", ep.color)}>
+                  {ep.method}
+                </span>
+                <code className="font-mono text-xs text-ink flex-1 truncate">{ep.path}</code>
+                <span className="text-xs text-muted-foreground">{ep.desc}</span>
+              </PaperCard>
+            ))}
+          </div>
+
+          {/* /api/ai-insights detail */}
+          <div className="space-y-6 mb-8">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-bold px-2 py-0.5 bg-secondary border border-rule text-ink uppercase tracking-wider">POST</span>
+              <code className="font-mono text-sm text-ink">/api/ai-insights</code>
+            </div>
+
+            <p className="text-xs text-muted-foreground">{t("docs.api_req_body")}</p>
+            <CodeBlock lang="json" code={`{
   "csv_data": [
     {
       "date": "2025-01-01",
@@ -316,8 +271,8 @@ export default function DocsPage() {
   "lang": "en"
 }`} />
 
-              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "20px 0 16px" }}>Response (200 OK):</p>
-              <CodeBlock lang="json" code={`{
+            <p className="text-xs text-muted-foreground mt-4">{t("docs.api_res_body")}</p>
+            <CodeBlock lang="json" code={`{
   "insights": [
     {
       "type": "warning",
@@ -353,16 +308,16 @@ export default function DocsPage() {
   "data_points": 1,
   "generated_at": "2025-01-31T14:32:00"
 }`} />
-            </div>
+          </div>
 
-            {/* /api/pricing-suggestions detail */}
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-                <span style={{ fontSize: 11, fontWeight: 800, padding: "4px 10px", borderRadius: 6, background: "rgba(52,211,153,0.12)", color: "#34d399", border: "1px solid rgba(52,211,153,0.2)", fontFamily: "monospace" }}>POST</span>
-                <code style={{ fontFamily: "monospace", fontSize: 15, color: "var(--text-primary)" }}>/api/pricing-suggestions</code>
-              </div>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 16 }}>Response (200 OK):</p>
-              <CodeBlock lang="json" code={`{
+          {/* /api/pricing-suggestions detail */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[10px] font-bold px-2 py-0.5 bg-coffee/10 border border-coffee/20 text-coffee uppercase tracking-wider">POST</span>
+              <code className="font-mono text-sm text-ink">/api/pricing-suggestions</code>
+            </div>
+            <p className="text-xs text-muted-foreground">{t("docs.api_res_body")}</p>
+            <CodeBlock lang="json" code={`{
   "suggestions": [
     {
       "product": "Samsung Galaxy A54",
@@ -391,351 +346,276 @@ export default function DocsPage() {
   },
   "generated_at": "2025-01-31T14:32:00"
 }`} />
-            </div>
-          </Section>
+          </div>
+        </Section>
 
-          {/* ── Architecture ── */}
-          <Section id="architecture">
-            <SectionHeading icon={<Globe size={18} />} title="Architecture" subtitle="Fully serverless — frontend on Vercel, backend on Railway" />
+        {/* ── Architecture ── */}
+        <Section id="architecture">
+          <SectionHeading index="04" eyebrow={t("docs.arch_eyebrow")} title={t("docs.arch_title")} lead={t("docs.arch_lead")} />
 
-            {/* Diagram */}
-            <div className="glass-card" style={{ padding: 32, marginBottom: 24 }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 0, flexWrap: "wrap" }}>
-
-                {/* User */}
-                <div style={{ textAlign: "center", padding: "0 8px" }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(82,157,255,0.1)", border: "1px solid rgba(82,157,255,0.25)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px", fontSize: 26 }}>
-                    👤
-                  </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text-primary)" }}>Browser</div>
-                  <div style={{ fontSize: 10, color: "var(--text-muted)" }}>User uploads CSV</div>
+          {/* Diagram */}
+          <PaperCard className="p-8">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              {/* User */}
+              <div className="text-center space-y-2">
+                <div className="size-16 rounded-none bg-secondary/50 border border-rule flex items-center justify-center mx-auto text-xl">
+                  👤
                 </div>
+                <div className="font-display font-bold text-xs text-ink">{t("docs.arch_browser")}</div>
+                <div className="text-[10px] text-muted-foreground">{t("docs.arch_browser_desc")}</div>
+              </div>
 
-                <ChevronRight size={18} color="var(--text-muted)" style={{ margin: "0 4px", flexShrink: 0 }} />
+              <ChevronRight size={18} className="text-muted-foreground hidden md:block" />
 
-                {/* Frontend */}
-                <div style={{ textAlign: "center", padding: "0 8px" }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(82,157,255,0.1)", border: "2px solid rgba(82,157,255,0.4)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
-                    <Globe size={26} color="var(--accent)" />
-                  </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent)" }}>Next.js 16</div>
-                  <div style={{ fontSize: 10, color: "var(--text-muted)" }}>Vercel · TypeScript</div>
+              {/* Frontend */}
+              <div className="text-center space-y-2">
+                <div className="size-16 rounded-none bg-secondary/50 border border-rule flex items-center justify-center mx-auto">
+                  <Globe size={26} className="text-coffee" />
                 </div>
+                <div className="font-display font-bold text-xs text-ink">{t("docs.arch_frontend")}</div>
+                <div className="text-[10px] text-muted-foreground">{t("docs.arch_frontend_desc")}</div>
+              </div>
 
-                <ChevronRight size={18} color="var(--text-muted)" style={{ margin: "0 4px" }} />
-                <div style={{ fontSize: 10, color: "var(--text-muted)", marginBottom: 20, whiteSpace: "nowrap" }}>HTTPS / JSON</div>
-                <ChevronRight size={18} color="var(--text-muted)" style={{ margin: "0 4px" }} />
+              <ChevronRight size={18} className="text-muted-foreground hidden md:block" />
 
-                {/* Backend */}
-                <div style={{ textAlign: "center", padding: "0 8px" }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(167,139,250,0.1)", border: "2px solid rgba(167,139,250,0.4)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
-                    <Server size={26} color="var(--purple)" />
-                  </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--purple)" }}>FastAPI</div>
-                  <div style={{ fontSize: 10, color: "var(--text-muted)" }}>Railway · Python 3.11</div>
+              {/* Backend */}
+              <div className="text-center space-y-2">
+                <div className="size-16 rounded-none bg-secondary/50 border border-rule flex items-center justify-center mx-auto">
+                  <Server size={26} className="text-ink" />
                 </div>
-
-                <ChevronRight size={18} color="var(--text-muted)" style={{ margin: "0 4px" }} />
-
-                {/* AI Stack */}
-                <div style={{ textAlign: "center", padding: "0 8px" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
-                    {[
-                      { icon: <TrendingUp size={14} />, label: "Prophet ML",    sub: "Eid-aware forecast", color: "#fbbf24" },
-                      { icon: <Database size={14} />,   label: "Knowledge Graph", sub: "GraphRAG reasoning", color: "#34d399" },
-                      { icon: <Brain size={14} />,      label: "Groq LLM",      sub: "llama-3.3-70b", color: "#f87171" },
-                      { icon: <Zap size={14} />,        label: "Keyword RAG",   sub: "35 Bengali tips", color: "#a78bfa" },
-                      { icon: <Globe size={14} />,      label: "Market Intel",  sub: "Live FX + news", color: "#60a5fa" },
-                      { icon: <CheckCircle size={14} />, label: "Personalization", sub: "Merchant profile", color: "#f472b6" },
-                    ].map((s) => (
-                      <div key={s.label} style={{ width: 72, padding: "8px 6px", borderRadius: 10, background: `${s.color}10`, border: `1px solid ${s.color}25`, textAlign: "center" }}>
-                        <span style={{ color: s.color, display: "block", marginBottom: 3 }}>{s.icon}</span>
-                        <div style={{ fontSize: 9, fontWeight: 700, color: "var(--text-primary)" }}>{s.label}</div>
-                        <div style={{ fontSize: 8, color: "var(--text-muted)" }}>{s.sub}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 6 }}>AI / ML Services</div>
-                </div>
+                <div className="font-display font-bold text-xs text-ink">{t("docs.arch_backend")}</div>
+                <div className="text-[10px] text-muted-foreground">{t("docs.arch_backend_desc")}</div>
               </div>
             </div>
+          </PaperCard>
 
-            {/* Stack details */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {[
-                {
-                  title: "Frontend Stack", color: "var(--accent)",
-                  items: ["Next.js 16 (App Router)", "TypeScript + Tailwind CSS", "Recharts for data viz", "Lucide React icons", "Deployed on Vercel"],
-                },
-                {
-                  title: "Backend Stack", color: "var(--purple)",
-                  items: ["Python 3.11 + FastAPI", "Facebook Prophet (Eid-aware forecasting)", "In-memory Knowledge Graph (GraphRAG)", "Keyword RAG (35-tip Bengali KB)", "Groq LLM (llama-3.3-70b, 8b fallback)", "Live market signals (FX + news scraping)", "Deployed on Railway"],
-                },
-              ].map((stack) => (
-                <div key={stack.title} className="glass-card" style={{ padding: "20px 22px" }}>
-                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: stack.color, marginBottom: 12 }}>{stack.title}</p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                    {stack.items.map((item) => (
-                      <div key={item} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--text-secondary)" }}>
-                        <CheckCircle size={12} color="var(--green)" style={{ flexShrink: 0 }} />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* ── RAG Knowledge Base ── */}
-          <Section id="rag">
-            <SectionHeading icon={<Database size={18} />} title="RAG Knowledge Base" subtitle="Retrieval-Augmented Generation — Bengali business intelligence built in" />
-
-            <div style={{ display: "grid", gap: 16, marginBottom: 24 }}>
-              <div className="glass-card" style={{ padding: "24px 28px" }}>
-                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.8, marginBottom: 16 }}>
-                  Byapari AI ships with <strong style={{ color: "var(--text-primary)" }}>35 hand-curated Bengali business tips</strong> retrieved by a lightweight keyword-matching engine.
-                  When you upload your CSV, the system builds a context string from your business situation (top category, health signals, risk flags), scores it against the knowledge base, and surfaces the 3 most relevant tips — zero model downloads, instant startup, zero per-request API cost.
-                  Retrieved tips are injected into the LLM prompt as grounding context alongside knowledge-graph facts, your merchant profile, and live market signals (GraphRAG pattern).
-                </p>
-
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-                  {[
-                    { label: "Knowledge base size", value: "35 tips", color: "var(--accent)" },
-                    { label: "Retrieval engine", value: "Keyword match", color: "var(--purple)" },
-                    { label: "Tips returned per query", value: "Top 3", color: "var(--green)" },
-                  ].map((stat) => (
-                    <div key={stat.label} style={{ padding: "14px 16px", borderRadius: 10, background: "var(--bg-elevated)", textAlign: "center" }}>
-                      <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 800, color: stat.color, marginBottom: 4 }}>{stat.value}</div>
-                      <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{stat.label}</div>
+          {/* Stack details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                title: t("docs.arch_front_stack"),
+                items: lang === "bn"
+                  ? ["Next.js 16 (App Router)", "TypeScript + Tailwind CSS 4", "Recharts ডেটা ভিজ্যুয়ালাইজেশন", "Lucide React আইকন", "Vercel-এ ডিপ্লয়েড"]
+                  : ["Next.js 16 (App Router)", "TypeScript + Tailwind CSS 4", "Recharts for data viz", "Lucide React icons", "Deployed on Vercel"],
+              },
+              {
+                title: t("docs.arch_back_stack"),
+                items: lang === "bn"
+                  ? ["Python 3.11 + FastAPI", "Facebook Prophet (পূর্বাভাস)", "কিওয়ার্ড RAG (বাংলা টিপস)", "Groq LLM (llama-3.1-8b-instant)", "Railway-এ ডিপ্লয়েড"]
+                  : ["Python 3.11 + FastAPI", "Facebook Prophet (forecasting)", "Keyword RAG (Bengali tips)", "Groq LLM (llama-3.1-8b-instant)", "Deployed on Railway"],
+              },
+            ].map((stack) => (
+              <PaperCard key={stack.title} className="p-6">
+                <p className="font-display font-bold text-sm text-ink mb-4">{stack.title}</p>
+                <div className="space-y-2">
+                  {stack.items.map((item) => (
+                    <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <CheckCircle size={12} className="text-coffee shrink-0" />
+                      {item}
                     </div>
                   ))}
                 </div>
+              </PaperCard>
+            ))}
+          </div>
+        </Section>
+
+        {/* ── RAG Knowledge Base ── */}
+        <Section id="rag">
+          <SectionHeading index="05" eyebrow={t("docs.rag_eyebrow")} title={t("docs.rag_title")} lead={t("docs.rag_lead")} />
+
+          <div className="space-y-6">
+            <PaperCard className="p-8">
+              <p className="text-sm text-ink leading-relaxed mb-6">
+                {t("docs.rag_desc")}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[
+                  { label: t("docs.rag_size_label"), value: t("docs.rag_size_val"), color: "text-ink" },
+                  { label: t("docs.rag_model_label"), value: t("docs.rag_model_val"), color: "text-coffee" },
+                  { label: t("docs.rag_top_label"), value: t("docs.rag_top_val"), color: "text-ink" },
+                ].map((stat) => (
+                  <div key={stat.label} className="p-4 bg-secondary/30 border border-rule text-center">
+                    <div className={cn("font-display font-extrabold text-lg mb-1", stat.color)}>{stat.value}</div>
+                    <div className="text-[10px] text-muted-foreground font-mono uppercase tracking-wider">{stat.label}</div>
+                  </div>
+                ))}
               </div>
+            </PaperCard>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                <div className="glass-card" style={{ padding: "20px 22px" }}>
-                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-primary)", marginBottom: 12 }}>How retrieval works</p>
-                  {[
-                    "Business context extracted from uploaded CSV (categories, trends, stock levels, health signals)",
-                    "Context tokenized and scored against a keyword → tip-ID map (instant, dependency-free)",
-                    "Top-3 ranked tips returned with category + relevance score",
-                    "Tips injected into the LLM prompt alongside knowledge-graph facts, merchant profile, and live market signals",
-                  ].map((step, i) => (
-                    <div key={i} style={{ display: "flex", gap: 10, marginBottom: 10, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-                      <span style={{ width: 20, height: 20, borderRadius: "50%", background: "var(--accent-dim)", color: "var(--accent)", fontSize: 10, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>{i + 1}</span>
-                      {step}
-                    </div>
-                  ))}
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <PaperCard className="p-6 space-y-4">
+                <p className="font-display font-bold text-xs uppercase tracking-wider text-ink">{t("docs.rag_how_title")}</p>
+                {(lang === "bn"
+                  ? [
+                    "আপলোড করা CSV থেকে ব্যবসায়িক প্রসঙ্গ বের করা হয় (ক্যাটাগরি, ট্রেন্ড, স্টক লেভেল)",
+                    "প্রসঙ্গ paraphrase-multilingual-MiniLM-L12-v2 দিয়ে এম্বেড করা হয় (বাংলা সাপোর্ট)",
+                    "ভেক্টর ইন্ডেক্সের বিরুদ্ধে cosine similarity সার্চ",
+                    "শীর্ষ-৩ ফলাফল AI ইনসাইট রেসপন্সে যুক্ত করা হয়"
+                  ]
+                  : [
+                    "Business context extracted from uploaded CSV (categories, trends, stock levels)",
+                    "Context embedded via paraphrase-multilingual-MiniLM-L12-v2 (supports Bengali)",
+                    "Cosine similarity search against vector index",
+                    "Top-3 results appended to AI insights response"
+                  ]
+                ).map((step, i) => (
+                  <div key={i} className="flex gap-3 text-xs text-muted-foreground leading-relaxed">
+                    <span className="size-5 rounded-full bg-secondary/80 border border-rule text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </PaperCard>
 
-                <div className="glass-card" style={{ padding: "20px 22px" }}>
-                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-primary)", marginBottom: 12 }}>Tip categories</p>
-                  {[
-                    { cat: "Seasonal demand",       count: "8 tips",  color: "var(--amber)" },
-                    { cat: "Inventory management",  count: "9 tips",  color: "var(--accent)" },
-                    { cat: "Pricing strategy",      count: "8 tips",  color: "var(--green)" },
-                    { cat: "Customer retention",    count: "6 tips",  color: "var(--purple)" },
-                    { cat: "Payment & cash flow",   count: "4 tips",  color: "#f87171"       },
-                  ].map((c) => (
-                    <div key={c.cat} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, fontSize: 13 }}>
-                      <span style={{ color: "var(--text-secondary)" }}>{c.cat}</span>
-                      <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 99, background: "var(--bg-elevated)", color: c.color, fontWeight: 700 }}>{c.count}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sample tip */}
-              <div className="glass-card" style={{ padding: "20px 24px", background: "rgba(232,184,75,0.04)", borderColor: "rgba(232,184,75,0.15)" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--gold)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10 }}>Sample tip from knowledge base</p>
-                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.8, fontStyle: "italic" }}>
-                  "রমজান মাসে ইলেকট্রনিক্স ও ফ্যাশন পণ্যের চাহিদা ৩০-৪০% বৃদ্ধি পায় — ঈদের ৩ সপ্তাহ আগে স্টক বাড়ান এবং বিশেষ বান্ডেল অফার তৈরি করুন।"
-                </p>
-                <p style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 6 }}>
-                  Translation: "Electronics and fashion demand rises 30-40% in Ramadan — stock up 3 weeks before Eid and create bundle deals."
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          {/* ── Responsible AI ── */}
-          <Section id="responsible-ai">
-            <SectionHeading icon={<CheckCircle size={18} />} title="Responsible AI" subtitle="Privacy, explainability, and honesty — enforced by architecture, not policy" />
-
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-              {[
-                { title: "No data retention", desc: "Uploaded sales data is processed entirely in-memory for one request and never written to disk or a database. There is nothing to breach or leak.", color: "var(--green)" },
-                { title: "Explainable outputs", desc: "Every recommendation carries a type, priority, and confidence score. The health score ships with a per-dimension breakdown. Pricing suggestions state the exact signals that justify them.", color: "var(--accent)" },
-                { title: "Grounded generation", desc: "The LLM is constrained by your real KPIs, knowledge-graph facts, curated local knowledge, your merchant profile, and live market data — sharply reducing hallucinated or generic advice.", color: "var(--purple)" },
-                { title: "Transparent ingestion", desc: "The data-quality report discloses every fix applied and every row dropped, and why — the system never silently alters your data.", color: "var(--gold)" },
-                { title: "Honest degradation", desc: "If the LLM or any external source is unreachable, deterministic analysis still completes and the UI says so plainly. No silent failures, no fabricated output.", color: "#f87171" },
-                { title: "Lawful data sources", desc: "External market signals come from public, legally accessible sources (a public exchange-rate API and public RSS feeds), fetched politely with hourly caching.", color: "#60a5fa" },
-              ].map((item) => (
-                <div key={item.title} className="glass-card" style={{ padding: "20px 22px" }}>
-                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: item.color, marginBottom: 8 }}>{item.title}</p>
-                  <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* ── Sample CSV ── */}
-          <Section id="sample-csv">
-            <SectionHeading icon={<FileText size={18} />} title="Sample CSV" subtitle="Use this to test the platform instantly — 10 rows, all required columns" />
-
-            <div style={{ marginBottom: 20 }}>
-              <CodeBlock lang="csv" code={SAMPLE_CSV} />
+              <PaperCard className="p-6 space-y-4">
+                <p className="font-display font-bold text-xs uppercase tracking-wider text-ink">{t("docs.rag_cat_title")}</p>
+                {[
+                  { cat: t("docs.rag_cat1"),       count: t("docs.rag_cat1_count"),  color: "text-coffee" },
+                  { cat: t("docs.rag_cat2"),  count: t("docs.rag_cat2_count"),  color: "text-ink" },
+                  { cat: t("docs.rag_cat3"),      count: t("docs.rag_cat3_count"),  color: "text-coffee" },
+                  { cat: t("docs.rag_cat4"),    count: t("docs.rag_cat4_count"),  color: "text-ink" },
+                  { cat: t("docs.rag_cat5"),   count: t("docs.rag_cat5_count"),  color: "text-coffee" },
+                ].map((c) => (
+                  <div key={c.cat} className="flex justify-between items-center text-xs">
+                    <span className="text-muted-foreground">{c.cat}</span>
+                    <span className={cn("font-mono font-bold text-[10px]", c.color)}>{c.count}</span>
+                  </div>
+                ))}
+              </PaperCard>
             </div>
 
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {/* Sample tip */}
+            <PaperCard className="p-6 bg-secondary/20 border border-rule">
+              <MonoLabel className="block mb-2">{t("docs.rag_sample_title")}</MonoLabel>
+              <p className="text-sm text-ink leading-relaxed font-semibold italic">
+                {t("docs.rag_sample")}
+              </p>
+              <p className="text-xs text-muted-foreground mt-2 border-t border-rule/60 pt-2 font-mono">
+                {t("docs.rag_sample_trans")}
+              </p>
+            </PaperCard>
+          </div>
+        </Section>
+
+        {/* ── Sample CSV ── */}
+        <Section id="sample-csv">
+          <SectionHeading index="06" eyebrow={t("docs.sample_eyebrow")} title={t("docs.sample_title")} lead={t("docs.sample_lead")} />
+
+          <div className="space-y-6">
+            <CodeBlock lang="csv" code={SAMPLE_CSV} />
+
+            <div className="flex gap-4">
               <button
                 onClick={downloadCSV}
-                className="btn-primary"
-                style={{ fontSize: 14, padding: "12px 24px", borderRadius: 10 }}
+                className="mono-caps inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2 text-[color:var(--color-paper)] text-xs transition-colors hover:bg-transparent hover:text-ink cursor-pointer"
               >
-                <Download size={16} />
-                Download Sample CSV
+                <Download size={14} />
+                {t("docs.sample_download")}
               </button>
               <Link
-                href="/"
-                className="btn-ghost"
-                style={{ fontSize: 14, padding: "12px 24px", borderRadius: 10, textDecoration: "none" }}
+                href="/dashboard?section=upload"
+                className="mono-caps inline-flex items-center gap-2 border border-rule bg-transparent px-4 py-2 text-ink text-xs transition-colors hover:bg-ink hover:text-[color:var(--color-paper)]"
               >
-                <Upload size={16} />
-                Upload to Dashboard
+                <Upload size={14} />
+                {t("docs.sample_upload")}
               </Link>
             </div>
 
-            <div className="glass-card" style={{ padding: "16px 20px", marginTop: 16, background: "rgba(82,157,255,0.04)" }}>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.7 }}>
-                <strong style={{ color: "var(--accent)" }}>Tip:</strong> The platform auto-detects and handles missing values, inconsistent casing in the <code style={{ fontFamily: "monospace", fontSize: 12 }}>returned</code> column (Yes/yes/YES/1/true), and date format variations. Minimum 3 rows per product for pricing analysis.
+            <PaperCard className="p-5 bg-secondary/10">
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                {t("docs.sample_tip")}
               </p>
-            </div>
-          </Section>
+            </PaperCard>
+          </div>
+        </Section>
 
-          {/* ── Pricing ── */}
-          <Section id="pricing">
-            <SectionHeading icon={<DollarSign size={18} />} title="Pricing" subtitle="Start free — upgrade when you need more" />
+        {/* ── Pricing ── */}
+        <Section id="pricing">
+          <SectionHeading index="07" eyebrow={t("docs.pricing_eyebrow")} title={t("docs.pricing_title")} lead={t("docs.pricing_lead")} />
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-              {[
-                {
-                  plan: "Free",
-                  price: "৳0",
-                  period: "forever",
-                  color: "var(--text-secondary)",
-                  badge: null,
-                  features: [
-                    "Up to 500 rows per upload",
-                    "KPI dashboard",
-                    "30-day forecast",
-                    "5 AI insights",
-                    "Basic health score",
-                    "English only",
-                  ],
-                },
-                {
-                  plan: "Pro",
-                  price: "৳499",
-                  period: "/ month",
-                  color: "var(--accent)",
-                  badge: "Most Popular",
-                  features: [
-                    "Unlimited rows",
-                    "Full KPI dashboard",
-                    "90-day forecast",
-                    "Unlimited AI insights",
-                    "Dynamic pricing engine",
-                    "Bengali + English",
-                    "RAG recommendations",
-                    "Priority support",
-                  ],
-                },
-                {
-                  plan: "Enterprise",
-                  price: "Custom",
-                  period: "",
-                  color: "var(--gold)",
-                  badge: null,
-                  features: [
-                    "Everything in Pro",
-                    "Multi-user access",
-                    "API access",
-                    "Custom integrations",
-                    "Dedicated support",
-                    "SLA guarantee",
-                  ],
-                },
-              ].map((tier) => (
-                <div
-                  key={tier.plan}
-                  className="glass-card"
-                  style={{
-                    padding: "24px 22px",
-                    borderColor: tier.plan === "Pro" ? "rgba(82,157,255,0.3)" : undefined,
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  {tier.badge && (
-                    <span style={{ position: "absolute", top: 14, right: 14, fontSize: 10, padding: "3px 9px", borderRadius: 99, background: "var(--accent)", color: "white", fontWeight: 700 }}>
-                      {tier.badge}
-                    </span>
-                  )}
-                  <div style={{ marginBottom: 16 }}>
-                    <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 700, color: tier.color, marginBottom: 6 }}>{tier.plan}</div>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                      <span style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 800, color: "var(--text-primary)" }}>{tier.price}</span>
-                      <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{tier.period}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                plan: t("pricing.free_name"),
+                price: t("pricing.free_price"),
+                period: t("pricing.free_period"),
+                color: "text-ink",
+                badge: null,
+                features: (lang === "bn"
+                  ? ["প্রতি আপলোডে ৫০০ সারি পর্যন্ত", "KPI ড্যাশবোর্ড", "৩০-দিনের পূর্বাভাস", "৫ টি AI ইনসাইট", "বেসিক হেলথ স্কোর", "শুধুমাত্র ইংরেজি"]
+                  : ["Up to 500 rows per upload", "KPI dashboard", "30-day forecast", "5 AI insights", "Basic health score", "English only"]) as string[],
+                cta: t("pricing.free_cta"),
+              },
+              {
+                plan: t("pricing.pro_name"),
+                price: t("pricing.pro_price"),
+                period: t("pricing.pro_period"),
+                color: "text-coffee",
+                badge: t("pricing.most_popular"),
+                features: (lang === "bn"
+                  ? ["আনলিমিটেড সারি", "সম্পূর্ণ KPI ড্যাশবোর্ড", "৯০-দিনের পূর্বাভাস", "আনলিমিটেড AI ইনসাইট", "ডাইনামিক প্রাইসিং ইঞ্জিন", "বাংলা + ইংরেজি", "RAG সুপারিশ", "অগ্রাধিকার সমর্থন"]
+                  : ["Unlimited rows", "Full KPI dashboard", "90-day forecast", "Unlimited AI insights", "Dynamic pricing engine", "Bengali + English", "RAG recommendations", "Priority support"]) as string[],
+                cta: `${t("docs.pricing_get")} ${t("pricing.pro_name")}`,
+              },
+              {
+                plan: t("pricing.enterprise_name"),
+                price: t("pricing.enterprise_price"),
+                period: t("pricing.enterprise_period"),
+                color: "text-muted-foreground",
+                badge: null,
+                features: (lang === "bn"
+                  ? ["প্রো-এর সবকিছু", "মাল্টি-ইউজার অ্যাক্সেস", "API অ্যাক্সেস", "কাস্টম ইন্টিগ্রেশন", "ডেডিকেটেড সাপোর্ট", "SLA গ্যারান্টি"]
+                  : ["Everything in Pro", "Multi-user access", "API access", "Custom integrations", "Dedicated support", "SLA guarantee"]) as string[],
+                cta: t("docs.pricing_contact"),
+              },
+            ].map((tier) => (
+              <PaperCard
+                key={tier.plan}
+                className={cn(
+                  "p-6 relative flex flex-col justify-between min-h-[400px]",
+                  tier.plan === t("pricing.pro_name") && "border-coffee border-2"
+                )}
+              >
+                {tier.badge && (
+                  <span className="absolute top-4 right-4 text-[9px] font-mono uppercase bg-coffee text-[color:var(--color-paper)] px-2 py-0.5">
+                    {tier.badge}
+                  </span>
+                )}
+                <div>
+                  <div className="mb-4">
+                    <div className={cn("font-display font-bold text-sm uppercase tracking-wider mb-2", tier.color)}>{tier.plan}</div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="font-display font-extrabold text-2xl text-ink">{tier.price}</span>
+                      <span className="text-[10px] text-muted-foreground">{tier.period}</span>
                     </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 20 }}>
+                  <div className="h-px bg-rule mb-4" />
+                  <div className="space-y-2.5 mb-6">
                     {tier.features.map((f) => (
-                      <div key={f} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 12, color: "var(--text-secondary)" }}>
-                        <CheckCircle size={11} color={tier.color} style={{ flexShrink: 0 }} />
-                        {f}
+                      <div key={f} className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                        <CheckCircle size={10} className="text-coffee shrink-0" />
+                        <span>{f}</span>
                       </div>
                     ))}
                   </div>
-                  <Link
-                    href={tier.plan === "Enterprise" ? "mailto:blueberry.poison.1309@gmail.com" : "/"}
-                    style={{
-                      display: "block",
-                      textAlign: "center",
-                      padding: "10px",
-                      borderRadius: 8,
-                      fontSize: 13,
-                      fontWeight: 600,
-                      textDecoration: "none",
-                      background: tier.plan === "Pro" ? "linear-gradient(135deg, rgba(82,157,255,0.2), rgba(124,111,239,0.2))" : "var(--bg-elevated)",
-                      border: `1px solid ${tier.plan === "Pro" ? "rgba(82,157,255,0.3)" : "var(--border)"}`,
-                      color: tier.plan === "Pro" ? "var(--accent)" : "var(--text-secondary)",
-                    }}
-                  >
-                    {tier.plan === "Enterprise" ? "Contact Us" : `Get ${tier.plan}`}
-                  </Link>
                 </div>
-              ))}
-            </div>
-          </Section>
-
-          {/* ── Footer ── */}
-          <div style={{ marginTop: 80, paddingTop: 32, borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div className="logo-mark" style={{ width: 28, height: 28, fontSize: 11 }}>B</div>
-              <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-secondary)" }}>
-                Byapari AI · Team Nexion
-              </span>
-            </div>
-            <div style={{ display: "flex", gap: 16, fontSize: 12, color: "var(--text-muted)" }}>
-              <span>Built for Infinity AI BuildFest 2026</span>
-              <span style={{ color: "var(--border-bright)" }}>·</span>
-              <Link href="/" style={{ color: "var(--accent)", textDecoration: "none" }}>Back to Dashboard →</Link>
-            </div>
+                <Link
+                  href={tier.plan === t("pricing.enterprise_name") ? "mailto:blueberry.poison.1309@gmail.com" : "/dashboard?section=pricing"}
+                  className={cn(
+                    "block text-center py-2 text-xs font-mono uppercase tracking-wider border transition-colors cursor-pointer",
+                    tier.plan === t("pricing.pro_name")
+                      ? "bg-coffee border-coffee text-[color:var(--color-paper)] hover:bg-transparent hover:text-coffee"
+                      : "bg-transparent border-ink text-ink hover:bg-ink hover:text-[color:var(--color-paper)]"
+                  )}
+                >
+                  {tier.cta}
+                </Link>
+              </PaperCard>
+            ))}
           </div>
-        </main>
-      </div>
+        </Section>
+      </main>
     </div>
   );
 }

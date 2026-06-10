@@ -1,501 +1,351 @@
-order_id,date,product_name,product_category,sales,profit,quantity,rating,returned,stock,payment_method,customer_city
-ORD-001,2024-04-24,Walton Smart TV,Electronics,49098,12520.28,9,3.9,No,144,Card,Rangpur
-ORD-002,2024-09-15,Walton Smart TV,Electronics,6640,1618.35,39,1.1,No,171,Rocket,Rangpur
-ORD-003,2024-01-04,Leather Sandal,Clothing,39118,10000.05,49,4.2,No,92,bKash,Sylhet
-ORD-004,2024-02-19,Winter Hoodie,Clothing,7198,1573.12,23,4.4,No,16,Nagad,Chittagong
-ORD-005,2024-11-17,Office Chair,Furniture,36678,9486.24,40,4.5,No,54,Card,Dhaka
-ORD-006,2024-02-21,Women's Kurti,Clothing,5729,2125.82,25,2.1,No,98,Cash,Barisal
-ORD-007,2024-12-15,Mango Pickle,Food,44420,11255.83,42,1.3,No,141,Cash,Sylhet
-ORD-008,2024-11-23,Wardrobe Deluxe,Furniture,18191,7238.28,45,3.2,No,19,Cash,Dhaka
-ORD-009,2024-10-17,Frozen Chicken Nuggets,Food,18046,3848.09,46,2.3,No,106,Nagad,Sylhet
-ORD-010,2024-10-02,Dry Fish Pack,Food,16662,5815.0,17,4.0,No,154,Nagad,Barisal
-ORD-011,2024-01-25,Denim Jacket,Clothing,33892,10123.65,8,1.6,No,179,Nagad,Chittagong
-ORD-012,2024-09-27,Wardrobe Deluxe,Furniture,39552,15790.12,17,4.9,No,7,Card,Khulna
-ORD-013,2024-08-20,Premium Basmati Rice,Food,19734,5662.73,1,4.8,No,72,Rocket,Sylhet
-ORD-014,2024-11-23,Skin Brightening Cream,Beauty,41479,10771.64,33,3.4,No,200,Cash,Dhaka
-ORD-015,2024-07-04,Organic Shampoo,Beauty,32521,6630.88,20,2.0,No,150,Card,Chittagong
-ORD-016,2024-03-06,Office Chair,Furniture,35411,12505.99,43,2.9,No,72,Rocket,Rangpur
-ORD-017,2024-04-12,Kids T-Shirt,Clothing,49997,17298.27,46,2.2,No,171,bKash,Mymensingh
-ORD-018,2024-02-02,Beard Grooming Kit,Beauty,8430,2103.97,22,1.1,No,155,Cash,Dhaka
-ORD-019,2024-01-17,Walton Smart TV,Electronics,15503,3309.58,22,1.3,No,176,Nagad,Rajshahi
-ORD-020,2024-10-19,Hair Growth Oil,Beauty,47905,18544.16,37,2.9,No,109,Cash,Chittagong
-ORD-021,2024-08-27,Anker Power Bank,Electronics,23719,6753.17,47,1.2,No,170,Card,Dhaka
-ORD-022,2024-04-07,Computer Desk,Furniture,7661,1913.19,35,2.8,No,76,Nagad,Rajshahi
-ORD-023,2024-11-29,Walton Fridge,Electronics,36566,8029.23,35,4.3,No,197,Cash,Sylhet
-ORD-024,2024-07-24,Study Table,Furniture,32046,7779.15,4,1.7,Yes,104,bKash,Mymensingh
-ORD-025,2024-10-11,Frozen Chicken Nuggets,Food,46151,18066.43,43,3.9,No,80,Cash,Dhaka
-ORD-026,2024-01-30,Nail Polish Set,Beauty,4494,1571.08,4,3.3,No,140,Cash,Dhaka
-ORD-027,2024-02-04,Skin Brightening Cream,Beauty,12678,2709.34,44,4.4,No,150,Cash,Dhaka
-ORD-028,2024-10-16,Skin Brightening Cream,Beauty,27974,9272.67,34,2.3,No,176,bKash,Rajshahi
-ORD-029,2024-06-02,Frozen Chicken Nuggets,Food,9077,3034.79,30,2.3,No,23,Card,Mymensingh
-ORD-030,2024-04-19,Facial Serum,Beauty,7052,1513.73,33,2.1,No,22,Cash,Barisal
-ORD-031,2024-12-26,Dry Fish Pack,Food,29216,10714.94,20,3.4,No,172,Rocket,Dhaka
-ORD-032,2024-03-09,Lipstick Matte,Beauty,43975,9706.04,17,1.5,No,146,Cash,Khulna
-ORD-033,2024-04-14,Chocolate Gift Box,Food,14303,4913.4,44,3.5,No,130,bKash,Dhaka
-ORD-034,2024-06-19,Anker Power Bank,Electronics,18632,3890.68,50,1.5,No,46,Nagad,Rangpur
-ORD-035,2024-12-19,Herbal Face Wash,Beauty,7831,1684.05,10,3.2,No,154,Rocket,Sylhet
-ORD-036,2024-01-21,King Size Bed,Furniture,3241,848.01,23,1.8,No,31,bKash,Rangpur
-ORD-037,2024-03-31,Hair Growth Oil,Beauty,16014,5971.96,27,1.1,No,90,Nagad,Rajshahi
-ORD-038,2024-01-20,Dry Fish Pack,Food,46458,10295.98,31,1.9,No,122,bKash,Khulna
-ORD-039,2024-07-23,Men's Polo Shirt,Clothing,2050,680.61,22,2.1,Yes,76,bKash,Rangpur
-ORD-040,2024-05-13,Organic Shampoo,Beauty,2308,514.84,12,3.3,No,14,Card,Rangpur
-ORD-041,2024-09-18,Tea Leaves Premium,Food,29099,9347.81,8,2.5,No,70,Card,Rangpur
-ORD-042,2024-12-09,Bluetooth Speaker,Electronics,35787,12073.51,13,2.5,Yes,175,bKash,Barisal
-ORD-043,2024-07-28,Asus Gaming Laptop,Electronics,33734,8833.48,21,2.6,No,37,Cash,Rangpur
-ORD-044,2024-07-26,King Size Bed,Furniture,40838,12815.82,36,4.3,No,58,Nagad,Barisal
-ORD-045,2024-09-18,Study Table,Furniture,29477,9878.49,31,4.2,No,193,Cash,Chittagong
-ORD-046,2024-06-20,Spicy Chanachur,Food,44006,14371.84,6,4.3,No,177,bKash,Rajshahi
-ORD-047,2024-08-31,Denim Jacket,Clothing,2100,439.41,40,4.4,Yes,111,Rocket,Rajshahi
-ORD-048,2024-12-01,Study Table,Furniture,26691,6640.64,45,1.0,No,32,Nagad,Rajshahi
-ORD-049,2024-05-07,Kids T-Shirt,Clothing,30944,6499.59,8,2.8,No,175,Rocket,Barisal
-ORD-050,2024-08-06,Wooden Shoe Rack,Furniture,47638,18026.41,36,2.8,No,126,Nagad,Khulna
-ORD-051,2024-05-02,Women's Kurti,Clothing,34663,10292.12,18,2.8,No,65,bKash,Barisal
-ORD-052,2024-04-28,Spicy Chanachur,Food,5780,1315.96,25,3.8,No,21,Nagad,Rangpur
-ORD-053,2024-04-15,Spicy Chanachur,Food,31034,8787.43,27,2.6,No,183,Card,Rangpur
-ORD-054,2024-07-18,Wooden Dining Table,Furniture,23552,6116.99,27,3.2,No,159,Cash,Mymensingh
-ORD-055,2024-07-18,Women's Kurti,Clothing,29062,8635.15,22,3.7,No,190,Cash,Mymensingh
-ORD-056,2024-07-20,Traditional Salwar Kameez,Clothing,35504,7292.28,38,3.3,Yes,169,Nagad,Sylhet
-ORD-057,2024-06-16,King Size Bed,Furniture,3795,956.46,14,2.8,No,102,bKash,Rangpur
-ORD-058,2024-10-03,Premium Basmati Rice,Food,31322,6385.82,4,5.0,No,171,Card,Dhaka
-ORD-059,2024-11-14,Realme Earbuds,Electronics,13565,4989.83,10,2.0,No,34,Rocket,Rajshahi
-ORD-060,2024-11-06,Sofa Set,Furniture,24675,5763.04,48,3.9,No,46,bKash,Chittagong
-ORD-061,2024-07-11,Herbal Face Wash,Beauty,20944,6600.7,26,4.8,No,156,Cash,Chittagong
-ORD-062,2024-10-16,Chocolate Gift Box,Food,8433,3029.52,3,2.4,No,99,Card,Barisal
-ORD-063,2024-07-04,Anker Power Bank,Electronics,32625,7213.64,41,4.6,No,44,Nagad,Sylhet
-ORD-064,2024-10-02,Lipstick Matte,Beauty,40864,14778.05,50,2.9,No,192,Rocket,Khulna
-ORD-065,2024-08-18,Mango Pickle,Food,6179,1580.5,16,4.0,No,176,Nagad,Barisal
-ORD-066,2024-04-18,Walton Fridge,Electronics,21800,5152.82,23,4.2,No,157,bKash,Dhaka
-ORD-067,2024-07-27,Perfume Spray,Beauty,6110,1516.94,32,3.2,No,126,Nagad,Mymensingh
-ORD-068,2024-12-20,Xiaomi Redmi Phone,Electronics,19783,4833.37,16,2.2,No,126,Rocket,Barisal
-ORD-069,2024-08-20,TV Cabinet,Furniture,22178,5996.09,18,2.2,No,189,Cash,Barisal
-ORD-070,2024-04-20,Bluetooth Speaker,Electronics,45730,10839.38,48,2.9,No,199,Rocket,Khulna
-ORD-071,2024-04-01,Realme Earbuds,Electronics,19914,4888.82,20,1.1,No,75,Card,Dhaka
-ORD-072,2024-11-22,Lipstick Matte,Beauty,46205,17965.33,49,3.0,No,151,bKash,Mymensingh
-ORD-073,2024-01-27,Study Table,Furniture,22828,5407.33,17,4.8,No,21,Nagad,Mymensingh
-ORD-074,2024-03-18,Smart Watch Pro,Electronics,41751,14082.2,10,4.2,No,26,Cash,Chittagong
-ORD-075,2024-11-12,Body Lotion,Beauty,40235,12844.03,15,4.1,No,118,bKash,Rangpur
-ORD-076,2024-02-20,Chocolate Gift Box,Food,41199,8736.09,49,1.8,No,174,Card,Sylhet
-ORD-077,2024-01-02,Denim Jacket,Clothing,36675,7885.6,27,2.8,No,79,Card,Rajshahi
-ORD-078,2024-02-06,Fresh Ghee,Food,46570,17320.38,44,1.9,No,165,Rocket,Rajshahi
-ORD-079,2024-03-17,Office Chair,Furniture,36188,8864.68,18,4.3,Yes,47,bKash,Khulna
-ORD-080,2024-12-24,Office Chair,Furniture,31216,10542.75,26,4.8,No,131,Nagad,Chittagong
-ORD-081,2024-11-05,Herbal Face Wash,Beauty,28813,9995.43,17,1.1,No,177,Rocket,Dhaka
-ORD-082,2024-03-30,Chocolate Gift Box,Food,3136,1105.82,31,3.1,No,76,Cash,Rangpur
-ORD-083,2024-06-19,Office Chair,Furniture,31302,8438.78,21,3.7,No,89,Nagad,Mymensingh
-ORD-084,2024-02-15,Frozen Chicken Nuggets,Food,36551,7578.46,21,2.0,No,108,Rocket,Dhaka
-ORD-085,2024-09-22,Beard Grooming Kit,Beauty,27582,5815.41,24,3.5,No,118,Card,Rajshahi
-ORD-086,2024-08-12,Spicy Chanachur,Food,9086,3502.97,45,2.9,Yes,166,Rocket,Rajshahi
-ORD-087,2024-07-27,Women's Kurti,Clothing,36599,7419.89,6,1.9,No,34,Nagad,Chittagong
-ORD-088,2024-12-27,Leather Sandal,Clothing,47463,12263.13,18,2.7,No,125,Cash,Mymensingh
-ORD-089,2024-11-02,Hair Growth Oil,Beauty,25638,6104.97,33,4.0,No,22,bKash,Rangpur
-ORD-090,2024-05-24,Spicy Chanachur,Food,18009,6557.26,47,2.2,No,173,Nagad,Sylhet
-ORD-091,2024-10-09,TV Cabinet,Furniture,32241,8673.63,49,3.2,No,87,Cash,Rajshahi
-ORD-092,2024-07-29,Body Lotion,Beauty,15806,5867.23,3,2.3,No,102,Nagad,Sylhet
-ORD-093,2024-10-29,Wooden Dining Table,Furniture,8773,2635.92,22,4.5,No,117,Card,Mymensingh
-ORD-094,2024-03-20,Samsung Galaxy A15,Electronics,27368,10240.74,5,2.9,No,91,Rocket,Rangpur
-ORD-095,2024-07-13,Canon DSLR Camera,Electronics,44694,16620.29,21,3.5,No,129,Rocket,Dhaka
-ORD-096,2024-05-27,Skin Brightening Cream,Beauty,15885,5182.2,15,4.0,No,30,Card,Mymensingh
-ORD-097,2024-01-29,Women's Kurti,Clothing,2397,501.45,19,2.4,No,67,Rocket,Rangpur
-ORD-098,2024-11-08,Hair Growth Oil,Beauty,11640,2735.56,25,3.5,No,154,Cash,Rajshahi
-ORD-099,2024-01-05,Sofa Set,Furniture,30618,7687.12,30,4.6,No,45,Card,Mymensingh
-ORD-100,2024-08-05,Chocolate Gift Box,Food,20105,6590.17,45,2.0,No,55,Nagad,Mymensingh
-ORD-101,2024-10-21,Realme Earbuds,Electronics,25493,8014.61,19,5.0,No,173,Nagad,Khulna
-ORD-102,2024-01-26,Smart Watch Pro,Electronics,45444,16162.72,39,4.0,No,78,Cash,Barisal
-ORD-103,2024-12-03,Men's Polo Shirt,Clothing,41190,10302.66,44,4.4,No,165,Card,Khulna
-ORD-104,2024-03-08,Wooden Dining Table,Furniture,38482,10504.52,6,4.6,No,111,Cash,Rajshahi
-ORD-105,2024-05-19,Kids T-Shirt,Clothing,24476,7493.83,11,2.0,No,128,bKash,Barisal
-ORD-106,2024-04-25,Walton Fridge,Electronics,5434,1239.77,44,3.9,No,147,bKash,Chittagong
-ORD-107,2024-08-20,Wooden Dining Table,Furniture,17831,5479.72,24,3.7,No,154,Nagad,Barisal
-ORD-108,2024-10-14,Realme Earbuds,Electronics,31398,6436.74,21,4.7,No,21,Nagad,Khulna
-ORD-109,2024-01-20,Office Chair,Furniture,9660,2019.61,20,5.0,No,65,Rocket,Sylhet
-ORD-110,2024-12-22,Study Table,Furniture,24814,8290.29,35,2.7,No,44,Nagad,Chittagong
-ORD-111,2024-05-23,Wooden Shoe Rack,Furniture,27246,10566.29,3,3.8,No,118,Cash,Barisal
-ORD-112,2024-11-26,Canon DSLR Camera,Electronics,36182,13761.43,23,1.2,No,36,Nagad,Chittagong
-ORD-113,2024-06-19,Traditional Salwar Kameez,Clothing,1899,399.01,16,5.0,No,57,Card,Rajshahi
-ORD-114,2024-03-16,Perfume Spray,Beauty,15769,4190.01,39,1.0,No,42,Cash,Khulna
-ORD-115,2024-03-08,Cotton Saree,Clothing,43823,16358.67,1,2.4,No,155,bKash,Dhaka
-ORD-116,2024-08-03,Women's Kurti,Clothing,3934,886.53,34,1.5,Yes,119,bKash,Chittagong
-ORD-117,2024-01-23,TV Cabinet,Furniture,15019,5843.64,47,4.1,No,138,bKash,Mymensingh
-ORD-118,2024-08-06,Walton Smart TV,Electronics,31890,11782.07,44,1.4,No,118,Card,Chittagong
-ORD-119,2024-05-20,Chocolate Gift Box,Food,10221,2178.47,40,3.5,No,88,Nagad,Khulna
-ORD-120,2024-12-25,TV Cabinet,Furniture,40177,11492.22,8,4.4,No,146,Cash,Rangpur
-ORD-121,2024-08-20,Bookshelf Classic,Furniture,27619,7395.99,26,2.7,Yes,114,bKash,Khulna
-ORD-122,2024-02-04,Dry Fish Pack,Food,45511,17503.39,6,4.3,Yes,29,bKash,Sylhet
-ORD-123,2024-10-14,Herbal Face Wash,Beauty,38934,15235.84,22,3.7,No,175,Nagad,Dhaka
-ORD-124,2024-10-22,Chocolate Gift Box,Food,20976,5670.43,33,1.9,No,62,Card,Barisal
-ORD-125,2024-10-20,Organic Shampoo,Beauty,8029,2830.39,15,4.2,No,164,Rocket,Dhaka
-ORD-126,2024-12-25,Lipstick Matte,Beauty,2397,565.89,49,2.2,No,6,Cash,Sylhet
-ORD-127,2024-11-20,Body Lotion,Beauty,5060,1155.58,2,1.4,No,101,Nagad,Mymensingh
-ORD-128,2024-06-15,Dry Fish Pack,Food,24751,6492.87,50,4.8,No,18,Cash,Sylhet
-ORD-129,2024-08-14,Herbal Face Wash,Beauty,44669,9662.63,43,2.7,No,111,bKash,Rajshahi
-ORD-130,2024-05-25,Skin Brightening Cream,Beauty,23121,6612.21,44,3.7,No,175,bKash,Dhaka
-ORD-131,2024-04-14,Formal Shirt,Clothing,39777,8391.21,20,4.8,No,200,bKash,Khulna
-ORD-132,2024-08-08,Premium Basmati Rice,Food,1006,301.27,12,1.5,No,63,Rocket,Barisal
-ORD-133,2024-01-10,Anker Power Bank,Electronics,49130,10241.66,30,4.7,No,152,Nagad,Rangpur
-ORD-134,2024-06-15,Sofa Set,Furniture,8048,2261.54,11,4.2,No,181,bKash,Chittagong
-ORD-135,2024-07-24,Office Chair,Furniture,16445,4721.94,34,1.3,No,195,bKash,Rajshahi
-ORD-136,2024-02-28,Dry Fish Pack,Food,5505,1663.04,34,3.0,No,94,bKash,Sylhet
-ORD-137,2024-03-29,Cotton Saree,Clothing,10097,2536.3,39,1.6,No,24,Cash,Mymensingh
-ORD-138,2024-10-16,Wooden Shoe Rack,Furniture,38476,11149.62,42,3.5,No,165,bKash,Sylhet
-ORD-139,2024-06-04,Office Chair,Furniture,31231,9008.32,18,3.4,No,23,bKash,Mymensingh
-ORD-140,2024-05-26,Wooden Dining Table,Furniture,4228,1157.4,5,3.6,No,28,Rocket,Rangpur
-ORD-141,2024-01-22,Wooden Shoe Rack,Furniture,36827,14393.7,29,4.6,No,53,bKash,Mymensingh
-ORD-142,2024-06-24,Hair Growth Oil,Beauty,4554,1321.14,46,1.3,No,15,Cash,Mymensingh
-ORD-143,2024-07-05,TV Cabinet,Furniture,34758,11190.72,24,4.7,No,91,Rocket,Dhaka
-ORD-144,2024-12-13,Premium Basmati Rice,Food,22106,4839.03,25,2.1,No,173,Rocket,Sylhet
-ORD-145,2024-06-28,Premium Basmati Rice,Food,38690,12873.03,20,4.9,No,105,Cash,Chittagong
-ORD-146,2024-06-17,Spicy Chanachur,Food,25186,8278.6,9,3.7,No,194,Rocket,Chittagong
-ORD-147,2024-06-07,TV Cabinet,Furniture,24212,4930.68,12,4.8,No,129,Cash,Rajshahi
-ORD-148,2024-02-21,Denim Jacket,Clothing,5557,1440.14,33,4.1,No,139,Card,Barisal
-ORD-149,2024-03-24,Hair Growth Oil,Beauty,39641,10914.91,12,4.3,No,47,Nagad,Dhaka
-ORD-150,2024-08-15,Computer Desk,Furniture,44826,15416.43,40,2.1,No,119,Cash,Rajshahi
-ORD-151,2024-10-19,Mixed Nuts Box,Food,13215,3615.2,29,2.8,No,102,Rocket,Rangpur
-ORD-152,2024-05-08,Men's Polo Shirt,Clothing,40127,9136.1,4,3.6,No,146,Card,Chittagong
-ORD-153,2024-09-19,Premium Basmati Rice,Food,11006,2801.67,10,4.3,Yes,61,Nagad,Barisal
-ORD-154,2024-07-10,Anker Power Bank,Electronics,3990,1114.37,16,2.5,Yes,62,Card,Barisal
-ORD-155,2024-05-26,Canon DSLR Camera,Electronics,10071,2291.35,31,3.8,No,185,Nagad,Mymensingh
-ORD-156,2024-04-20,Herbal Face Wash,Beauty,5692,1160.03,10,3.2,No,140,Nagad,Chittagong
-ORD-157,2024-05-02,Mango Pickle,Food,20236,4540.34,27,3.6,No,21,Card,Mymensingh
-ORD-158,2024-10-21,Nail Polish Set,Beauty,1577,514.72,16,3.9,No,5,Rocket,Barisal
-ORD-159,2024-12-08,Traditional Salwar Kameez,Clothing,27800,6601.47,6,3.1,No,139,Rocket,Dhaka
-ORD-160,2024-07-10,Study Table,Furniture,3353,1096.88,17,4.0,No,22,bKash,Rajshahi
-ORD-161,2024-03-09,Smart Watch Pro,Electronics,48681,17103.38,3,2.4,No,169,Cash,Mymensingh
-ORD-162,2024-08-22,King Size Bed,Furniture,9337,1985.23,3,2.2,Yes,56,Card,Barisal
-ORD-163,2024-10-05,Spicy Chanachur,Food,26598,10581.34,31,2.0,No,53,bKash,Barisal
-ORD-164,2024-07-07,Canon DSLR Camera,Electronics,18405,4139.19,28,4.6,No,103,bKash,Sylhet
-ORD-165,2024-09-22,Study Table,Furniture,24574,9457.6,18,4.2,No,25,Nagad,Sylhet
-ORD-166,2024-06-16,Lipstick Matte,Beauty,21550,4752.2,43,2.2,No,188,Nagad,Sylhet
-ORD-167,2024-06-29,Computer Desk,Furniture,29803,6213.06,40,5.0,No,19,Card,Rangpur
-ORD-168,2024-01-16,Spicy Chanachur,Food,49645,16674.87,10,4.4,No,117,Card,Sylhet
-ORD-169,2024-07-15,Realme Earbuds,Electronics,42781,11690.58,37,1.1,No,120,bKash,Barisal
-ORD-170,2024-07-06,Office Chair,Furniture,38112,8671.97,26,2.3,No,34,Card,Sylhet
-ORD-171,2024-03-01,TV Cabinet,Furniture,25861,9897.22,17,4.1,No,59,Rocket,Khulna
-ORD-172,2024-02-07,Bookshelf Classic,Furniture,8537,1939.14,29,1.7,No,27,bKash,Barisal
-ORD-173,2024-06-02,Bluetooth Speaker,Electronics,36031,9298.61,11,3.8,No,168,Cash,Barisal
-ORD-174,2024-03-12,Perfume Spray,Beauty,8453,3356.07,16,4.2,Yes,146,Rocket,Barisal
-ORD-175,2024-02-14,TV Cabinet,Furniture,9004,2902.8,5,2.2,No,189,Nagad,Rangpur
-ORD-176,2024-06-11,Wooden Shoe Rack,Furniture,5333,1200.27,42,1.3,No,137,bKash,Sylhet
-ORD-177,2024-03-07,Facial Serum,Beauty,12425,4392.94,28,3.0,No,36,Rocket,Sylhet
-ORD-178,2024-12-29,Dry Fish Pack,Food,11114,2940.01,15,2.4,No,77,Card,Khulna
-ORD-179,2024-06-04,Kids T-Shirt,Clothing,18486,4159.98,40,3.1,No,48,Rocket,Sylhet
-ORD-180,2024-06-21,Traditional Salwar Kameez,Clothing,47727,18155.36,37,1.2,No,25,Card,Khulna
-ORD-181,2024-01-16,Traditional Salwar Kameez,Clothing,27801,8997.01,32,4.6,No,169,bKash,Mymensingh
-ORD-182,2024-12-18,Formal Shirt,Clothing,19992,5811.85,4,1.6,No,123,Cash,Barisal
-ORD-183,2024-06-12,Hair Growth Oil,Beauty,20985,7812.65,47,5.0,No,107,Cash,Barisal
-ORD-184,2024-08-26,Nail Polish Set,Beauty,7458,1967.59,8,2.1,No,29,Card,Khulna
-ORD-185,2024-03-22,Wooden Shoe Rack,Furniture,27902,6965.85,21,4.7,No,53,Cash,Mymensingh
-ORD-186,2024-09-11,Beard Grooming Kit,Beauty,33186,12471.8,2,1.4,No,122,Cash,Rajshahi
-ORD-187,2024-09-10,Organic Shampoo,Beauty,3688,774.88,39,4.5,No,125,bKash,Dhaka
-ORD-188,2024-07-06,Anker Power Bank,Electronics,9277,3492.71,49,2.6,Yes,18,Rocket,Rajshahi
-ORD-189,2024-09-15,Spicy Chanachur,Food,19413,4168.09,29,4.1,No,164,Rocket,Chittagong
-ORD-190,2024-06-22,Cotton Saree,Clothing,26314,7226.87,36,4.8,No,55,Rocket,Rangpur
-ORD-191,2024-12-31,Herbal Face Wash,Beauty,3469,720.8,22,4.2,No,43,Rocket,Sylhet
-ORD-192,2024-11-11,Chocolate Gift Box,Food,21375,4969.7,48,4.4,No,134,Rocket,Mymensingh
-ORD-193,2024-07-07,Lipstick Matte,Beauty,31622,11483.52,22,3.7,No,154,bKash,Dhaka
-ORD-194,2024-10-23,Beard Grooming Kit,Beauty,17901,7042.51,37,1.9,Yes,127,Cash,Rangpur
-ORD-195,2024-12-24,Men's Polo Shirt,Clothing,2569,807.99,8,1.8,No,112,Cash,Rangpur
-ORD-196,2024-08-29,Formal Shirt,Clothing,33387,11852.2,48,3.9,No,137,Cash,Barisal
-ORD-197,2024-03-29,TV Cabinet,Furniture,25195,6620.0,30,4.6,No,95,bKash,Mymensingh
-ORD-198,2024-04-25,Men's Polo Shirt,Clothing,18784,5853.42,20,4.1,No,181,Nagad,Barisal
-ORD-199,2024-05-20,Computer Desk,Furniture,37232,14399.11,19,1.5,No,102,Nagad,Barisal
-ORD-200,2024-12-31,Women's Kurti,Clothing,3256,838.5,6,2.4,No,70,Nagad,Rajshahi
-ORD-201,2024-12-22,Kids T-Shirt,Clothing,18268,7062.5,18,1.5,No,155,Cash,Rajshahi
-ORD-202,2024-01-27,Bluetooth Speaker,Electronics,15289,5008.51,7,2.7,No,30,Cash,Dhaka
-ORD-203,2024-08-31,Hair Growth Oil,Beauty,27167,8980.83,31,3.6,No,78,bKash,Khulna
-ORD-204,2024-09-30,Xiaomi Redmi Phone,Electronics,43249,13615.94,48,3.9,No,49,Nagad,Sylhet
-ORD-205,2024-05-28,Anker Power Bank,Electronics,32965,7821.35,3,1.0,No,32,bKash,Khulna
-ORD-206,2024-03-09,TV Cabinet,Furniture,34861,10415.86,33,2.9,No,33,bKash,Sylhet
-ORD-207,2024-06-21,Sofa Set,Furniture,47594,11291.19,19,3.3,No,49,Rocket,Rangpur
-ORD-208,2024-12-08,TV Cabinet,Furniture,21991,4779.69,7,1.7,No,87,Cash,Dhaka
-ORD-209,2024-05-16,Frozen Chicken Nuggets,Food,15935,4610.75,22,2.2,No,7,bKash,Barisal
-ORD-210,2024-06-06,Panjabi Premium,Clothing,44264,9899.42,11,2.6,No,185,bKash,Chittagong
-ORD-211,2024-03-09,Tea Leaves Premium,Food,40780,9957.25,31,1.6,No,160,bKash,Rangpur
-ORD-212,2024-04-21,Beard Grooming Kit,Beauty,35726,12875.61,49,2.0,No,25,Rocket,Mymensingh
-ORD-213,2024-02-27,Organic Shampoo,Beauty,5618,2154.22,4,4.3,No,56,Rocket,Sylhet
-ORD-214,2024-12-14,Winter Hoodie,Clothing,34601,9977.82,14,3.9,No,135,Nagad,Dhaka
-ORD-215,2024-10-15,King Size Bed,Furniture,34136,9663.39,4,3.2,No,83,Card,Rangpur
-ORD-216,2024-02-07,Organic Honey,Food,49377,12027.26,3,2.7,No,143,Card,Chittagong
-ORD-217,2024-03-10,Wooden Dining Table,Furniture,19314,5442.17,50,3.6,No,112,bKash,Rangpur
-ORD-218,2024-12-04,Wardrobe Deluxe,Furniture,25118,5426.74,35,1.5,No,35,Cash,Rangpur
-ORD-219,2024-01-02,Hair Growth Oil,Beauty,48200,19074.9,49,1.1,No,177,Rocket,Rangpur
-ORD-220,2024-06-26,Body Lotion,Beauty,15551,3880.01,10,2.1,No,190,Card,Dhaka
-ORD-221,2024-02-04,Wooden Shoe Rack,Furniture,1525,378.4,7,3.4,No,177,Card,Rajshahi
-ORD-222,2024-04-21,Anker Power Bank,Electronics,29267,7225.08,49,4.5,Yes,133,bKash,Rajshahi
-ORD-223,2024-12-10,Organic Shampoo,Beauty,38345,12254.43,21,1.9,No,174,Rocket,Rajshahi
-ORD-224,2024-10-29,Sofa Set,Furniture,18532,3932.33,48,4.6,No,114,Rocket,Mymensingh
-ORD-225,2024-09-25,Canon DSLR Camera,Electronics,42660,14259.89,21,3.8,No,81,Nagad,Sylhet
-ORD-226,2024-06-02,Beard Grooming Kit,Beauty,16292,6025.89,46,1.6,No,19,Rocket,Rangpur
-ORD-227,2024-05-04,TV Cabinet,Furniture,35233,7991.5,17,1.8,No,120,bKash,Chittagong
-ORD-228,2024-12-10,Perfume Spray,Beauty,3877,983.57,39,3.4,No,53,Rocket,Rajshahi
-ORD-229,2024-01-08,Bookshelf Classic,Furniture,22321,5817.69,14,4.7,No,35,Nagad,Rajshahi
-ORD-230,2024-10-09,Perfume Spray,Beauty,26493,10147.49,21,4.1,No,141,bKash,Khulna
-ORD-231,2024-08-26,Tea Leaves Premium,Food,34107,12843.41,7,4.2,No,199,bKash,Rajshahi
-ORD-232,2024-04-23,Tea Leaves Premium,Food,27627,5778.0,48,1.6,No,154,Rocket,Rangpur
-ORD-233,2024-07-13,Dry Fish Pack,Food,13357,3552.6,37,4.3,No,172,bKash,Khulna
-ORD-234,2024-06-29,Study Table,Furniture,30700,7172.95,11,1.6,No,52,Rocket,Dhaka
-ORD-235,2024-12-08,Herbal Face Wash,Beauty,5371,2089.52,4,4.1,No,166,Cash,Chittagong
-ORD-236,2024-07-10,Panjabi Premium,Clothing,14834,4467.21,4,3.5,No,162,Nagad,Mymensingh
-ORD-237,2024-01-07,Walton Smart TV,Electronics,35379,10979.12,2,3.1,No,78,Card,Rangpur
-ORD-238,2024-05-03,Cotton Saree,Clothing,6812,2076.82,13,3.5,No,95,bKash,Rangpur
-ORD-239,2024-05-04,Canon DSLR Camera,Electronics,27109,7910.39,45,1.9,No,25,Card,Chittagong
-ORD-240,2024-01-29,Wardrobe Deluxe,Furniture,25218,7831.2,41,1.0,No,132,Nagad,Barisal
-ORD-241,2024-04-27,Skin Brightening Cream,Beauty,35113,13477.44,14,4.6,No,150,Nagad,Khulna
-ORD-242,2024-10-05,Xiaomi Redmi Phone,Electronics,45354,17466.59,37,3.6,No,85,Card,Rajshahi
-ORD-243,2024-07-22,Hair Growth Oil,Beauty,49799,18133.72,5,2.2,No,150,Nagad,Barisal
-ORD-244,2024-09-13,King Size Bed,Furniture,45674,15749.89,48,4.9,Yes,116,Cash,Chittagong
-ORD-245,2024-07-22,Chocolate Gift Box,Food,40730,15924.28,50,2.3,No,120,Nagad,Rajshahi
-ORD-246,2024-12-14,Spicy Chanachur,Food,25103,7188.74,38,3.6,Yes,163,bKash,Rajshahi
-ORD-247,2024-12-30,Xiaomi Redmi Phone,Electronics,18061,4169.28,41,1.6,No,97,Card,Chittagong
-ORD-248,2024-05-18,Asus Gaming Laptop,Electronics,29646,8063.22,7,1.5,No,119,Rocket,Rangpur
-ORD-249,2024-02-17,Walton Smart TV,Electronics,6373,1725.7,39,3.4,No,103,Card,Khulna
-ORD-250,2024-10-13,Wardrobe Deluxe,Furniture,6050,2087.06,16,3.3,No,102,Cash,Sylhet
-ORD-251,2024-02-02,Fresh Ghee,Food,18090,5402.12,11,2.7,No,128,Card,Barisal
-ORD-252,2024-10-31,Mango Pickle,Food,47744,15517.12,40,1.8,No,82,Card,Rangpur
-ORD-253,2024-06-17,Chocolate Gift Box,Food,25396,9163.27,29,2.3,No,171,Rocket,Sylhet
-ORD-254,2024-04-12,Tea Leaves Premium,Food,40032,15590.69,31,2.3,No,86,bKash,Mymensingh
-ORD-255,2024-07-20,Perfume Spray,Beauty,21857,6015.29,24,1.5,No,156,Rocket,Sylhet
-ORD-256,2024-12-28,Herbal Face Wash,Beauty,48158,14077.76,14,2.8,No,182,Card,Rangpur
-ORD-257,2024-05-09,King Size Bed,Furniture,42006,10945.36,43,1.6,No,101,Card,Mymensingh
-ORD-258,2024-09-16,Beard Grooming Kit,Beauty,38657,10830.18,45,2.7,Yes,97,Rocket,Chittagong
-ORD-259,2024-03-26,Realme Earbuds,Electronics,43596,14514.8,42,3.5,No,170,Nagad,Barisal
-ORD-260,2024-04-23,Office Chair,Furniture,1191,261.69,33,4.0,No,181,Rocket,Rajshahi
-ORD-261,2024-12-13,Computer Desk,Furniture,26133,7646.85,38,3.8,No,11,Nagad,Chittagong
-ORD-262,2024-03-13,Frozen Chicken Nuggets,Food,6126,1367.41,23,2.2,No,57,Rocket,Mymensingh
-ORD-263,2024-12-22,Mixed Nuts Box,Food,6897,1983.81,29,2.3,No,186,Card,Dhaka
-ORD-264,2024-05-04,Premium Basmati Rice,Food,44877,16156.17,34,1.7,No,148,Nagad,Mymensingh
-ORD-265,2024-11-23,Formal Shirt,Clothing,41771,9895.15,43,2.7,Yes,162,Cash,Mymensingh
-ORD-266,2024-04-19,Body Lotion,Beauty,25982,5219.52,14,2.1,No,21,Rocket,Chittagong
-ORD-267,2024-08-22,Hair Growth Oil,Beauty,24472,6489.9,8,2.0,No,140,bKash,Rangpur
-ORD-268,2024-06-29,Body Lotion,Beauty,38969,8684.1,30,3.5,No,185,bKash,Chittagong
-ORD-269,2024-02-29,Winter Hoodie,Clothing,8224,2037.2,12,2.5,No,104,Nagad,Sylhet
-ORD-270,2024-11-21,Body Lotion,Beauty,28224,6693.34,35,3.8,No,49,Rocket,Sylhet
-ORD-271,2024-08-18,Sofa Set,Furniture,9694,2301.55,40,1.2,No,7,Nagad,Sylhet
-ORD-272,2024-09-10,Formal Shirt,Clothing,37303,11231.47,27,3.7,No,118,Nagad,Sylhet
-ORD-273,2024-04-22,Smart Watch Pro,Electronics,2522,905.84,19,1.1,No,78,Cash,Mymensingh
-ORD-274,2024-10-20,Beard Grooming Kit,Beauty,36526,11036.74,8,2.1,No,98,Rocket,Dhaka
-ORD-275,2024-02-22,TV Cabinet,Furniture,14822,5898.49,48,4.3,No,81,Card,Mymensingh
-ORD-276,2024-03-01,Tea Leaves Premium,Food,6200,1784.45,50,4.2,No,193,Rocket,Barisal
-ORD-277,2024-04-15,Body Lotion,Beauty,11377,3677.39,14,4.2,No,141,bKash,Sylhet
-ORD-278,2024-09-20,Fresh Ghee,Food,19461,6121.4,44,4.3,No,197,Nagad,Dhaka
-ORD-279,2024-05-07,Dry Fish Pack,Food,46468,17342.59,10,3.8,No,199,Nagad,Mymensingh
-ORD-280,2024-07-31,Traditional Salwar Kameez,Clothing,41945,10643.27,25,2.8,No,28,Nagad,Khulna
-ORD-281,2024-01-02,Mixed Nuts Box,Food,32484,8623.13,50,4.4,Yes,122,bKash,Chittagong
-ORD-282,2024-04-18,Body Lotion,Beauty,14775,5815.82,32,2.1,No,91,Rocket,Sylhet
-ORD-283,2024-01-25,Beard Grooming Kit,Beauty,23027,8723.34,3,1.4,No,122,Card,Chittagong
-ORD-284,2024-08-07,Leather Sandal,Clothing,30418,6087.71,13,5.0,No,171,bKash,Sylhet
-ORD-285,2024-02-12,Premium Basmati Rice,Food,43399,11808.31,24,3.7,No,18,Nagad,Khulna
-ORD-286,2024-02-18,Formal Shirt,Clothing,43457,9484.05,1,1.9,Yes,156,Cash,Mymensingh
-ORD-287,2024-03-02,Walton Smart TV,Electronics,46086,12383.99,28,3.8,No,63,Nagad,Chittagong
-ORD-288,2024-06-02,Xiaomi Redmi Phone,Electronics,21035,5753.33,9,2.5,No,39,Cash,Chittagong
-ORD-289,2024-03-25,Facial Serum,Beauty,1055,339.78,29,2.4,No,196,Cash,Rangpur
-ORD-290,2024-02-21,Beard Grooming Kit,Beauty,14737,3202.9,9,4.0,No,103,bKash,Rangpur
-ORD-291,2024-02-13,Dry Fish Pack,Food,16738,4274.78,16,3.2,No,160,bKash,Dhaka
-ORD-292,2024-04-06,Mango Pickle,Food,34431,11065.62,48,2.6,No,66,Nagad,Rangpur
-ORD-293,2024-02-06,Realme Earbuds,Electronics,33240,10889.97,34,4.6,Yes,97,bKash,Sylhet
-ORD-294,2024-12-15,Wooden Shoe Rack,Furniture,28081,7668.43,12,4.1,No,23,Card,Chittagong
-ORD-295,2024-01-31,Asus Gaming Laptop,Electronics,14638,3044.2,26,3.0,No,133,Nagad,Rangpur
-ORD-296,2024-11-11,Office Chair,Furniture,42478,13054.04,10,2.1,No,135,Cash,Sylhet
-ORD-297,2024-11-28,Organic Shampoo,Beauty,26106,8283.11,44,3.6,No,116,Cash,Dhaka
-ORD-298,2024-11-09,Cotton Saree,Clothing,28974,6466.92,39,1.2,No,173,Cash,Chittagong
-ORD-299,2024-09-11,Samsung Galaxy A15,Electronics,46473,9400.1,23,3.1,No,189,bKash,Sylhet
-ORD-300,2024-05-17,Dry Fish Pack,Food,49637,17681.93,47,4.5,No,12,bKash,Rangpur
-ORD-301,2024-10-22,Spicy Chanachur,Food,4685,1183.38,41,1.3,No,97,Card,Mymensingh
-ORD-302,2024-02-22,Hair Growth Oil,Beauty,24596,5693.04,37,3.7,No,194,Rocket,Dhaka
-ORD-303,2024-07-05,Walton Smart TV,Electronics,16526,3457.18,25,4.7,No,14,Rocket,Rangpur
-ORD-304,2024-06-12,Winter Hoodie,Clothing,16770,4750.12,18,4.3,No,35,Rocket,Dhaka
-ORD-305,2024-07-24,Men's Polo Shirt,Clothing,34301,13592.9,5,4.5,No,84,bKash,Chittagong
-ORD-306,2024-05-29,Beard Grooming Kit,Beauty,1022,279.81,37,4.1,No,67,Nagad,Barisal
-ORD-307,2024-10-06,Beard Grooming Kit,Beauty,13307,4610.78,49,4.2,No,109,Card,Rajshahi
-ORD-308,2024-01-05,Organic Shampoo,Beauty,42177,15517.54,22,1.0,No,193,bKash,Chittagong
-ORD-309,2024-01-31,Kids T-Shirt,Clothing,16108,4574.08,10,3.8,Yes,64,Rocket,Rangpur
-ORD-310,2024-02-18,Mixed Nuts Box,Food,49514,10743.57,33,1.5,No,24,Rocket,Dhaka
-ORD-311,2024-06-10,King Size Bed,Furniture,16017,4137.75,26,3.8,No,86,Nagad,Khulna
-ORD-312,2024-10-26,Cotton Saree,Clothing,13784,3132.03,7,1.6,No,124,bKash,Rangpur
-ORD-313,2024-04-16,Bluetooth Speaker,Electronics,23980,9422.39,29,2.2,No,35,Card,Sylhet
-ORD-314,2024-06-16,Chocolate Gift Box,Food,3143,763.76,10,1.4,No,96,Nagad,Dhaka
-ORD-315,2024-07-26,Fresh Ghee,Food,11894,2452.74,29,3.2,No,29,Nagad,Chittagong
-ORD-316,2024-04-23,Cotton Saree,Clothing,1283,272.42,9,1.8,No,180,Card,Khulna
-ORD-317,2024-11-26,Walton Smart TV,Electronics,4725,1131.87,29,4.2,Yes,89,Card,Dhaka
-ORD-318,2024-08-09,Wooden Dining Table,Furniture,11509,4428.97,47,2.6,Yes,179,Nagad,Sylhet
-ORD-319,2024-08-16,Mango Pickle,Food,12765,3255.03,10,1.1,No,67,bKash,Mymensingh
-ORD-320,2024-05-23,TV Cabinet,Furniture,31893,6767.56,25,1.5,No,139,Cash,Dhaka
-ORD-321,2024-09-05,Computer Desk,Furniture,31936,9865.14,23,4.7,No,104,bKash,Sylhet
-ORD-322,2024-05-23,Canon DSLR Camera,Electronics,39632,9662.44,4,4.2,No,96,Rocket,Rajshahi
-ORD-323,2024-05-16,Cotton Saree,Clothing,16743,5548.18,35,4.3,No,19,Cash,Rangpur
-ORD-324,2024-06-11,Dry Fish Pack,Food,12040,2977.62,48,3.8,No,12,bKash,Sylhet
-ORD-325,2024-03-30,Perfume Spray,Beauty,32758,10103.38,32,1.2,Yes,159,Cash,Dhaka
-ORD-326,2024-11-10,Beard Grooming Kit,Beauty,544,144.89,13,4.2,No,50,bKash,Dhaka
-ORD-327,2024-03-13,Samsung Galaxy A15,Electronics,38944,13277.54,50,1.4,No,98,Card,Barisal
-ORD-328,2024-06-14,Wooden Shoe Rack,Furniture,7121,1903.53,9,4.9,No,116,Nagad,Barisal
-ORD-329,2024-11-10,Kids T-Shirt,Clothing,45953,17366.56,23,1.9,No,49,Nagad,Khulna
-ORD-330,2024-12-25,Dry Fish Pack,Food,12146,4199.68,37,2.6,No,150,Card,Sylhet
-ORD-331,2024-10-16,Organic Shampoo,Beauty,40567,9905.61,7,4.7,No,195,Card,Rajshahi
-ORD-332,2024-02-15,Tea Leaves Premium,Food,11502,3763.88,46,3.7,No,90,Nagad,Dhaka
-ORD-333,2024-06-28,Mango Pickle,Food,16853,5707.02,17,4.1,No,17,Nagad,Mymensingh
-ORD-334,2024-07-12,King Size Bed,Furniture,27633,8251.67,23,3.2,No,127,Rocket,Rajshahi
-ORD-335,2024-01-18,Leather Sandal,Clothing,5330,1917.94,19,1.1,No,31,Card,Barisal
-ORD-336,2024-10-07,Formal Shirt,Clothing,11045,3825.96,6,2.4,No,128,Card,Rangpur
-ORD-337,2024-02-21,Traditional Salwar Kameez,Clothing,28955,6700.79,22,1.8,No,183,Rocket,Khulna
-ORD-338,2024-07-20,Fresh Ghee,Food,16067,3521.62,37,3.2,No,18,bKash,Dhaka
-ORD-339,2024-11-16,Office Chair,Furniture,19803,7223.73,39,2.9,Yes,57,Cash,Khulna
-ORD-340,2024-07-22,Walton Fridge,Electronics,8069,2111.42,31,3.0,No,28,Rocket,Rangpur
-ORD-341,2024-08-16,Winter Hoodie,Clothing,25498,6983.4,3,2.1,No,62,bKash,Dhaka
-ORD-342,2024-10-04,Cotton Saree,Clothing,6116,2040.47,27,4.9,No,146,Card,Rangpur
-ORD-343,2024-08-31,Body Lotion,Beauty,35595,12010.24,37,4.5,No,25,Nagad,Dhaka
-ORD-344,2024-12-12,Facial Serum,Beauty,34370,12376.3,40,1.6,No,119,Cash,Sylhet
-ORD-345,2024-02-10,Men's Polo Shirt,Clothing,8769,1828.64,44,2.7,No,165,Cash,Khulna
-ORD-346,2024-07-22,Premium Basmati Rice,Food,6203,1722.08,36,2.3,No,122,Card,Rangpur
-ORD-347,2024-10-28,Anker Power Bank,Electronics,10306,2366.67,38,4.0,No,32,Rocket,Chittagong
-ORD-348,2024-05-15,Spicy Chanachur,Food,23035,8651.46,25,3.6,No,126,Card,Sylhet
-ORD-349,2024-12-14,Frozen Chicken Nuggets,Food,9927,3212.86,45,2.6,No,89,Cash,Dhaka
-ORD-350,2024-06-04,Sofa Set,Furniture,24908,5082.39,20,2.1,No,183,Card,Rajshahi
-ORD-351,2024-06-13,Women's Kurti,Clothing,49240,14211.75,18,3.9,No,27,Cash,Mymensingh
-ORD-352,2024-09-21,Formal Shirt,Clothing,49058,14564.93,24,4.3,No,45,Card,Khulna
-ORD-353,2024-09-25,Body Lotion,Beauty,9389,3343.45,37,1.1,No,56,Card,Rajshahi
-ORD-354,2024-12-26,Walton Fridge,Electronics,3813,1462.69,13,2.1,No,134,Nagad,Chittagong
-ORD-355,2024-08-16,Realme Earbuds,Electronics,24909,7416.84,12,4.8,No,146,bKash,Barisal
-ORD-356,2024-02-16,Women's Kurti,Clothing,49583,18156.01,19,1.1,Yes,151,Cash,Rajshahi
-ORD-357,2024-09-19,Men's Polo Shirt,Clothing,18134,5989.98,2,4.5,No,179,Card,Mymensingh
-ORD-358,2024-04-24,Denim Jacket,Clothing,39896,14369.46,17,3.4,No,187,bKash,Rangpur
-ORD-359,2024-08-26,Computer Desk,Furniture,30580,7657.22,20,3.7,No,106,Rocket,Chittagong
-ORD-360,2024-07-10,Bluetooth Speaker,Electronics,43908,17268.89,36,3.6,No,81,Card,Mymensingh
-ORD-361,2024-05-21,Canon DSLR Camera,Electronics,18619,6109.25,17,3.6,No,171,bKash,Rajshahi
-ORD-362,2024-11-03,Kids T-Shirt,Clothing,16248,6173.22,26,3.6,No,189,Card,Mymensingh
-ORD-363,2024-01-19,Fresh Ghee,Food,27931,7846.37,38,3.8,No,53,bKash,Rajshahi
-ORD-364,2024-06-02,Beard Grooming Kit,Beauty,44531,12099.05,11,4.4,No,51,bKash,Chittagong
-ORD-365,2024-10-13,King Size Bed,Furniture,49056,12348.89,49,4.7,No,90,Card,Rajshahi
-ORD-366,2024-08-03,Mango Pickle,Food,49272,18441.84,22,2.5,No,123,Card,Mymensingh
-ORD-367,2024-02-06,Smart Watch Pro,Electronics,38531,14983.17,31,4.6,No,179,Nagad,Khulna
-ORD-368,2024-04-12,Wooden Dining Table,Furniture,10381,2361.4,22,2.6,No,122,Cash,Barisal
-ORD-369,2024-03-31,Cotton Saree,Clothing,32454,8649.83,21,3.5,Yes,75,Cash,Sylhet
-ORD-370,2024-02-15,Hair Growth Oil,Beauty,32584,11633.86,9,3.5,No,108,Nagad,Mymensingh
-ORD-371,2024-07-10,Wooden Dining Table,Furniture,2972,911.68,1,4.6,No,140,Cash,Dhaka
-ORD-372,2024-06-25,Realme Earbuds,Electronics,15328,5191.67,20,1.5,No,155,bKash,Sylhet
-ORD-373,2024-08-21,Walton Smart TV,Electronics,20042,7810.22,47,3.1,No,116,Cash,Barisal
-ORD-374,2024-07-25,Computer Desk,Furniture,49659,11803.21,2,1.9,No,38,Cash,Dhaka
-ORD-375,2024-12-30,Nail Polish Set,Beauty,11574,2599.9,42,4.2,No,168,bKash,Dhaka
-ORD-376,2024-01-11,Herbal Face Wash,Beauty,43882,9725.25,4,3.8,No,102,Card,Khulna
-ORD-377,2024-11-18,King Size Bed,Furniture,13967,4735.35,1,2.2,No,174,Rocket,Khulna
-ORD-378,2024-02-23,Facial Serum,Beauty,46422,10557.88,33,3.9,No,34,Card,Mymensingh
-ORD-379,2024-09-24,Traditional Salwar Kameez,Clothing,13590,4832.49,13,2.4,No,46,Card,Mymensingh
-ORD-380,2024-01-07,Leather Sandal,Clothing,22166,5472.81,43,1.4,No,151,Nagad,Sylhet
-ORD-381,2024-02-21,Bluetooth Speaker,Electronics,5418,1867.65,17,3.6,No,80,bKash,Mymensingh
-ORD-382,2024-05-28,Xiaomi Redmi Phone,Electronics,11949,4478.82,24,4.2,No,194,Card,Chittagong
-ORD-383,2024-03-28,Walton Smart TV,Electronics,9569,3183.33,22,2.4,No,164,bKash,Chittagong
-ORD-384,2024-07-23,Tea Leaves Premium,Food,12484,2781.02,30,2.1,No,127,Nagad,Sylhet
-ORD-385,2024-03-22,Samsung Galaxy A15,Electronics,46124,15925.8,7,2.7,No,150,Nagad,Sylhet
-ORD-386,2024-12-16,Body Lotion,Beauty,24001,7734.84,47,4.9,No,129,Card,Rangpur
-ORD-387,2024-06-09,Wooden Dining Table,Furniture,4650,1173.3,1,3.8,No,195,Rocket,Rajshahi
-ORD-388,2024-11-12,Spicy Chanachur,Food,34782,11744.08,7,2.7,No,128,bKash,Rangpur
-ORD-389,2024-11-25,Kids T-Shirt,Clothing,40667,8577.21,11,3.0,No,131,Cash,Chittagong
-ORD-390,2024-05-22,Computer Desk,Furniture,16287,4335.26,4,3.0,No,101,Nagad,Rajshahi
-ORD-391,2024-08-17,Walton Fridge,Electronics,29610,10667.07,6,4.4,No,35,Nagad,Dhaka
-ORD-392,2024-10-08,Anker Power Bank,Electronics,27523,5701.84,1,4.3,No,163,bKash,Rajshahi
-ORD-393,2024-04-24,Computer Desk,Furniture,24312,8875.39,30,2.3,No,158,Nagad,Barisal
-ORD-394,2024-04-23,Office Chair,Furniture,6885,2422.58,1,2.4,No,79,Rocket,Barisal
-ORD-395,2024-07-28,Walton Smart TV,Electronics,11258,3360.34,7,2.0,No,35,Nagad,Rajshahi
-ORD-396,2024-07-31,Bookshelf Classic,Furniture,47475,12703.68,3,4.7,No,155,Card,Mymensingh
-ORD-397,2024-09-12,Wooden Shoe Rack,Furniture,33543,7611.82,1,3.1,Yes,115,Rocket,Mymensingh
-ORD-398,2024-03-06,Hair Growth Oil,Beauty,45838,14471.56,7,2.5,No,87,Rocket,Rangpur
-ORD-399,2024-05-20,Wooden Shoe Rack,Furniture,45884,16172.96,26,4.9,No,120,Cash,Sylhet
-ORD-400,2024-09-19,Wooden Shoe Rack,Furniture,46376,17497.08,20,4.4,No,85,Rocket,Rajshahi
-ORD-401,2024-12-17,Men's Polo Shirt,Clothing,41405,14196.82,23,4.7,No,186,Cash,Barisal
-ORD-402,2024-10-19,Canon DSLR Camera,Electronics,37349,11058.07,43,3.8,No,141,bKash,Rangpur
-ORD-403,2024-03-15,Bluetooth Speaker,Electronics,7477,1533.19,4,3.7,No,197,Cash,Khulna
-ORD-404,2024-05-31,Dry Fish Pack,Food,4565,1543.51,14,4.0,Yes,120,Card,Rajshahi
-ORD-405,2024-12-22,Body Lotion,Beauty,16071,4856.41,19,3.8,Yes,102,Nagad,Rangpur
-ORD-406,2024-05-08,Spicy Chanachur,Food,4025,815.44,13,3.5,No,118,Cash,Barisal
-ORD-407,2024-04-09,Nail Polish Set,Beauty,48895,15679.52,19,2.8,No,24,Cash,Sylhet
-ORD-408,2024-05-22,Skin Brightening Cream,Beauty,25220,5248.96,36,2.1,No,70,Card,Barisal
-ORD-409,2024-06-14,King Size Bed,Furniture,3117,719.22,39,1.2,No,162,bKash,Mymensingh
-ORD-410,2024-12-28,Nail Polish Set,Beauty,23967,5142.75,21,3.1,No,138,Card,Sylhet
-ORD-411,2024-06-27,TV Cabinet,Furniture,35695,10018.99,15,4.5,No,89,bKash,Khulna
-ORD-412,2024-10-14,Traditional Salwar Kameez,Clothing,35266,10402.46,49,4.9,Yes,176,bKash,Mymensingh
-ORD-413,2024-01-21,Traditional Salwar Kameez,Clothing,41206,10250.63,44,4.5,No,34,Nagad,Khulna
-ORD-414,2024-07-10,Lipstick Matte,Beauty,2119,810.02,33,4.2,No,16,bKash,Rajshahi
-ORD-415,2024-03-26,Spicy Chanachur,Food,5896,2297.33,50,3.2,Yes,21,Cash,Rajshahi
-ORD-416,2024-12-25,Office Chair,Furniture,13972,4297.1,48,4.1,No,23,Cash,Dhaka
-ORD-417,2024-01-28,Computer Desk,Furniture,2982,648.6,12,4.2,No,152,Cash,Khulna
-ORD-418,2024-08-09,Wardrobe Deluxe,Furniture,30064,9802.17,21,1.1,No,141,Card,Chittagong
-ORD-419,2024-07-02,Herbal Face Wash,Beauty,46433,17163.97,33,1.4,No,82,Rocket,Chittagong
-ORD-420,2024-12-04,Mixed Nuts Box,Food,25496,7113.96,2,2.9,No,39,Nagad,Khulna
-ORD-421,2024-11-27,Women's Kurti,Clothing,44886,16939.78,24,4.8,Yes,147,Cash,Chittagong
-ORD-422,2024-10-02,Walton Smart TV,Electronics,38033,12145.12,36,4.8,No,196,bKash,Rajshahi
-ORD-423,2024-04-23,TV Cabinet,Furniture,9835,2283.6,40,4.3,No,51,Rocket,Dhaka
-ORD-424,2024-05-28,Beard Grooming Kit,Beauty,42749,13249.32,43,1.3,Yes,190,Rocket,Mymensingh
-ORD-425,2024-04-30,Tea Leaves Premium,Food,8902,2975.57,7,2.1,Yes,54,bKash,Mymensingh
-ORD-426,2024-12-21,Computer Desk,Furniture,40892,13571.42,38,1.6,No,85,Nagad,Sylhet
-ORD-427,2024-12-30,Canon DSLR Camera,Electronics,16633,5940.18,48,3.6,No,97,Cash,Barisal
-ORD-428,2024-06-05,Study Table,Furniture,29686,8067.12,32,3.2,No,160,Card,Khulna
-ORD-429,2024-11-16,Kids T-Shirt,Clothing,13373,3378.65,5,3.9,No,134,Card,Rangpur
-ORD-430,2024-10-05,Perfume Spray,Beauty,2902,900.55,35,2.9,No,98,Nagad,Rajshahi
-ORD-431,2024-09-18,Lipstick Matte,Beauty,9274,2716.73,6,2.6,No,174,Cash,Sylhet
-ORD-432,2024-10-16,Hair Growth Oil,Beauty,29743,6895.75,37,3.6,No,193,Nagad,Barisal
-ORD-433,2024-05-15,Realme Earbuds,Electronics,32458,7996.03,24,1.9,No,137,bKash,Rangpur
-ORD-434,2024-11-28,Study Table,Furniture,3543,736.88,21,1.4,No,167,bKash,Khulna
-ORD-435,2024-11-30,Nail Polish Set,Beauty,37866,8889.8,25,2.5,No,24,Rocket,Khulna
-ORD-436,2024-06-25,Bookshelf Classic,Furniture,34340,9655.32,32,4.2,No,6,Rocket,Sylhet
-ORD-437,2024-11-25,King Size Bed,Furniture,15572,3354.48,18,1.8,No,97,Rocket,Chittagong
-ORD-438,2024-09-03,Formal Shirt,Clothing,22141,7617.64,44,2.9,No,46,Nagad,Dhaka
-ORD-439,2024-03-23,Panjabi Premium,Clothing,8881,2794.83,9,3.5,Yes,151,Cash,Dhaka
-ORD-440,2024-07-26,Women's Kurti,Clothing,12298,3730.33,39,4.9,No,189,bKash,Chittagong
-ORD-441,2024-09-03,Leather Sandal,Clothing,40249,16041.45,11,1.9,No,41,Rocket,Sylhet
-ORD-442,2024-12-17,Nail Polish Set,Beauty,17835,4165.26,22,4.7,No,22,Cash,Rangpur
-ORD-443,2024-09-24,King Size Bed,Furniture,7615,1548.22,33,3.7,No,160,Card,Sylhet
-ORD-444,2024-09-29,Wooden Shoe Rack,Furniture,39809,8272.6,33,4.0,Yes,173,Cash,Dhaka
-ORD-445,2024-01-23,TV Cabinet,Furniture,28069,7693.02,45,3.1,No,128,Nagad,Barisal
-ORD-446,2024-05-10,Facial Serum,Beauty,6903,1968.03,31,4.1,No,26,bKash,Rangpur
-ORD-447,2024-01-04,Mango Pickle,Food,858,293.29,37,3.1,No,101,Cash,Barisal
-ORD-448,2024-11-29,Computer Desk,Furniture,7485,1728.7,38,2.0,No,113,Rocket,Barisal
-ORD-449,2024-04-14,Lipstick Matte,Beauty,45104,12606.15,27,3.2,No,50,bKash,Mymensingh
-ORD-450,2024-12-27,Fresh Ghee,Food,38356,10312.83,26,3.9,No,173,Card,Rajshahi
-ORD-451,2024-07-24,King Size Bed,Furniture,7071,1717.49,22,4.2,No,180,Card,Sylhet
-ORD-452,2024-08-29,Wooden Dining Table,Furniture,6469,2358.93,39,2.7,Yes,61,bKash,Chittagong
-ORD-453,2024-07-24,Herbal Face Wash,Beauty,47980,13283.99,40,3.6,No,157,Card,Sylhet
-ORD-454,2024-12-02,Study Table,Furniture,1201,288.65,34,2.1,Yes,158,Rocket,Rajshahi
-ORD-455,2024-05-02,Hair Growth Oil,Beauty,44672,9256.58,42,1.0,No,75,Nagad,Barisal
-ORD-456,2024-01-08,Wardrobe Deluxe,Furniture,38909,9340.58,48,3.8,No,145,bKash,Barisal
-ORD-457,2024-04-09,Fresh Ghee,Food,15330,4925.11,30,4.7,No,71,Cash,Rangpur
-ORD-458,2024-05-30,Skin Brightening Cream,Beauty,37110,7959.25,22,4.8,No,70,Rocket,Khulna
-ORD-459,2024-05-04,Wardrobe Deluxe,Furniture,37407,11099.63,49,2.4,No,179,Nagad,Dhaka
-ORD-460,2024-11-20,Office Chair,Furniture,17396,3714.23,15,3.7,No,85,Nagad,Barisal
-ORD-461,2024-05-14,Nail Polish Set,Beauty,1137,386.77,16,2.1,No,196,bKash,Chittagong
-ORD-462,2024-04-21,Hair Growth Oil,Beauty,31731,8338.1,37,2.1,No,179,Cash,Mymensingh
-ORD-463,2024-05-15,Men's Polo Shirt,Clothing,48697,12096.89,14,1.9,No,163,bKash,Sylhet
-ORD-464,2024-12-05,Xiaomi Redmi Phone,Electronics,5643,1891.32,32,3.5,No,143,Card,Mymensingh
-ORD-465,2024-10-21,Chocolate Gift Box,Food,21171,6318.87,18,3.0,No,135,bKash,Rangpur
-ORD-466,2024-08-04,Traditional Salwar Kameez,Clothing,8904,1877.23,31,4.8,Yes,93,Nagad,Sylhet
-ORD-467,2024-06-10,Office Chair,Furniture,46260,14046.43,45,1.0,No,102,Rocket,Chittagong
-ORD-468,2024-04-05,Tea Leaves Premium,Food,40659,15140.13,36,2.1,No,161,bKash,Barisal
-ORD-469,2024-12-24,Leather Sandal,Clothing,28283,6847.5,49,2.5,No,76,Nagad,Sylhet
-ORD-470,2024-02-21,Hair Growth Oil,Beauty,38241,12894.96,47,2.1,No,115,Nagad,Rajshahi
-ORD-471,2024-03-31,Denim Jacket,Clothing,31497,11374.63,27,3.0,No,166,Rocket,Barisal
-ORD-472,2024-10-17,Sofa Set,Furniture,16947,5294.71,4,2.6,No,20,Cash,Khulna
-ORD-473,2024-05-13,Office Chair,Furniture,29981,10460.93,24,2.4,No,70,bKash,Dhaka
-ORD-474,2024-11-06,Office Chair,Furniture,23509,8779.99,13,3.3,No,142,Cash,Khulna
-ORD-475,2024-08-16,Tea Leaves Premium,Food,44618,13478.6,6,2.5,No,166,Cash,Sylhet
-ORD-476,2024-07-26,Frozen Chicken Nuggets,Food,41871,13501.81,5,1.3,No,85,bKash,Khulna
-ORD-477,2024-08-15,Chocolate Gift Box,Food,42747,11930.31,50,4.5,No,155,Rocket,Mymensingh
-ORD-478,2024-03-05,King Size Bed,Furniture,12551,4654.44,47,1.9,No,195,Card,Rajshahi
-ORD-479,2024-08-30,Formal Shirt,Clothing,7250,1588.55,36,1.2,No,139,Card,Chittagong
-ORD-480,2024-07-18,Chocolate Gift Box,Food,10676,2315.22,20,1.9,No,118,Cash,Sylhet
-ORD-481,2024-07-01,Hair Growth Oil,Beauty,2372,491.08,21,4.5,No,143,bKash,Mymensingh
-ORD-482,2024-08-21,Kids T-Shirt,Clothing,12102,3850.45,41,4.0,No,116,Rocket,Khulna
-ORD-483,2024-02-15,Mixed Nuts Box,Food,35867,8802.68,29,2.2,No,44,bKash,Dhaka
-ORD-484,2024-08-28,Bluetooth Speaker,Electronics,9432,2535.1,35,1.0,No,198,Nagad,Khulna
-ORD-485,2024-01-04,Anker Power Bank,Electronics,19696,6290.92,36,2.5,No,148,Nagad,Rangpur
-ORD-486,2024-07-18,Denim Jacket,Clothing,47354,16451.9,25,1.9,Yes,165,Cash,Khulna
-ORD-487,2024-02-05,Spicy Chanachur,Food,18117,5119.52,12,1.5,No,121,Rocket,Mymensingh
-ORD-488,2024-01-10,Chocolate Gift Box,Food,32743,7778.36,10,1.2,No,52,Card,Khulna
-ORD-489,2024-01-05,Dry Fish Pack,Food,47371,13627.85,15,1.4,Yes,60,bKash,Rangpur
-ORD-490,2024-01-17,Mixed Nuts Box,Food,24839,7271.29,22,1.3,No,42,Card,Khulna
-ORD-491,2024-04-08,Office Chair,Furniture,36098,10613.87,17,4.3,No,36,Cash,Rangpur
-ORD-492,2024-04-11,Bookshelf Classic,Furniture,48840,19482.62,30,3.9,Yes,175,Cash,Mymensingh
-ORD-493,2024-01-22,Sofa Set,Furniture,21672,5021.89,48,4.7,No,69,Nagad,Khulna
-ORD-494,2024-04-21,Winter Hoodie,Clothing,3913,1458.5,8,1.9,No,8,Cash,Khulna
-ORD-495,2024-01-05,Skin Brightening Cream,Beauty,26439,9460.63,3,3.3,No,181,Rocket,Sylhet
-ORD-496,2024-02-16,Premium Basmati Rice,Food,16800,3889.87,44,3.5,No,199,Card,Dhaka
-ORD-497,2024-02-24,Dry Fish Pack,Food,46462,14276.41,9,3.0,No,147,bKash,Mymensingh
-ORD-498,2024-03-09,Panjabi Premium,Clothing,45670,12584.54,17,4.6,No,117,Rocket,Khulna
-ORD-499,2024-10-05,Beard Grooming Kit,Beauty,12937,4053.68,23,2.3,No,158,Rocket,Sylhet
-ORD-500,2024-05-14,Bluetooth Speaker,Electronics,10659,3089.8,35,2.5,Yes,168,Rocket,Rangpur
+date,product_name,product_category,sales,profit,quantity,rating,returned,stock,payment_method,customer_city
+2025-01-01,Cats Eye Jeans,Fashion,202608,64023.51,28,4.2,No,252,Cash on Delivery,Comilla
+2025-01-03,Bashundhara Tissue Box,Home & Kitchen,669935,260869.93,35,4.6,No,221,Bank Transfer,Rangpur
+2025-01-04,Awei Bluetooth Headset,Mobile Accessories,327761,121497.59,49,4.1,No,318,Bank Transfer,Chittagong
+2025-01-09,Kiam Pressure Cooker,Home & Kitchen,370790,75429.26,35,4.5,No,64,Bank Transfer,Chittagong
+2025-01-09,Aarong Cotton Saree,Fashion,150687,39410.01,27,4.8,No,145,Card,Khulna
+2025-01-09,Bioaqua Serum,Beauty,51088,11684.61,16,4.4,No,350,Rocket,Chittagong
+2025-01-11,Vaseline Lotion,Beauty,19701,6578.0,9,3.8,No,95,Nagad,Narayanganj
+2025-01-13,Teer Flour 2kg,Groceries,19395,6735.77,15,4.8,Yes,25,bKash,Dhaka
+2025-01-13,Cute Perfume,Beauty,57708,14096.53,21,3.0,No,219,bKash,Dhaka
+2025-01-14,Dell Inspiron Laptop,Electronics,444426,163883.78,6,4.1,No,56,Rocket,Dhaka
+2025-01-14,Canon EOS 200D,Electronics,652635,154247.54,9,4.0,No,460,bKash,Khulna
+2025-01-16,LG Microwave Oven,Electronics,858312,243731.85,14,4.1,No,300,Nagad,Mymensingh
+2025-01-16,Haier Refrigerator 220L,Electronics,1764672,595081.81,26,4.9,Yes,321,bKash,Dhaka
+2025-01-17,Asus VivoBook 15,Electronics,78304,24854.26,2,4.6,No,2,Nagad,Chittagong
+2025-01-19,Vision Rice Cooker,Home & Kitchen,125988,49467.2,6,4.8,No,243,Card,Dhaka
+2025-01-20,Infinity Hijab,Fashion,259000,84078.38,50,3.6,No,34,Rocket,Chittagong
+2025-01-24,Bashundhara Tissue Box,Home & Kitchen,70640,27283.43,10,4.3,No,224,bKash,Dhaka
+2025-01-27,Xiaomi Redmi Note 13,Electronics,719430,164796.73,6,4.2,Yes,50,Nagad,Rajshahi
+2025-01-27,Bombay Sweets Chanachur,Groceries,14250,3119.34,5,3.9,No,474,Nagad,Dhaka
+2025-01-27,LG Microwave Oven,Electronics,447768,128788.47,9,3.7,No,132,Cash on Delivery,Dhaka
+2025-01-29,Bata Formal Shoes,Fashion,55776,13879.27,28,4.5,No,322,Cash on Delivery,Sylhet
+2025-01-30,Kiam Pressure Cooker,Home & Kitchen,89911,25102.23,47,4.6,No,5,Cash on Delivery,Chittagong
+2025-01-31,RFL Plastic Chair,Home & Kitchen,392392,127567.82,49,3.6,No,90,bKash,Chittagong
+2025-02-04,Sony Bluetooth Speaker,Electronics,4140653,1231587.89,47,3.7,No,327,bKash,Dhaka
+2025-02-05,Joyroom Car Charger,Mobile Accessories,15009,4229.14,3,4.6,No,225,bKash,Mymensingh
+2025-02-09,Aarong Cotton Saree,Fashion,234795,72306.1,33,4.3,No,326,bKash,Dhaka
+2025-02-09,Fresh Sugar 2kg,Groceries,135716,38120.53,28,3.9,No,97,Cash on Delivery,Sylhet
+2025-02-10,Yellow Panjabi,Fashion,180807,68723.12,33,4.5,No,397,Nagad,Comilla
+2025-02-14,Haier Refrigerator 220L,Electronics,3049560,922455.82,36,1.2,No,411,bKash,Dhaka
+2025-02-16,Pran Chinigura Rice 25kg,Groceries,14600,5232.87,10,3.6,No,280,bKash,Chittagong
+2025-02-18,Walton Blender,Home & Kitchen,12728,2702.59,8,3.8,No,361,Rocket,Sylhet
+2025-02-18,Anker Fast Charger,Mobile Accessories,56445,21463.47,15,4.4,No,360,Bank Transfer,Mymensingh
+2025-02-20,Fresh Sugar 2kg,Groceries,65907,13612.65,27,4.2,No,60,Card,Dhaka
+2025-02-20,Infinity Hijab,Fashion,219263,54048.89,31,3.9,No,106,bKash,Khulna
+2025-02-21,Samsung Galaxy A15,Electronics,4091954,1132678.98,38,4.0,No,53,bKash,Sylhet
+2025-02-22,Haier Refrigerator 220L,Electronics,685980,140813.16,36,4.6,Yes,89,bKash,Comilla
+2025-02-22,Parachute Coconut Oil,Beauty,119196,43042.34,44,4.3,Yes,348,bKash,Chittagong
+2025-02-23,Sony Bluetooth Speaker,Electronics,2065257,810070.24,27,3.7,No,3,Bank Transfer,Chittagong
+2025-02-24,Awei Bluetooth Headset,Mobile Accessories,353297,113688.87,41,4.6,No,281,Bank Transfer,Sylhet
+2025-02-27,Awei Bluetooth Headset,Mobile Accessories,19984,4959.52,16,3.6,No,399,Nagad,Dhaka
+2025-02-27,Huawei MatePad,Electronics,406215,153445.65,5,1.9,No,439,Nagad,Dhaka
+2025-02-28,Walton Blender,Home & Kitchen,105480,22602.46,18,4.0,No,157,Nagad,Chittagong
+2025-03-02,Teer Flour 2kg,Groceries,69524,23487.06,14,4.4,No,411,bKash,Dhaka
+2025-03-03,Nova Gas Stove,Home & Kitchen,327758,95924.71,29,3.6,No,370,Rocket,Dhaka
+2025-03-06,Asus VivoBook 15,Electronics,1492344,581855.11,24,1.4,No,237,Cash on Delivery,Chittagong
+2025-03-07,Huawei MatePad,Electronics,2113176,635689.88,39,5.0,No,150,bKash,Dhaka
+2025-03-08,Easy Polo T-Shirt,Fashion,27027,5523.85,21,4.9,No,450,bKash,Dhaka
+2025-03-10,Unilever Sunsilk Shampoo,Beauty,31487,6649.5,37,3.8,No,298,Rocket,Mymensingh
+2025-03-10,Huawei MatePad,Electronics,4954365,1498491.91,45,4.3,No,293,Rocket,Dhaka
+2025-03-13,Infinity Hijab,Fashion,85380,32008.72,30,2.9,No,343,Card,Rangpur
+2025-03-14,Nova Gas Stove,Home & Kitchen,606848,158879.25,32,3.6,No,279,Nagad,Dhaka
+2025-03-15,Hoco Smart Watch,Mobile Accessories,106125,27603.13,15,3.3,No,330,Rocket,Chittagong
+2025-03-17,Jamuna Ceiling Fan,Home & Kitchen,219667,84568.64,49,3.7,No,186,Cash on Delivery,Dhaka
+2025-03-23,Huawei MatePad,Electronics,3631774,1139609.59,31,4.4,No,451,Rocket,Rangpur
+2025-03-23,LG Microwave Oven,Electronics,774254,275714.39,26,4.4,No,112,Cash on Delivery,Dhaka
+2025-03-23,Pran Chinigura Rice 25kg,Groceries,11675,4339.82,25,4.7,No,417,Cash on Delivery,Dhaka
+2025-03-25,Baseus Type-C Cable,Mobile Accessories,27360,10554.87,38,4.9,No,111,bKash,Rajshahi
+2025-03-25,Nivea Men Deodorant,Beauty,28825,7281.08,25,3.9,No,423,Rocket,Dhaka
+2025-03-26,Ecstasy Shirt,Fashion,50808,17074.49,29,4.2,No,38,Nagad,Chittagong
+2025-03-27,Joyroom Car Charger,Mobile Accessories,151350,46798.15,25,2.2,No,361,bKash,Chittagong
+2025-03-28,Remax Phone Holder,Mobile Accessories,318237,95224.55,47,4.1,No,150,bKash,Mymensingh
+2025-03-31,Awei Bluetooth Headset,Mobile Accessories,129398,43301.56,23,4.6,No,156,Nagad,Comilla
+2025-03-31,Easy Polo T-Shirt,Fashion,22950,6412.21,3,4.9,No,458,bKash,Dhaka
+2025-04-04,Pran Chinigura Rice 25kg,Groceries,179354,37197.44,46,4.7,No,168,Nagad,Narayanganj
+2025-04-04,Fresh Salt 1kg,Groceries,119532,45678.25,28,1.3,No,175,Card,Dhaka
+2025-04-04,UGREEN USB Hub,Mobile Accessories,74046,18100.6,42,4.8,No,200,bKash,Dhaka
+2025-04-05,Joyroom Car Charger,Mobile Accessories,91644,18453.99,21,4.2,No,308,Cash on Delivery,Dhaka
+2025-04-05,Hoco Smart Watch,Mobile Accessories,53004,16155.03,42,3.6,No,0,bKash,Rangpur
+2025-04-05,Awei Bluetooth Headset,Mobile Accessories,67239,24503.45,31,3.6,No,2,Cash on Delivery,Comilla
+2025-04-05,Dell Inspiron Laptop,Electronics,351299,83001.98,13,4.8,No,291,Nagad,Chittagong
+2025-04-06,Asus VivoBook 15,Electronics,1641980,549866.64,19,4.4,No,228,Nagad,Dhaka
+2025-04-08,Canon EOS 200D,Electronics,4016936,1287767.05,44,3.8,No,296,bKash,Dhaka
+2025-04-10,Infinity Hijab,Fashion,19820,5962.87,5,3.9,No,70,bKash,Dhaka
+2025-04-13,Sailor Denim Jacket,Fashion,59190,15583.35,30,4.7,No,100,bKash,Dhaka
+2025-04-13,RFL Plastic Chair,Home & Kitchen,115254,29608.61,6,4.9,No,151,bKash,Narayanganj
+2025-04-16,Samsung Galaxy A15,Electronics,937432,337382.22,37,4.0,No,353,Cash on Delivery,Chittagong
+2025-04-18,Fresh Salt 1kg,Groceries,53539,15950.09,37,3.6,No,216,Nagad,Chittagong
+2025-04-19,Fresh Salt 1kg,Groceries,10854,2340.92,3,3.8,No,314,bKash,Comilla
+2025-04-21,Cats Eye Jeans,Fashion,96552,35288.2,27,4.6,No,140,bKash,Dhaka
+2025-04-22,Rupchanda Soyabean Oil 5L,Groceries,38493,15347.03,9,4.9,No,405,Rocket,Dhaka
+2025-04-23,Bashundhara Tissue Box,Home & Kitchen,158516,37286.15,23,4.7,No,24,Cash on Delivery,Dhaka
+2025-04-23,Unilever Sunsilk Shampoo,Beauty,5715,2063.17,15,3.6,No,377,bKash,Sylhet
+2025-04-24,Fresh Salt 1kg,Groceries,17824,6414.04,4,4.3,No,361,Cash on Delivery,Chittagong
+2025-04-25,Bombay Sweets Chanachur,Groceries,144900,49748.75,36,4.2,Yes,11,bKash,Barisal
+2025-04-27,Ispahani Tea 400g,Groceries,62920,17771.17,20,3.5,No,79,bKash,Chittagong
+2025-04-28,Bata Formal Shoes,Fashion,81216,24064.57,47,3.8,No,21,bKash,Dhaka
+2025-04-28,Dell Inspiron Laptop,Electronics,2729306,614864.45,29,3.8,Yes,478,bKash,Chittagong
+2025-04-30,Aarong Cotton Saree,Fashion,72634,14542.58,46,3.7,No,14,bKash,Dhaka
+2025-05-04,Xiaomi Earbuds,Mobile Accessories,54330,19938.46,15,4.0,No,50,Rocket,Rajshahi
+2025-05-07,Bioaqua Serum,Beauty,14412,4170.11,6,3.6,No,8,Bank Transfer,Dhaka
+2025-05-08,Canon EOS 200D,Electronics,3515265,1258985.71,39,4.3,No,450,Nagad,Chittagong
+2025-05-10,Sony Bluetooth Speaker,Electronics,1116991,415998.4,19,2.6,No,233,Bank Transfer,Khulna
+2025-05-10,Dorjibari Kurti,Fashion,249381,99159.83,33,4.3,No,195,Rocket,Chittagong
+2025-05-13,Baseus Type-C Cable,Mobile Accessories,2712,649.66,2,4.7,Yes,424,bKash,Dhaka
+2025-05-16,Huawei MatePad,Electronics,1604652,554742.66,28,4.4,No,305,bKash,Dhaka
+2025-05-18,Pran Chinigura Rice 25kg,Groceries,19500,5206.54,50,4.3,No,331,bKash,Chittagong
+2025-05-18,Anker Fast Charger,Mobile Accessories,115830,30369.45,22,4.8,No,126,bKash,Narayanganj
+2025-05-20,Aarong Dairy Milk 1L,Groceries,79577,27797.19,31,3.7,No,125,Cash on Delivery,Rajshahi
+2025-05-21,Dell Inspiron Laptop,Electronics,1257663,366563.84,11,4.6,No,68,bKash,Chittagong
+2025-05-21,Singer Electric Kettle,Home & Kitchen,119823,31403.4,33,3.6,No,1,Nagad,Chittagong
+2025-05-21,Sailor Denim Jacket,Fashion,230956,63729.73,44,4.7,No,158,bKash,Comilla
+2025-05-24,Fresh Salt 1kg,Groceries,61565,15554.21,35,3.6,Yes,8,Rocket,Barisal
+2025-05-24,Haier Refrigerator 220L,Electronics,2000866,707042.88,34,5.0,No,146,Nagad,Barisal
+2025-05-25,Singer Electric Kettle,Home & Kitchen,332178,108571.58,14,4.2,No,57,Rocket,Barisal
+2025-05-25,LG Microwave Oven,Electronics,3057300,925939.42,50,4.2,No,174,Nagad,Comilla
+2025-05-26,Rupchanda Soyabean Oil 5L,Groceries,112703,27171.47,43,3.8,No,411,Bank Transfer,Comilla
+2025-05-26,Xiaomi Earbuds,Mobile Accessories,296873,118320.27,29,3.8,No,416,Nagad,Khulna
+2025-05-29,Lux Body Wash,Beauty,133952,52915.85,46,4.3,No,399,bKash,Chittagong
+2025-05-30,Dell Inspiron Laptop,Electronics,2256576,768584.17,46,4.5,No,330,Nagad,Barisal
+2025-06-02,Xiaomi Redmi Note 13,Electronics,2260518,700608.06,26,3.6,Yes,431,Rocket,Sylhet
+2025-06-03,Samsung Galaxy A15,Electronics,113934,37551.96,2,3.7,No,99,Nagad,Dhaka
+2025-06-06,Parachute Coconut Oil,Beauty,50176,18581.04,28,3.8,No,329,bKash,Dhaka
+2025-06-08,Joyroom Car Charger,Mobile Accessories,82238,27604.12,13,4.2,No,267,Nagad,Narayanganj
+2025-06-08,Garnier Face Wash,Beauty,80730,20919.65,26,4.1,No,472,bKash,Chittagong
+2025-06-10,Dell Inspiron Laptop,Electronics,287936,79084.85,8,4.1,No,226,bKash,Sylhet
+2025-06-14,Canon EOS 200D,Electronics,3767946,820874.81,39,4.9,No,274,Cash on Delivery,Barisal
+2025-06-14,Asus VivoBook 15,Electronics,2182250,570220.12,43,4.1,No,31,Cash on Delivery,Comilla
+2025-06-16,Joyroom Car Charger,Mobile Accessories,220082,57826.66,34,4.9,No,405,Cash on Delivery,Rajshahi
+2025-06-17,Dell Inspiron Laptop,Electronics,2212816,543528.86,29,4.1,No,204,bKash,Sylhet
+2025-06-18,Dorjibari Kurti,Fashion,238098,54101.79,42,4.9,No,213,Card,Dhaka
+2025-06-18,Parachute Coconut Oil,Beauty,118890,27401.65,45,4.7,No,170,bKash,Dhaka
+2025-06-20,Aarong Dairy Milk 1L,Groceries,41459,12866.22,11,3.5,Yes,472,bKash,Dhaka
+2025-06-21,Asus VivoBook 15,Electronics,3062556,1183276.44,36,3.5,No,320,bKash,Chittagong
+2025-06-21,Ecstasy Shirt,Fashion,164764,62256.41,34,4.3,No,179,bKash,Chittagong
+2025-06-23,Singer Electric Kettle,Home & Kitchen,290423,69646.8,49,4.3,Yes,180,Cash on Delivery,Chittagong
+2025-06-25,Walton Smart TV 43 Inch,Electronics,1647309,445939.04,31,3.9,No,475,bKash,Khulna
+2025-06-25,Canon EOS 200D,Electronics,1867814,475109.53,26,4.8,No,418,bKash,Dhaka
+2025-06-26,Remax Phone Holder,Mobile Accessories,187748,63695.7,34,3.9,No,133,Cash on Delivery,Dhaka
+2025-06-27,Cute Perfume,Beauty,50365,19051.38,35,4.6,No,416,bKash,Dhaka
+2025-06-29,Jamuna Ceiling Fan,Home & Kitchen,235095,62236.87,35,3.9,No,470,Rocket,Dhaka
+2025-07-01,Dell Inspiron Laptop,Electronics,4571685,1506859.73,45,3.8,No,204,bKash,Comilla
+2025-07-01,Le Reve Hoodie,Fashion,58421,19551.93,47,3.6,No,451,bKash,Dhaka
+2025-07-04,Parachute Coconut Oil,Beauty,51624,15540.13,24,3.7,Yes,314,Nagad,Narayanganj
+2025-07-05,RFL Plastic Chair,Home & Kitchen,68604,16847.75,3,3.6,No,152,Nagad,Rangpur
+2025-07-05,Doodles Instant Noodles,Groceries,102689,23974.15,29,3.7,No,390,Cash on Delivery,Dhaka
+2025-07-07,Nivea Men Deodorant,Beauty,53116,15013.01,49,4.2,No,139,Card,Chittagong
+2025-07-10,Aarong Cotton Saree,Fashion,60116,18100.06,38,4.1,No,2,bKash,Dhaka
+2025-07-12,Garnier Face Wash,Beauty,111188,42212.0,38,1.6,No,217,bKash,Rangpur
+2025-07-12,Aarong Cotton Saree,Fashion,130598,45704.14,26,4.8,No,307,bKash,Khulna
+2025-07-13,Ecstasy Shirt,Fashion,55377,20603.42,9,3.4,No,124,Cash on Delivery,Khulna
+2025-07-15,Vaseline Lotion,Beauty,137368,33790.61,44,4.9,No,4,bKash,Dhaka
+2025-07-15,Le Reve Hoodie,Fashion,8868,2553.52,3,4.8,No,366,Rocket,Dhaka
+2025-07-16,Hoco Smart Watch,Mobile Accessories,353178,99535.05,42,4.6,No,299,bKash,Khulna
+2025-07-16,Kiam Pressure Cooker,Home & Kitchen,36729,13397.59,11,3.9,No,182,Nagad,Rajshahi
+2025-07-18,Doodles Instant Noodles,Groceries,77360,23534.53,16,3.8,No,84,bKash,Chittagong
+2025-07-21,Garnier Face Wash,Beauty,44184,11240.02,21,1.5,No,89,bKash,Chittagong
+2025-07-23,Infinity Hijab,Fashion,27664,5676.17,16,4.3,No,406,bKash,Chittagong
+2025-07-24,Aarong Cotton Saree,Fashion,154300,41696.37,50,4.5,No,24,bKash,Narayanganj
+2025-07-26,Pran Chinigura Rice 25kg,Groceries,113640,40939.07,30,4.8,No,264,Cash on Delivery,Dhaka
+2025-07-26,Hoco Smart Watch,Mobile Accessories,293650,84439.58,35,4.8,No,23,bKash,Narayanganj
+2025-07-26,Kiam Pressure Cooker,Home & Kitchen,174480,52561.68,12,4.3,No,272,Card,Mymensingh
+2025-07-28,Nova Gas Stove,Home & Kitchen,756000,248860.52,45,4.7,Yes,364,bKash,Rajshahi
+2025-07-28,Samsung Galaxy A15,Electronics,821880,270843.93,30,4.9,No,222,Cash on Delivery,Narayanganj
+2025-07-31,Sony Bluetooth Speaker,Electronics,1494048,303656.26,48,4.4,No,110,bKash,Dhaka
+2025-08-01,Baseus Type-C Cable,Mobile Accessories,20968,5654.35,8,4.7,No,59,Nagad,Rajshahi
+2025-08-01,Ecstasy Shirt,Fashion,126180,26807.34,30,4.1,No,20,Cash on Delivery,Khulna
+2025-08-04,Pran Chinigura Rice 25kg,Groceries,87276,28549.47,28,4.6,No,343,bKash,Barisal
+2025-08-05,Pran Chinigura Rice 25kg,Groceries,118175,37396.34,29,4.9,No,28,Cash on Delivery,Dhaka
+2025-08-05,Meril Lip Gel,Beauty,5935,1641.7,5,3.7,No,80,bKash,Barisal
+2025-08-11,Xiaomi Redmi Note 13,Electronics,499865,163707.04,5,4.7,No,83,Cash on Delivery,Rajshahi
+2025-08-12,Sony Bluetooth Speaker,Electronics,1676780,647395.34,29,4.1,No,51,bKash,Dhaka
+2025-08-12,Asus VivoBook 15,Electronics,909657,315282.17,9,4.2,No,292,bKash,Sylhet
+2025-08-14,Asus VivoBook 15,Electronics,1373528,299465.74,47,4.6,No,286,Cash on Delivery,Dhaka
+2025-08-14,Easy Polo T-Shirt,Fashion,174312,41970.55,27,4.4,No,382,bKash,Dhaka
+2025-08-15,Cute Perfume,Beauty,69832,20194.21,28,4.8,No,440,Rocket,Khulna
+2025-08-15,Bombay Sweets Chanachur,Groceries,243530,75329.44,49,4.7,No,100,Card,Dhaka
+2025-08-15,Meril Lip Gel,Beauty,15078,5512.37,14,4.3,No,389,Nagad,Dhaka
+2025-08-19,Nivea Men Deodorant,Beauty,6699,1861.65,21,1.0,No,9,bKash,Rangpur
+2025-08-23,Teer Flour 2kg,Groceries,134228,29738.64,46,4.9,No,405,Bank Transfer,Chittagong
+2025-08-23,Garnier Face Wash,Beauty,12195,3409.03,5,4.7,No,155,bKash,Chittagong
+2025-08-25,Canon EOS 200D,Electronics,1483216,351933.61,41,4.1,No,240,Nagad,Dhaka
+2025-08-25,Xiaomi Earbuds,Mobile Accessories,147117,53882.54,29,3.0,No,81,Rocket,Dhaka
+2025-08-26,Huawei MatePad,Electronics,529700,197205.73,10,5.0,No,399,bKash,Chittagong
+2025-08-26,Hoco Smart Watch,Mobile Accessories,192348,59908.2,27,3.9,No,482,Nagad,Dhaka
+2025-08-27,Haier Refrigerator 220L,Electronics,487440,106925.97,16,4.1,No,453,Bank Transfer,Barisal
+2025-08-30,Baseus Type-C Cable,Mobile Accessories,19846,4237.25,2,3.6,Yes,269,bKash,Rajshahi
+2025-09-01,Bata Formal Shoes,Fashion,186879,41451.78,33,4.9,Yes,453,Rocket,Dhaka
+2025-09-01,UGREEN USB Hub,Mobile Accessories,172194,63554.02,33,4.8,No,75,Cash on Delivery,Rajshahi
+2025-09-01,Ponds Bright Beauty Cream,Beauty,58410,22033.85,30,4.6,No,85,Rocket,Dhaka
+2025-09-01,Nova Gas Stove,Home & Kitchen,519988,137398.27,49,4.9,Yes,283,Cash on Delivery,Rangpur
+2025-09-04,Anker Fast Charger,Mobile Accessories,85008,24480.58,33,4.3,No,90,bKash,Rajshahi
+2025-09-05,Bombay Sweets Chanachur,Groceries,36890,12696.8,17,4.4,No,13,Card,Dhaka
+2025-09-05,Jamuna Ceiling Fan,Home & Kitchen,211698,78400.79,18,3.6,No,247,Nagad,Rajshahi
+2025-09-06,Asus VivoBook 15,Electronics,4343688,1562113.85,43,4.8,No,283,bKash,Dhaka
+2025-09-06,Rupchanda Soyabean Oil 5L,Groceries,2895,941.56,3,3.5,No,243,bKash,Comilla
+2025-09-08,Cats Eye Jeans,Fashion,81961,23004.68,11,4.6,No,311,Nagad,Dhaka
+2025-09-09,Xiaomi Earbuds,Mobile Accessories,135681,34742.48,21,4.0,No,289,bKash,Khulna
+2025-09-09,Joyroom Car Charger,Mobile Accessories,8980,3171.5,20,4.4,No,106,bKash,Chittagong
+2025-09-10,Sony Bluetooth Speaker,Electronics,1042335,289486.83,35,4.9,No,310,Cash on Delivery,Dhaka
+2025-09-11,Minister Induction Cooker,Home & Kitchen,356934,71970.56,19,1.3,No,216,bKash,Chittagong
+2025-09-11,Fresh Salt 1kg,Groceries,60384,16361.95,32,3.9,No,294,bKash,Comilla
+2025-09-12,Fresh Salt 1kg,Groceries,29376,9004.23,9,4.3,No,213,Cash on Delivery,Dhaka
+2025-09-12,Hoco Smart Watch,Mobile Accessories,205523,80427.32,19,4.7,No,47,Rocket,Dhaka
+2025-09-13,Fresh Salt 1kg,Groceries,34512,8663.31,24,2.4,No,270,bKash,Rangpur
+2025-09-15,Dell Inspiron Laptop,Electronics,910182,233282.82,39,4.1,No,2,Nagad,Dhaka
+2025-09-16,Haier Refrigerator 220L,Electronics,81515,28305.5,1,4.1,No,409,Bank Transfer,Dhaka
+2025-09-19,Asus VivoBook 15,Electronics,2705640,860716.03,30,4.1,No,450,Bank Transfer,Rajshahi
+2025-09-19,Aarong Dairy Milk 1L,Groceries,24030,9258.69,45,4.9,No,292,bKash,Khulna
+2025-09-19,Doodles Instant Noodles,Groceries,184756,45118.59,38,4.2,No,87,bKash,Dhaka
+2025-09-21,Huawei MatePad,Electronics,699279,194812.78,21,4.8,No,270,Nagad,Rajshahi
+2025-09-22,Bioaqua Serum,Beauty,33110,6860.8,11,3.5,No,409,bKash,Rajshahi
+2025-09-22,Cats Eye Jeans,Fashion,19860,5314.88,15,3.8,No,0,bKash,Mymensingh
+2025-09-23,Vision Rice Cooker,Home & Kitchen,23289,5639.44,1,4.0,No,290,bKash,Dhaka
+2025-09-24,Hoco Smart Watch,Mobile Accessories,496628,118896.23,44,4.9,No,349,Cash on Delivery,Rajshahi
+2025-09-25,Xiaomi Redmi Note 13,Electronics,2444800,589401.53,25,4.1,No,309,bKash,Rangpur
+2025-09-27,RFL Storage Box,Home & Kitchen,67176,18681.02,36,4.5,No,18,bKash,Dhaka
+2025-09-27,Dorjibari Kurti,Fashion,51948,11691.7,37,3.6,No,75,Cash on Delivery,Khulna
+2025-09-29,Sony Bluetooth Speaker,Electronics,100532,28416.4,4,3.7,No,8,Card,Dhaka
+2025-09-29,Singer Electric Kettle,Home & Kitchen,514027,186595.61,23,3.7,No,399,Cash on Delivery,Dhaka
+2025-09-30,ACI Pure Spice Pack,Groceries,9230,2182.72,13,4.5,No,328,Nagad,Dhaka
+2025-10-01,Asus VivoBook 15,Electronics,54233,19055.82,1,3.5,Yes,125,Rocket,Dhaka
+2025-10-01,Meril Lip Gel,Beauty,25540,7979.4,20,4.1,No,4,Nagad,Sylhet
+2025-10-01,Xiaomi Redmi Note 13,Electronics,338116,87378.41,4,4.5,No,16,Nagad,Chittagong
+2025-10-03,RFL Plastic Chair,Home & Kitchen,324310,105693.57,14,4.5,No,434,Cash on Delivery,Narayanganj
+2025-10-05,Sailor Denim Jacket,Fashion,80025,16981.04,15,4.3,No,489,Nagad,Mymensingh
+2025-10-05,Joyroom Car Charger,Mobile Accessories,251256,66101.28,24,4.8,No,103,Card,Comilla
+2025-10-06,ACI Pure Spice Pack,Groceries,142186,42078.08,46,4.0,No,148,bKash,Dhaka
+2025-10-06,RFL Plastic Chair,Home & Kitchen,194304,73190.3,23,4.0,No,326,Nagad,Narayanganj
+2025-10-07,Easy Polo T-Shirt,Fashion,126960,47914.15,20,4.8,No,15,Nagad,Chittagong
+2025-10-08,Walton Smart TV 43 Inch,Electronics,1443680,486733.83,14,2.0,No,328,Nagad,Dhaka
+2025-10-08,Nova Gas Stove,Home & Kitchen,762750,202983.58,45,2.6,No,352,Nagad,Comilla
+2025-10-09,LG Microwave Oven,Electronics,2630979,1033639.51,39,4.6,No,214,Card,Sylhet
+2025-10-10,Easy Polo T-Shirt,Fashion,117895,43170.09,17,1.1,Yes,409,Card,Rangpur
+2025-10-10,Sony Bluetooth Speaker,Electronics,3066024,1070834.97,39,3.6,No,184,Card,Chittagong
+2025-10-10,Walton Smart TV 43 Inch,Electronics,157212,42907.92,3,5.0,Yes,359,bKash,Dhaka
+2025-10-11,Anker Fast Charger,Mobile Accessories,280314,92606.63,29,4.2,No,1,Cash on Delivery,Rangpur
+2025-10-11,Bashundhara Tissue Box,Home & Kitchen,923280,245738.6,48,3.9,No,108,bKash,Khulna
+2025-10-12,Infinity Hijab,Fashion,98124,35466.36,37,5.0,No,339,Nagad,Sylhet
+2025-10-12,Meril Lip Gel,Beauty,10270,2663.44,10,4.4,No,39,bKash,Chittagong
+2025-10-15,LG Microwave Oven,Electronics,1104111,320017.53,27,4.8,No,226,bKash,Dhaka
+2025-10-17,LG Microwave Oven,Electronics,1244012,302531.61,14,4.0,No,11,bKash,Narayanganj
+2025-10-17,Oraimo Power Bank,Mobile Accessories,394608,153042.81,48,2.8,No,129,bKash,Dhaka
+2025-10-20,Vision Rice Cooker,Home & Kitchen,122688,34425.61,12,4.5,No,460,bKash,Dhaka
+2025-10-26,Haier Refrigerator 220L,Electronics,1856849,542040.4,41,4.8,No,289,bKash,Chittagong
+2025-10-27,Singer Electric Kettle,Home & Kitchen,519375,158986.59,25,4.4,Yes,446,Rocket,Mymensingh
+2025-10-28,Dorjibari Kurti,Fashion,128160,37341.62,45,5.0,No,205,Nagad,Chittagong
+2025-10-30,Xiaomi Redmi Note 13,Electronics,1661724,512964.0,36,4.2,No,124,Bank Transfer,Sylhet
+2025-10-31,Kiam Pressure Cooker,Home & Kitchen,25275,7053.06,3,3.5,No,80,Cash on Delivery,Dhaka
+2025-11-01,Lux Body Wash,Beauty,71676,26546.94,33,3.6,No,152,bKash,Dhaka
+2025-11-02,Baseus Type-C Cable,Mobile Accessories,17064,5443.54,12,3.9,No,136,Nagad,Dhaka
+2025-11-02,Dorjibari Kurti,Fashion,65930,17773.73,38,4.4,No,162,Bank Transfer,Sylhet
+2025-11-03,Vision Rice Cooker,Home & Kitchen,899960,209531.67,40,3.8,No,325,Rocket,Rangpur
+2025-11-03,Pran Chinigura Rice 25kg,Groceries,26348,9193.29,28,3.7,Yes,297,bKash,Dhaka
+2025-11-03,Canon EOS 200D,Electronics,5278316,1724849.03,46,4.0,No,4,Nagad,Khulna
+2025-11-03,Dorjibari Kurti,Fashion,124956,46399.27,36,4.9,Yes,310,Nagad,Chittagong
+2025-11-04,Bombay Sweets Chanachur,Groceries,5632,1760.81,11,4.5,No,417,Nagad,Dhaka
+2025-11-04,Meril Lip Gel,Beauty,46080,14871.87,16,4.9,No,478,Cash on Delivery,Dhaka
+2025-11-05,Canon EOS 200D,Electronics,85078,26230.32,2,4.5,Yes,398,Rocket,Rangpur
+2025-11-06,Sailor Denim Jacket,Fashion,22680,8454.11,3,3.3,No,117,Cash on Delivery,Chittagong
+2025-11-06,Le Reve Hoodie,Fashion,110362,30924.32,14,1.9,No,411,Cash on Delivery,Dhaka
+2025-11-06,Jamuna Ceiling Fan,Home & Kitchen,332385,104073.08,15,3.7,No,173,bKash,Mymensingh
+2025-11-06,Jamuna Ceiling Fan,Home & Kitchen,96681,36308.6,39,4.6,Yes,471,Nagad,Barisal
+2025-11-07,Haier Refrigerator 220L,Electronics,1925496,612148.65,18,4.4,No,161,bKash,Dhaka
+2025-11-08,Rupchanda Soyabean Oil 5L,Groceries,112512,35380.02,24,5.0,No,43,bKash,Narayanganj
+2025-11-08,RFL Plastic Chair,Home & Kitchen,532000,131684.92,50,3.9,No,42,bKash,Mymensingh
+2025-11-10,Dell Inspiron Laptop,Electronics,152075,40811.1,7,3.7,Yes,57,bKash,Narayanganj
+2025-11-11,Rupchanda Soyabean Oil 5L,Groceries,29408,6277.38,16,4.2,No,135,Cash on Delivery,Chittagong
+2025-11-11,Walton Smart TV 43 Inch,Electronics,994418,289371.4,31,4.1,No,397,Nagad,Rajshahi
+2025-11-13,Dell Inspiron Laptop,Electronics,1678824,379436.56,36,3.9,No,89,bKash,Comilla
+2025-11-13,Samsung Galaxy A15,Electronics,1261422,419281.21,18,4.2,No,68,bKash,Dhaka
+2025-11-14,Oraimo Power Bank,Mobile Accessories,289107,66905.36,39,1.5,No,379,Bank Transfer,Chittagong
+2025-11-14,Singer Electric Kettle,Home & Kitchen,255690,55178.89,18,4.2,No,163,Rocket,Rangpur
+2025-11-14,Parachute Coconut Oil,Beauty,61984,23340.43,32,3.6,No,339,Bank Transfer,Chittagong
+2025-11-15,RFL Plastic Chair,Home & Kitchen,341198,102507.29,26,4.8,No,94,Cash on Delivery,Dhaka
+2025-11-15,Bioaqua Serum,Beauty,3850,1183.98,7,3.7,No,3,bKash,Dhaka
+2025-11-16,Ponds Bright Beauty Cream,Beauty,66264,24641.49,22,4.0,No,456,Nagad,Sylhet
+2025-11-16,Baseus Type-C Cable,Mobile Accessories,203040,42474.84,27,4.0,No,402,Cash on Delivery,Rajshahi
+2025-11-17,Unilever Sunsilk Shampoo,Beauty,50368,14483.4,16,4.3,No,154,bKash,Khulna
+2025-11-17,Parachute Coconut Oil,Beauty,111520,35076.99,32,4.7,No,104,Nagad,Khulna
+2025-11-17,Haier Refrigerator 220L,Electronics,1157492,262128.38,14,4.4,No,423,bKash,Dhaka
+2025-11-17,Haier Refrigerator 220L,Electronics,527625,135676.46,5,4.0,No,128,bKash,Dhaka
+2025-11-17,UGREEN USB Hub,Mobile Accessories,52591,11566.99,7,3.5,No,89,bKash,Khulna
+2025-11-17,Ponds Bright Beauty Cream,Beauty,13604,4855.98,19,4.4,No,113,bKash,Chittagong
+2025-11-19,Dorjibari Kurti,Fashion,10218,3565.48,3,4.7,No,430,Rocket,Dhaka
+2025-11-20,Teer Flour 2kg,Groceries,69987,22688.26,41,4.6,No,331,bKash,Sylhet
+2025-11-22,Awei Bluetooth Headset,Mobile Accessories,540050,144752.35,50,3.7,Yes,378,bKash,Chittagong
+2025-11-24,Parachute Coconut Oil,Beauty,50232,14635.11,42,3.9,Yes,457,bKash,Dhaka
+2025-11-24,Unilever Sunsilk Shampoo,Beauty,95580,25457.07,30,1.1,No,304,Cash on Delivery,Comilla
+2025-11-24,Haier Refrigerator 220L,Electronics,887832,289260.15,11,4.8,No,26,Nagad,Rajshahi
+2025-11-25,Easy Polo T-Shirt,Fashion,226935,66471.53,45,4.9,No,247,Rocket,Narayanganj
+2025-11-25,Parachute Coconut Oil,Beauty,15318,5401.46,37,4.3,No,309,Nagad,Barisal
+2025-11-25,Cute Perfume,Beauty,27874,6145.75,14,4.6,No,240,bKash,Rangpur
+2025-11-26,Infinity Hijab,Fashion,25380,8857.56,9,4.6,No,195,bKash,Narayanganj
+2025-11-27,Oraimo Power Bank,Mobile Accessories,109188,32530.21,36,4.0,No,5,Card,Chittagong
+2025-11-28,Haier Refrigerator 220L,Electronics,2032416,786257.83,24,4.3,No,92,bKash,Mymensingh
+2025-11-29,Ponds Bright Beauty Cream,Beauty,62220,17888.08,20,3.9,No,69,Nagad,Sylhet
+2025-11-29,Pran Chinigura Rice 25kg,Groceries,84656,23317.13,26,4.5,No,442,Nagad,Khulna
+2025-12-01,Sony Bluetooth Speaker,Electronics,1314048,459096.63,48,4.9,No,213,Bank Transfer,Chittagong
+2025-12-01,Remax Phone Holder,Mobile Accessories,7776,2435.33,18,4.6,Yes,264,Cash on Delivery,Mymensingh
+2025-12-02,Cats Eye Jeans,Fashion,61976,22611.21,8,1.5,No,35,Cash on Delivery,Dhaka
+2025-12-02,Oraimo Power Bank,Mobile Accessories,111330,27825.31,45,4.7,No,260,bKash,Sylhet
+2025-12-02,Fresh Sugar 2kg,Groceries,27854,8201.44,38,3.7,No,221,bKash,Rangpur
+2025-12-02,Kiam Pressure Cooker,Home & Kitchen,253555,71228.61,17,4.4,No,185,Cash on Delivery,Dhaka
+2025-12-03,Bioaqua Serum,Beauty,160752,42841.01,48,2.3,No,408,Rocket,Narayanganj
+2025-12-03,RFL Storage Box,Home & Kitchen,204624,49284.07,21,3.9,No,163,Nagad,Comilla
+2025-12-03,Pran Chinigura Rice 25kg,Groceries,1274,433.54,1,4.9,No,379,bKash,Dhaka
+2025-12-03,Aarong Cotton Saree,Fashion,69904,22213.69,16,4.1,No,180,Cash on Delivery,Dhaka
+2025-12-03,Rupchanda Soyabean Oil 5L,Groceries,77265,17362.82,17,4.6,No,336,Card,Dhaka
+2025-12-04,Samsung Galaxy A15,Electronics,1312886,421101.89,23,4.6,No,203,bKash,Dhaka
+2025-12-04,LG Microwave Oven,Electronics,4083280,1322379.05,43,3.3,No,422,bKash,Dhaka
+2025-12-05,Aarong Dairy Milk 1L,Groceries,64162,13246.97,14,3.7,No,452,bKash,Sylhet
+2025-12-05,Sony Bluetooth Speaker,Electronics,1470528,445116.97,23,3.9,No,6,Cash on Delivery,Chittagong
+2025-12-06,Aarong Cotton Saree,Fashion,71984,19041.25,22,4.6,No,259,Rocket,Dhaka
+2025-12-06,UGREEN USB Hub,Mobile Accessories,392616,125148.12,36,4.5,No,151,Rocket,Rangpur
+2025-12-06,Asus VivoBook 15,Electronics,1959800,665736.21,20,4.4,No,202,Rocket,Dhaka
+2025-12-07,Ispahani Tea 400g,Groceries,131142,39310.07,33,3.5,No,133,bKash,Dhaka
+2025-12-07,Remax Phone Holder,Mobile Accessories,53674,21130.37,47,4.0,No,346,Nagad,Rangpur
+2025-12-08,Lux Body Wash,Beauty,37650,13056.98,25,3.8,Yes,303,bKash,Narayanganj
+2025-12-08,Cute Perfume,Beauty,37620,13605.69,19,3.5,No,112,bKash,Khulna
+2025-12-09,Hoco Smart Watch,Mobile Accessories,393584,133864.23,34,2.6,No,356,Rocket,Dhaka
+2025-12-09,Fresh Sugar 2kg,Groceries,27072,8132.65,24,3.8,No,498,bKash,Mymensingh
+2025-12-11,Joyroom Car Charger,Mobile Accessories,380295,103999.04,45,3.9,Yes,230,Nagad,Barisal
+2025-12-11,Haier Refrigerator 220L,Electronics,60354,14493.06,1,4.0,No,312,Card,Narayanganj
+2025-12-12,Canon EOS 200D,Electronics,937034,318725.11,14,4.8,No,77,Card,Rajshahi
+2025-12-12,Bata Formal Shoes,Fashion,71208,26457.09,43,4.5,No,426,Cash on Delivery,Dhaka
+2025-12-13,Fresh Salt 1kg,Groceries,35640,10697.65,45,3.6,No,184,Nagad,Sylhet
+2025-12-13,Minister Induction Cooker,Home & Kitchen,7521,2979.2,3,4.6,No,437,Cash on Delivery,Chittagong
+2025-12-13,Canon EOS 200D,Electronics,482724,180020.32,33,4.5,No,98,Nagad,Dhaka
+2025-12-14,Pran Chinigura Rice 25kg,Groceries,25725,5194.76,49,4.5,No,499,Rocket,Mymensingh
+2025-12-14,Bioaqua Serum,Beauty,14092,3041.37,26,4.0,No,319,Rocket,Dhaka
+2025-12-15,Fresh Sugar 2kg,Groceries,138446,45493.13,29,4.0,No,235,bKash,Chittagong
+2025-12-15,Singer Electric Kettle,Home & Kitchen,195400,53134.91,20,4.2,No,399,Cash on Delivery,Comilla
+2025-12-17,Xiaomi Earbuds,Mobile Accessories,85440,24503.7,48,2.5,No,365,bKash,Dhaka
+2025-12-17,Yellow Panjabi,Fashion,231300,66103.52,45,4.2,No,421,Cash on Delivery,Khulna
+2025-12-18,Garnier Face Wash,Beauty,57392,20908.96,17,4.5,No,417,bKash,Dhaka
+2025-12-18,RFL Plastic Chair,Home & Kitchen,19737,5891.19,3,4.6,No,110,bKash,Comilla
+2025-12-18,Ecstasy Shirt,Fashion,67680,21624.9,12,4.5,No,337,Nagad,Mymensingh
+2025-12-19,Awei Bluetooth Headset,Mobile Accessories,52679,11519.21,11,3.6,No,36,bKash,Dhaka
+2025-12-20,Parachute Coconut Oil,Beauty,124062,26238.2,46,3.8,No,8,bKash,Dhaka
+2025-12-20,Nova Gas Stove,Home & Kitchen,350766,91093.87,18,5.0,No,363,Cash on Delivery,Dhaka
+2025-12-20,Teer Flour 2kg,Groceries,17600,6622.59,11,2.8,No,420,Rocket,Khulna
+2025-12-20,Hoco Smart Watch,Mobile Accessories,11242,4085.58,1,4.5,No,69,Bank Transfer,Khulna
+2025-12-21,Fresh Salt 1kg,Groceries,175545,36643.0,47,4.6,No,395,Cash on Delivery,Chittagong
+2025-12-21,Samsung Galaxy A15,Electronics,1566390,363313.77,30,4.9,No,363,bKash,Comilla
+2025-12-22,Walton Smart TV 43 Inch,Electronics,1873872,660505.97,18,4.0,No,346,bKash,Dhaka
+2025-12-22,Nivea Men Deodorant,Beauty,63105,23012.63,35,4.0,No,381,Cash on Delivery,Dhaka
+2025-12-23,Dorjibari Kurti,Fashion,176157,62358.42,37,4.9,No,310,Cash on Delivery,Chittagong
+2025-12-23,Ecstasy Shirt,Fashion,204610,47169.99,35,1.2,No,89,Nagad,Dhaka
+2025-12-23,Joyroom Car Charger,Mobile Accessories,30017,6818.23,13,1.4,No,424,Rocket,Rangpur
+2025-12-24,Sailor Denim Jacket,Fashion,235828,70259.78,38,4.3,No,288,bKash,Comilla
+2025-12-24,Samsung Galaxy A15,Electronics,2021568,584877.98,48,3.7,No,183,Cash on Delivery,Sylhet
+2025-12-26,Xiaomi Redmi Note 13,Electronics,125523,34098.13,9,4.4,Yes,74,Cash on Delivery,Chittagong
+2025-12-26,Canon EOS 200D,Electronics,942450,215980.09,25,3.7,No,265,bKash,Mymensingh
+2025-12-26,Doodles Instant Noodles,Groceries,21708,6549.25,6,1.7,No,402,Nagad,Dhaka
+2025-12-26,Xiaomi Redmi Note 13,Electronics,1404575,476452.06,19,4.6,No,1,bKash,Dhaka
+2025-12-27,Xiaomi Redmi Note 13,Electronics,3969696,835292.01,48,3.8,Yes,30,Cash on Delivery,Comilla
+2025-12-28,Sony Bluetooth Speaker,Electronics,3452159,879921.52,41,4.4,Yes,313,Card,Dhaka
+2025-12-29,Sony Bluetooth Speaker,Electronics,2368410,650460.45,33,4.5,No,259,bKash,Chittagong
+2025-12-29,Garnier Face Wash,Beauty,8584,2172.12,29,3.6,No,10,bKash,Chittagong
+2025-12-31,Awei Bluetooth Headset,Mobile Accessories,35828,10872.32,13,3.6,No,216,Rocket,Rajshahi

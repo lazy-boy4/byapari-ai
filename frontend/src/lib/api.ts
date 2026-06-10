@@ -91,6 +91,9 @@ export interface UploadResponse {
 
   raw_data?: Record<string, string | number>[];
 
+  // Set when the analysis was saved to a signed-in user's history.
+  history_id?: string;
+
   error?: string;
 
   data_quality?: {
@@ -249,10 +252,19 @@ export async function fetchAnalytics(): Promise<AnalyzeResponse> {
   return res.json();
 }
 
-export async function uploadCsv(file: File, lang: string = "en"): Promise<UploadResponse> {
+export async function uploadCsv(
+  file: File,
+  lang: string = "en",
+  userId?: string,
+  email?: string | null,
+): Promise<UploadResponse> {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("lang", lang);
+  // When a user is signed in, send their identity so the backend can save
+  // this analysis to their history.
+  if (userId) formData.append("user_id", userId);
+  if (email) formData.append("email", email);
 
   const res = await fetch(`${BASE_URL}/upload`, {
     method: "POST",
@@ -311,4 +323,58 @@ export async function getPricingSuggestions(
     throw new Error(error.detail || `Pricing failed: ${res.status}`);
   }
   return res.json();
+}
+
+// ─────────────────────────────────────────────
+// ANALYSIS HISTORY (per-user, stored in MongoDB)
+// ─────────────────────────────────────────────
+
+export interface HistorySummary {
+  total_sales: number;
+  total_profit: number;
+  total_orders: number;
+  top_category: string;
+  health_score: number;
+}
+
+// Lightweight row for the history list (no heavy raw_data payload).
+export interface HistoryListItem {
+  id: string;
+  file_name: string;
+  created_at: string;
+  rows: number;
+  summary: HistorySummary;
+}
+
+// A full saved analysis — same shape as an upload response, plus metadata.
+export interface HistoryDetail extends UploadResponse {
+  history_id: string;
+  file_name: string;
+  created_at: string;
+}
+
+export async function fetchHistory(userId: string): Promise<HistoryListItem[]> {
+  const res = await fetch(`${BASE_URL}/history?user_id=${encodeURIComponent(userId)}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Failed to load history: ${res.status}`);
+  const data = await res.json();
+  return data.items ?? [];
+}
+
+export async function fetchHistoryItem(userId: string, id: string): Promise<HistoryDetail> {
+  const res = await fetch(
+    `${BASE_URL}/history/${id}?user_id=${encodeURIComponent(userId)}`,
+    { cache: "no-store" },
+  );
+  if (!res.ok) throw new Error(`Failed to load analysis: ${res.status}`);
+  return res.json();
+}
+
+export async function deleteHistoryItem(userId: string, id: string): Promise<void> {
+  const res = await fetch(
+    `${BASE_URL}/history/${id}?user_id=${encodeURIComponent(userId)}`,
+    { method: "DELETE" },
+  );
+  if (!res.ok) throw new Error(`Failed to delete analysis: ${res.status}`);
 }

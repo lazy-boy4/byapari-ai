@@ -5,6 +5,7 @@ import os
 from app.services.insight_engine import analyze_and_generate
 from app.services.csv_service import generate_sales_trend, generate_top_products
 from app.services.forecast import generate_sales_forecast
+from app.services.history_service import save_analysis
 
 router = APIRouter()
 
@@ -69,7 +70,12 @@ def parse_date_safe(val):
         return None
 
 @router.post("/upload")
-async def upload_csv(file: UploadFile = File(...), lang: str = Form("bn")):
+async def upload_csv(
+    file: UploadFile = File(...),
+    lang: str = Form("bn"),
+    user_id: str = Form(None),
+    email: str = Form(None),
+):
     # ── 1. Validate file type ──
     if not file.filename.endswith(".csv"):
         return {
@@ -208,5 +214,14 @@ async def upload_csv(file: UploadFile = File(...), lang: str = Form("bn")):
             "Some data was auto-corrected. See fixes_applied for details."
         ]
     }
+
+    # ── 10. Persist to the user's history (best-effort) ──
+    # A signed-in user sends their uid; we save the analysis so they can
+    # re-open it later. Never fail the upload if persistence fails.
+    if user_id:
+        try:
+            result["history_id"] = save_analysis(user_id, email, file.filename, result)
+        except Exception as e:
+            print(f"[history] save failed: {e}")
 
     return result

@@ -21,6 +21,11 @@ import {
   Upload,
   AlertTriangle,
   Loader2,
+  History,
+  Clock,
+  Trash2,
+  Eye,
+  FileText,
 } from "lucide-react";
 
 import { AppSidebar } from "@/components/app-sidebar";
@@ -46,12 +51,18 @@ import {
   InsightResponse,
   getPricingSuggestions,
   PricingResponse,
+  fetchHistory,
+  fetchHistoryItem,
+  deleteHistoryItem,
+  HistoryListItem,
+  HistoryDetail,
 } from "@/lib/api";
 
 import InsightsPanel from "@/components/InsightsPanel";
 import PricingPanel from "@/components/PricingPanel";
 import { cn } from "@/lib/utils";
 import { useLang } from "@/lib/language-context";
+import { useAuth } from "@/lib/auth-context";
 
 // ─────────────────────────────────────────────
 // TYPES
@@ -339,6 +350,18 @@ function AboutPage() {
               </div>
             </div>
           </div>
+          <div className="flex items-center gap-4">
+            <div className="size-12 rounded-full border border-rule bg-secondary flex items-center justify-center font-mono font-bold text-sm text-ink shrink-0">
+              SA
+            </div>
+            <div>
+              <div className="font-display font-bold text-sm text-ink">{t("about.team_name2")}</div>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="mono-caps text-[9px] bg-secondary/50 border border-rule px-2 py-0.5 text-muted-foreground">{t("about.team_team")}</span>
+                <span className="mono-caps text-[9px] bg-coffee/15 border border-coffee/30 px-2 py-0.5 text-coffee">{t("about.team_designer")}</span>
+              </div>
+            </div>
+          </div>
           <p className="text-xs text-muted-foreground leading-relaxed pt-2 border-t border-rule">
             {t("about.team_built")} {" "}
             <a
@@ -473,10 +496,179 @@ function EmptyState({ onUpload }: { onUpload: () => void }) {
 }
 
 // ─────────────────────────────────────────────
+// ANALYSIS HISTORY
+// ─────────────────────────────────────────────
+function HistorySection({
+  userId,
+  onOpen,
+  onUpload,
+}: {
+  userId: string | undefined;
+  onOpen: (detail: HistoryDetail) => void;
+  onUpload: () => void;
+}) {
+  const { t, lang } = useLang();
+  const [items, setItems] = useState<HistoryListItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [opening, setOpening] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
+  // Bump to re-fetch (used by the Retry button).
+  const [reloadKey, setReloadKey] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      if (!userId) {
+        if (active) setLoading(false);
+        return;
+      }
+      if (active) {
+        setLoading(true);
+        setError(null);
+      }
+      try {
+        const data = await fetchHistory(userId);
+        if (active) setItems(data);
+      } catch (e) {
+        if (active) setError(e instanceof Error ? e.message : "Failed to load history");
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [userId, reloadKey]);
+
+  const handleOpen = async (id: string) => {
+    if (!userId) return;
+    setOpening(id);
+    try {
+      onOpen(await fetchHistoryItem(userId, id));
+    } catch (e) {
+      console.error("Open history failed:", e);
+    } finally {
+      setOpening(null);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!userId) return;
+    if (!window.confirm(t("history.confirm_delete"))) return;
+    setDeleting(id);
+    try {
+      await deleteHistoryItem(userId, id);
+      setItems((prev) => prev.filter((it) => it.id !== id));
+    } catch (e) {
+      console.error("Delete history failed:", e);
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  const fmtDate = (iso: string) => {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso;
+    return d.toLocaleString(lang === "bn" ? "bn-BD" : "en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
+
+  return (
+    <div className="space-y-8">
+      <SectionHeading index="01" eyebrow={t("history.eyebrow")} title={t("history.title")} lead={t("history.lead")} />
+
+      {!userId ? (
+        <PaperCard className="p-10 text-center text-sm text-muted-foreground">
+          {t("history.signin_required")}
+        </PaperCard>
+      ) : loading ? (
+        <div className="space-y-3">
+          {[80, 80, 80].map((h, i) => (
+            <div key={i} className="shimmer bg-secondary/35 border border-rule opacity-60" style={{ height: h }} />
+          ))}
+        </div>
+      ) : error ? (
+        <PaperCard className="p-8 text-center space-y-4">
+          <p className="text-sm text-danger">{t("history.error")}</p>
+          <button
+            onClick={() => setReloadKey((k) => k + 1)}
+            className="mono-caps inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2 text-[color:var(--color-paper)] text-xs hover:bg-transparent hover:text-ink cursor-pointer"
+          >
+            <RefreshCw className="size-3" /> {t("history.retry")}
+          </button>
+        </PaperCard>
+      ) : items.length === 0 ? (
+        <PaperCard className="p-10 text-center space-y-4">
+          <div className="inline-flex items-center justify-center size-12 bg-secondary/50 border border-rule mx-auto">
+            <History className="size-5 text-muted-foreground" />
+          </div>
+          <div>
+            <h3 className="font-display font-bold text-base text-ink">{t("history.empty_title")}</h3>
+            <p className="text-sm text-muted-foreground mt-1 max-w-sm mx-auto">{t("history.empty_desc")}</p>
+          </div>
+          <button
+            onClick={onUpload}
+            className="mono-caps inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2 text-[color:var(--color-paper)] text-xs hover:bg-transparent hover:text-ink cursor-pointer"
+          >
+            <Upload className="size-3" /> {t("empty.cta")}
+          </button>
+        </PaperCard>
+      ) : (
+        <div className="space-y-3">
+          {items.map((item) => (
+            <PaperCard key={item.id} className="p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <FileText className="size-4 text-coffee shrink-0" />
+                  <span className="font-display font-bold text-sm text-ink truncate" title={item.file_name}>
+                    {item.file_name}
+                  </span>
+                </div>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 font-mono text-[11px] text-muted-foreground">
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="size-3" /> {fmtDate(item.created_at)}
+                  </span>
+                  <span>{(item.rows ?? 0).toLocaleString()} {t("history.rows")}</span>
+                  <span>{t("history.sales")}: ৳{(item.summary?.total_sales ?? 0).toLocaleString()}</span>
+                  <span>{t("history.health")}: {item.summary?.health_score ?? 0}/100</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={() => handleOpen(item.id)}
+                  disabled={opening === item.id}
+                  className="mono-caps inline-flex items-center gap-1.5 border border-ink bg-ink px-3 py-1.5 text-[color:var(--color-paper)] text-xs hover:bg-transparent hover:text-ink cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {opening === item.id ? <Loader2 className="size-3 animate-spin" /> : <Eye className="size-3" />}
+                  {opening === item.id ? t("history.opening") : t("history.view")}
+                </button>
+                <button
+                  onClick={() => handleDelete(item.id)}
+                  disabled={deleting === item.id}
+                  aria-label={t("history.delete")}
+                  title={t("history.delete")}
+                  className="inline-flex items-center justify-center size-8 border border-rule text-muted-foreground transition-colors hover:bg-danger hover:text-[color:var(--color-paper)] hover:border-danger cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {deleting === item.id ? <Loader2 className="size-3 animate-spin" /> : <Trash2 className="size-3.5" />}
+                </button>
+              </div>
+            </PaperCard>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // MAIN PAGE
 // ─────────────────────────────────────────────
 export default function DashboardPage() {
   const { t, lang, setLang } = useLang();
+  const { user } = useAuth();
   const [activeSection, setActiveSection] = useState("dashboard");
   const [initialized, setInitialized] = useState(false);
 
@@ -570,6 +762,30 @@ export default function DashboardPage() {
     } catch (err) {
       console.error("Pricing error:", err);
     }
+  };
+
+  // Restore a saved analysis into the dashboard. AI insights / pricing are
+  // left cleared — the user can regenerate them from the loaded raw data via
+  // the existing buttons.
+  const loadHistoryItem = (detail: HistoryDetail) => {
+    const rawScore = (detail as unknown as { health_score?: number }).health_score ?? 0;
+    const health: HealthScore = {
+      score: rawScore,
+      label: rawScore >= 70 ? "Good" : rawScore >= 40 ? "Fair" : "Poor",
+      color: rawScore >= 70 ? "var(--green)" : rawScore >= 40 ? "var(--amber)" : "var(--red)",
+    };
+    setPreviousKpis(null);
+    setKpis(detail.kpis);
+    setInsights(detail.insights ?? []);
+    setHealthScore(health);
+    setSalesTrend(detail.sales_trend ?? []);
+    setTopProducts(detail.top_products ?? []);
+    setUploadedFileName(detail.file_name);
+    setRawCsvData(detail.raw_data ?? []);
+    setAiInsights(null);
+    setPricingData(null);
+    setLastUpdated(detail.created_at ? new Date(detail.created_at) : new Date());
+    setActiveSection("dashboard");
   };
 
   // ── DASHBOARD ──
@@ -719,7 +935,7 @@ export default function DashboardPage() {
   const renderUpload = () => (
     <div className="max-w-4xl space-y-6">
       <SectionHeading index="01" eyebrow={t("upload.eyebrow")} title={t("upload.title")} lead={t("upload.lead")} />
-      <CsvUpload onDataLoaded={handleUploadSuccess} />
+      <CsvUpload onDataLoaded={handleUploadSuccess} userId={user?.uid} email={user?.email} />
     </div>
   );
 
@@ -743,9 +959,19 @@ export default function DashboardPage() {
     </div>
   );
 
+  // ── HISTORY ──
+  const renderHistory = () => (
+    <HistorySection
+      userId={user?.uid}
+      onOpen={loadHistoryItem}
+      onUpload={() => setActiveSection("upload")}
+    />
+  );
+
   // ── ROUTER ──
   const renderSection = () => {
     if (activeSection === "upload")    return renderUpload();
+    if (activeSection === "history")   return renderHistory();
     if (activeSection === "insights")  return renderInsights();
     if (activeSection === "sales")     return <SalesTrendPage data={salesTrend} />;
     if (activeSection === "products")  return <ProductsPage products={topProducts} />;
@@ -763,6 +989,7 @@ export default function DashboardPage() {
     sales: t("nav.sales"),
     products: t("nav.products"),
     upload: t("nav.upload"),
+    history: t("nav.history"),
     insights: t("nav.insights"),
     about: t("nav.about"),
     settings: t("nav.settings"),

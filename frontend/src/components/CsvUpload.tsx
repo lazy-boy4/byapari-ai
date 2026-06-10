@@ -36,10 +36,15 @@ interface CsvUploadProps {
     rawData?: Record<string, string | number>[],
     fileName?: string
   ) => void;
+  /** Signed-in user's id/email — sent so the analysis is saved to history. */
+  userId?: string;
+  email?: string | null;
 }
 
 export default function CsvUpload({
   onDataLoaded,
+  userId,
+  email,
 }: CsvUploadProps) {
   const [state, setState] = useState<UploadState>("idle");
   const [fileName, setFileName] = useState("");
@@ -49,7 +54,7 @@ export default function CsvUpload({
   const [qualityReport, setQualityReport] = useState<any>(null);
   const [rawData, setRawData] = useState<Record<string, string | number>[] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   const handleFile = async (file: File) => {
     if (!file.name.endsWith(".csv")) {
@@ -64,7 +69,7 @@ export default function CsvUpload({
     setKpis(null);
 
     try {
-      const data = await uploadCsv(file);
+      const data = await uploadCsv(file, lang, userId, email);
       console.log("UPLOAD RESPONSE:", data);
       setRows(data.rows ?? 0);
       setKpis(data.kpis);

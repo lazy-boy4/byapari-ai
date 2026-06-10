@@ -8,3 +8,4 @@ python-dotenv
 numpy
 prophet>=1.1.5
 plotly
+pymongo[srv]

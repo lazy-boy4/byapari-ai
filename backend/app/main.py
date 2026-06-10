@@ -6,6 +6,7 @@ from app.routes.upload import router as upload_router
 from app.routes.analyze import router as analyze_router
 from app.routes.ai_insights import router as ai_insights_router
 from app.routes.pricing import router as pricing_router
+from app.routes.history import router as history_router
 
 app = FastAPI()
 
@@ -23,6 +24,7 @@ app.include_router(upload_router)
 app.include_router(analyze_router)
 app.include_router(ai_insights_router)
 app.include_router(pricing_router)
+app.include_router(history_router)
 
 @app.get("/")
 def home():

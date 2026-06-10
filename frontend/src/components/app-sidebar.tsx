@@ -12,6 +12,7 @@ import {
   Info,
   Settings,
   BookOpen,
+  History,
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
@@ -32,6 +33,7 @@ const items = [
   { id: "sales", labelKey: "sidebar.sales_trend", icon: LineChart },
   { id: "products", labelKey: "sidebar.products", icon: Package },
   { id: "upload", labelKey: "sidebar.upload_data", icon: Upload },
+  { id: "history", labelKey: "sidebar.history", icon: History },
   { id: "insights", labelKey: "sidebar.insights", icon: Lightbulb },
   { id: "about", labelKey: "sidebar.about", icon: Info },
 ];

@@ -279,115 +279,6 @@ function HealthScoreCard({ health }: { health: HealthScore }) {
 }
 
 // ─────────────────────────────────────────────
-// PRICING PLANS PAGE
-// ─────────────────────────────────────────────
-function PricingPlansPage() {
-  const { t, lang } = useLang();
-  const freeFeatures = lang === "bn"
-    ? ["মাসে ১টি CSV আপলোড", "বেসিক KPIs", "বিক্রয় ট্রেন্ড চার্ট", "শীর্ষ ৫টি পণ্য"]
-    : ["1 CSV upload/month", "Basic KPIs", "Sales trend chart", "Top 5 products"];
-  const proFeatures = lang === "bn"
-    ? ["আনলিমিটেড CSV আপলোড", "সম্পূর্ণ AI ইনসাইট", "বাংলা ভাষা সমর্থন", "বিক্রয় পূর্বাভাস", "অগ্রাধিকার সমর্থন"]
-    : ["Unlimited CSV uploads", "Full AI insights", "Bengali language support", "Sales forecast", "Priority support"];
-  const enterpriseFeatures = lang === "bn"
-    ? ["প্রো-এর সবকিছু", "API অ্যাক্সেস", "কাস্টম ইন্টিগ্রেশন", "ডেডিকেটেড সাপোর্ট", "টিম অ্যাকাউন্ট"]
-    : ["Everything in Pro", "API access", "Custom integrations", "Dedicated support", "Team accounts"];
-
-  const plans = [
-    {
-      name: t("pricing.free_name"),
-      price: t("pricing.free_price"),
-      period: t("pricing.free_period"),
-      color: "text-ink",
-      features: freeFeatures,
-      cta: t("pricing.free_cta"),
-      popular: false,
-    },
-    {
-      name: t("pricing.pro_name"),
-      price: t("pricing.pro_price"),
-      period: t("pricing.pro_period"),
-      color: "text-coffee",
-      features: proFeatures,
-      cta: t("pricing.pro_cta"),
-      popular: true,
-    },
-    {
-      name: t("pricing.enterprise_name"),
-      price: t("pricing.enterprise_price"),
-      period: t("pricing.enterprise_period"),
-      color: "text-muted-foreground",
-      features: enterpriseFeatures,
-      cta: t("pricing.enterprise_cta"),
-      popular: false,
-    },
-  ];
-
-  return (
-    <div className="fade-up max-w-4xl space-y-12">
-      <SectionHeading index="01" eyebrow={t("pricing.eyebrow")} title={t("pricing.title")} lead={t("pricing.lead")} />
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {plans.map((plan) => (
-          <PaperCard
-            key={plan.name}
-            className={cn(
-              "p-8 relative flex flex-col justify-between min-h-[420px]",
-              plan.popular && "border-coffee border-2"
-            )}
-          >
-            {plan.popular && (
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-coffee text-[color:var(--color-paper)] text-[10px] font-bold px-3 py-1 uppercase tracking-wider font-mono">
-                {t("pricing.most_popular")}
-              </div>
-            )}
-            <div>
-              <div className={cn("font-display font-bold text-lg uppercase tracking-tight mb-4", plan.color)}>
-                {plan.name}
-              </div>
-              <div className="mb-6 flex items-baseline">
-                <span className="font-display font-extrabold text-4xl text-ink tracking-tight">
-                  {plan.price}
-                </span>
-                <span className="text-xs text-muted-foreground ml-2">/ {plan.period}</span>
-              </div>
-              <div className="h-px bg-rule mb-6" />
-              <ul className="space-y-3.5 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5 text-xs text-muted-foreground">
-                    <span className="text-coffee font-semibold">✓</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button
-              onClick={() => {
-                if (plan.name === "Free" || plan.name === "Pro") {
-                  alert(t("pricing.coming_soon"));
-                  return;
-                }
-                if (plan.name === "Enterprise") {
-                  window.location.href = "mailto:blueberry.poison.1309@gmail.com";
-                }
-              }}
-              className={cn(
-                "w-full py-2.5 text-xs font-mono uppercase tracking-wider border transition-colors cursor-pointer",
-                plan.popular
-                  ? "bg-coffee border-coffee text-[color:var(--color-paper)] hover:bg-transparent hover:text-coffee"
-                  : "bg-transparent border-ink text-ink hover:bg-ink hover:text-[color:var(--color-paper)]"
-              )}
-            >
-              {plan.cta}
-            </button>
-          </PaperCard>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
 // ABOUT PAGE
 // ─────────────────────────────────────────────
 function AboutPage() {
@@ -859,7 +750,6 @@ export default function DashboardPage() {
     if (activeSection === "sales")     return <SalesTrendPage data={salesTrend} />;
     if (activeSection === "products")  return <ProductsPage products={topProducts} />;
     if (activeSection === "about")     return <AboutPage />;
-    if (activeSection === "pricing")   return <PricingPlansPage />;
     if (activeSection === "analytics") return (
       <AnalyticsSection salesTrend={salesTrend} topProducts={topProducts} healthScore={healthScore} />
     );
@@ -875,7 +765,6 @@ export default function DashboardPage() {
     upload: t("nav.upload"),
     insights: t("nav.insights"),
     about: t("nav.about"),
-    pricing: t("nav.pricing"),
     settings: t("nav.settings"),
   };
 
@@ -890,7 +779,7 @@ export default function DashboardPage() {
 
       <main className="flex-1 flex flex-col min-w-0">
         {/* ── Sub-header ── */}
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-rule px-8 py-4 bg-background/50 backdrop-blur-sm sticky top-0 z-20">
+        <header className="flex flex-wrap items-center justify-between gap-1 border-b border-rule px-4 sm:px-8 py-2 bg-background/85 backdrop-blur-sm sticky top-[65px] z-20">
           <div>
             <h1 className="font-display text-xl font-bold tracking-tight text-ink">
               {sectionTitle[activeSection] ?? activeSection}
@@ -946,7 +835,7 @@ export default function DashboardPage() {
         </header>
 
         {/* ── Content ── */}
-        <div className="flex-1 p-8 overflow-y-auto">
+        <div className="flex-1 p-4 sm:p-8 overflow-y-auto">
           {loading ? (
             <div className="space-y-4">
               {[90, 200, 200].map((h, i) => (

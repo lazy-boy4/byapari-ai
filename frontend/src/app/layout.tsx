@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GrainOverlay } from "@/components/grain-overlay";
 import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { ConditionalFooter } from "@/components/conditional-footer";
 import { LanguageProvider } from "@/lib/language-context";
+import { AuthProvider } from "@/lib/auth-context";
 import { LangBody } from "@/components/lang-body";
 
 export const metadata: Metadata = {
@@ -29,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <LanguageProvider>
-        <LangBody className="font-body min-h-screen flex flex-col relative">
-          <GrainOverlay />
-          <SiteHeader />
-          <main className="flex-1 flex flex-col relative z-10">{children}</main>
-          <SiteFooter />
-        </LangBody>
+        <AuthProvider>
+          <LangBody className="font-body min-h-screen flex flex-col relative">
+            <GrainOverlay />
+            <SiteHeader />
+            <main className="flex-1 flex flex-col relative z-10">{children}</main>
+            <ConditionalFooter />
+          </LangBody>
+        </AuthProvider>
       </LanguageProvider>
     </html>
   );

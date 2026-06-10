@@ -91,7 +91,6 @@ export default function DocsPage() {
     { id: "architecture", label: t("docs.nav_arch")   },
     { id: "rag",          label: t("docs.nav_rag")     },
     { id: "sample-csv",   label: t("docs.nav_sample") },
-    { id: "pricing",      label: t("docs.nav_pricing") },
   ];
   const [activeNav, setActiveNav] = useState("about");
 
@@ -527,92 +526,6 @@ export default function DocsPage() {
                 {t("docs.sample_tip")}
               </p>
             </PaperCard>
-          </div>
-        </Section>
-
-        {/* ── Pricing ── */}
-        <Section id="pricing">
-          <SectionHeading index="07" eyebrow={t("docs.pricing_eyebrow")} title={t("docs.pricing_title")} lead={t("docs.pricing_lead")} />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                plan: t("pricing.free_name"),
-                price: t("pricing.free_price"),
-                period: t("pricing.free_period"),
-                color: "text-ink",
-                badge: null,
-                features: (lang === "bn"
-                  ? ["প্রতি আপলোডে ৫০০ সারি পর্যন্ত", "KPI ড্যাশবোর্ড", "৩০-দিনের পূর্বাভাস", "৫ টি AI ইনসাইট", "বেসিক হেলথ স্কোর", "শুধুমাত্র ইংরেজি"]
-                  : ["Up to 500 rows per upload", "KPI dashboard", "30-day forecast", "5 AI insights", "Basic health score", "English only"]) as string[],
-                cta: t("pricing.free_cta"),
-              },
-              {
-                plan: t("pricing.pro_name"),
-                price: t("pricing.pro_price"),
-                period: t("pricing.pro_period"),
-                color: "text-coffee",
-                badge: t("pricing.most_popular"),
-                features: (lang === "bn"
-                  ? ["আনলিমিটেড সারি", "সম্পূর্ণ KPI ড্যাশবোর্ড", "৯০-দিনের পূর্বাভাস", "আনলিমিটেড AI ইনসাইট", "ডাইনামিক প্রাইসিং ইঞ্জিন", "বাংলা + ইংরেজি", "RAG সুপারিশ", "অগ্রাধিকার সমর্থন"]
-                  : ["Unlimited rows", "Full KPI dashboard", "90-day forecast", "Unlimited AI insights", "Dynamic pricing engine", "Bengali + English", "RAG recommendations", "Priority support"]) as string[],
-                cta: `${t("docs.pricing_get")} ${t("pricing.pro_name")}`,
-              },
-              {
-                plan: t("pricing.enterprise_name"),
-                price: t("pricing.enterprise_price"),
-                period: t("pricing.enterprise_period"),
-                color: "text-muted-foreground",
-                badge: null,
-                features: (lang === "bn"
-                  ? ["প্রো-এর সবকিছু", "মাল্টি-ইউজার অ্যাক্সেস", "API অ্যাক্সেস", "কাস্টম ইন্টিগ্রেশন", "ডেডিকেটেড সাপোর্ট", "SLA গ্যারান্টি"]
-                  : ["Everything in Pro", "Multi-user access", "API access", "Custom integrations", "Dedicated support", "SLA guarantee"]) as string[],
-                cta: t("docs.pricing_contact"),
-              },
-            ].map((tier) => (
-              <PaperCard
-                key={tier.plan}
-                className={cn(
-                  "p-6 relative flex flex-col justify-between min-h-[400px]",
-                  tier.plan === t("pricing.pro_name") && "border-coffee border-2"
-                )}
-              >
-                {tier.badge && (
-                  <span className="absolute top-4 right-4 text-[9px] font-mono uppercase bg-coffee text-[color:var(--color-paper)] px-2 py-0.5">
-                    {tier.badge}
-                  </span>
-                )}
-                <div>
-                  <div className="mb-4">
-                    <div className={cn("font-display font-bold text-sm uppercase tracking-wider mb-2", tier.color)}>{tier.plan}</div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="font-display font-extrabold text-2xl text-ink">{tier.price}</span>
-                      <span className="text-[10px] text-muted-foreground">{tier.period}</span>
-                    </div>
-                  </div>
-                  <div className="h-px bg-rule mb-4" />
-                  <div className="space-y-2.5 mb-6">
-                    {tier.features.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                        <CheckCircle size={10} className="text-coffee shrink-0" />
-                        <span>{f}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <Link
-                  href={tier.plan === t("pricing.enterprise_name") ? "mailto:blueberry.poison.1309@gmail.com" : "/dashboard?section=pricing"}
-                  className={cn(
-                    "block text-center py-2 text-xs font-mono uppercase tracking-wider border transition-colors cursor-pointer",
-                    tier.plan === t("pricing.pro_name")
-                      ? "bg-coffee border-coffee text-[color:var(--color-paper)] hover:bg-transparent hover:text-coffee"
-                      : "bg-transparent border-ink text-ink hover:bg-ink hover:text-[color:var(--color-paper)]"
-                  )}
-                >
-                  {tier.cta}
-                </Link>
-              </PaperCard>
-            ))}
           </div>
         </Section>
       </main>

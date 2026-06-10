@@ -295,6 +295,171 @@ export default function InsightsPanel({
           </div>
         )}
 
+      {/* Merchant Personalization Profile */}
+      {insights.merchant_profile && (
+        <div style={{
+          padding: "16px 20px",
+          borderRadius: 12,
+          background: "rgba(52,211,153,0.06)",
+          border: "1px solid rgba(52,211,153,0.15)",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <span style={{ fontSize: 16 }}>👤</span>
+            <span style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: 14,
+              color: "var(--green)",
+            }}>
+              {lang === "bn" ? "আপনার ব্যবসার প্রোফাইল" : "Your Merchant Profile"}
+            </span>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {[
+              `${lang === "bn" ? "ধরন" : "Type"}: ${insights.merchant_profile.business_type}`,
+              `${lang === "bn" ? "স্কেল" : "Scale"}: ${insights.merchant_profile.scale_tier}`,
+              `${lang === "bn" ? "ডিজিটাল পেমেন্ট" : "Digital payments"}: ${insights.merchant_profile.digital_payment_pct}%`,
+              ...(insights.merchant_profile.top_city
+                ? [`${lang === "bn" ? "প্রধান শহর" : "Top city"}: ${insights.merchant_profile.top_city} (${insights.merchant_profile.city_concentration_pct}%)`]
+                : []),
+            ].map((chip, i) => (
+              <span key={i} style={{
+                fontSize: 11,
+                padding: "4px 10px",
+                borderRadius: 99,
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                color: "var(--text-secondary)",
+              }}>
+                {chip}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Knowledge Graph Intelligence */}
+      {insights.graph_insights && insights.graph_insights.graph_stats.nodes > 0 && (
+        <div style={{
+          padding: "16px 20px",
+          borderRadius: 12,
+          background: "rgba(168,85,247,0.06)",
+          border: "1px solid rgba(168,85,247,0.18)",
+        }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 12,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 16 }}>🕸️</span>
+              <span style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 14,
+                color: "#c084fc",
+              }}>
+                {lang === "bn" ? "নলেজ গ্রাফ ইন্টেলিজেন্স" : "Knowledge Graph Intelligence"}
+              </span>
+            </div>
+            <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+              {insights.graph_insights.graph_stats.nodes} {lang === "bn" ? "নোড" : "nodes"} · {insights.graph_insights.graph_stats.edges} {lang === "bn" ? "সম্পর্ক" : "relationships"}
+            </span>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {insights.graph_insights.cross_sell.slice(0, 2).map((pair, i) => (
+              <div key={`cs-${i}`} style={{
+                padding: "10px 14px",
+                borderRadius: 8,
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                fontSize: 13,
+                color: "var(--text-secondary)",
+                lineHeight: 1.6,
+              }}>
+                🔗 <strong>{pair.product_a}</strong> + <strong>{pair.product_b}</strong>
+                {lang === "bn"
+                  ? " — প্রায়ই একসাথে কেনা হয়; বান্ডেল অফার করুন"
+                  : " — frequently bought together; offer as a bundle"}
+              </div>
+            ))}
+            {insights.graph_insights.city_opportunities.slice(0, 2).map((opp, i) => (
+              <div key={`co-${i}`} style={{
+                padding: "10px 14px",
+                borderRadius: 8,
+                background: "var(--bg-card)",
+                border: "1px solid var(--border)",
+                fontSize: 13,
+                color: "var(--text-secondary)",
+                lineHeight: 1.6,
+              }}>
+                🗺️ <strong>{opp.category}</strong>
+                {lang === "bn"
+                  ? ` — ${opp.city}-তে কম বিক্রি হচ্ছে (${opp.local_share_pct}% বনাম সামগ্রিক ${opp.global_share_pct}%)`
+                  : ` is under-selling in ${opp.city} (${opp.local_share_pct}% vs ${opp.global_share_pct}% overall)`}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Live Market Signals */}
+      {insights.market_signals && (insights.market_signals.exchange_rate.available || insights.market_signals.news.available) && (
+        <div style={{
+          padding: "16px 20px",
+          borderRadius: 12,
+          background: "rgba(251,191,36,0.05)",
+          border: "1px solid rgba(251,191,36,0.15)",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+            <span style={{ fontSize: 16 }}>📡</span>
+            <span style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: 14,
+              color: "var(--gold, #fbbf24)",
+            }}>
+              {lang === "bn" ? "লাইভ মার্কেট সিগন্যাল" : "Live Market Signals"}
+            </span>
+            <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+              {lang === "bn" ? "বাস্তব-সময়ের বাহ্যিক ডেটা" : "real-time external data"}
+            </span>
+          </div>
+
+          {insights.market_signals.exchange_rate.available && (
+            <p style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 8 }}>
+              💱 USD/BDT: <strong>৳{insights.market_signals.exchange_rate.usd_bdt}</strong>
+              <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
+                {" "}({insights.market_signals.exchange_rate.source}, {insights.market_signals.exchange_rate.fetched_at})
+              </span>
+            </p>
+          )}
+
+          {insights.market_signals.news.available && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {insights.market_signals.news.headlines.slice(0, 3).map((h, i) => (
+                <a
+                  key={i}
+                  href={h.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: 12,
+                    color: "var(--text-secondary)",
+                    lineHeight: 1.5,
+                    textDecoration: "none",
+                  }}
+                >
+                  📰 {h.title}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Insight Cards */}
       <div className="space-y-3">
         <h3 style={{

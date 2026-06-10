@@ -564,7 +564,7 @@ function AboutPage() {
         }}>
           {[
             { icon: <BarChart3 size={18} />, color: "#529dff", title: "Instant KPIs", desc: "Sales, profit, orders, ratings, returns — computed the moment you upload." },
-            { icon: <Sparkles size={18} />, color: "#e8b84b", title: "AI Insights", desc: "Claude-powered recommendations tailored to your specific business data." },
+            { icon: <Sparkles size={18} />, color: "#e8b84b", title: "AI Insights", desc: "LLM recommendations grounded in your data, a knowledge graph, local RAG tips, and live market signals." },
             { icon: <Activity size={18} />, color: "#34d399", title: "Health Score", desc: "A holistic 0–100 score rating your business performance across key dimensions." },
             { icon: <TrendingUp size={18} />, color: "#a78bfa", title: "Sales Trends", desc: "Time-series charts showing revenue, profit, and volume over time." },
             { icon: <Package size={18} />, color: "#f87171", title: "Product Intelligence", desc: "Top performers, low stock alerts, and category-level breakdowns." },
@@ -710,13 +710,15 @@ function AboutPage() {
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {[
-            ["Next.js 14", "#529dff"],
+            ["Next.js 16", "#529dff"],
             ["TypeScript", "#529dff"],
             ["Python FastAPI", "#34d399"],
+            ["Prophet ML", "#fbbf24"],
+            ["Knowledge Graph", "#34d399"],
+            ["RAG (Bengali KB)", "#a78bfa"],
+            ["Groq LLM", "#e8b84b"],
             ["Recharts", "#a78bfa"],
             ["Tailwind CSS", "#38bdf8"],
-            ["Lucide Icons", "#f87171"],
-            ["Claude AI", "#e8b84b"],
           ].map(([name, color]) => (
             <span key={name} className="chip" style={{
               background: `${color}10`,

@@ -109,6 +109,58 @@ export interface RagTip {
   relevance: number | null;
 }
 
+// Knowledge-graph reasoning results (GraphRAG layer)
+export interface GraphInsights {
+  graph_stats: {
+    nodes: number;
+    edges: number;
+    node_types: Record<string, number>;
+  };
+  cross_sell: { product_a: string; product_b: string; strength: number }[];
+  city_opportunities: {
+    city: string;
+    category: string;
+    global_share_pct: number;
+    local_share_pct: number;
+    gap_pct: number;
+  }[];
+  payment_preferences: {
+    category: string;
+    top_payment_method: string;
+    share_pct: number;
+  }[];
+  recommendations: AiRecommendation[];
+  facts: string[];
+}
+
+// Live external market signals (scraped/parsed real-world data)
+export interface MarketSignals {
+  exchange_rate: {
+    available: boolean;
+    usd_bdt?: number;
+    source?: string;
+    fetched_at?: string;
+  };
+  news: {
+    available: boolean;
+    headlines: { title: string; link: string; published: string }[];
+    source?: string;
+  };
+}
+
+// Merchant personalization profile
+export interface MerchantProfile {
+  business_type: string;
+  scale_tier: string;
+  category_mix: { category: string; share_pct: number }[];
+  digital_payment_pct: number;
+  top_city: string | null;
+  city_concentration_pct: number;
+  risk_flags: string[];
+  strengths: string[];
+  summary: string;
+}
+
 // NEW: InsightResponse for the /api/ai-insights endpoint
 export interface InsightResponse {
   insights: AiRecommendation[];
@@ -137,6 +189,12 @@ export interface InsightResponse {
   forecast?: ForecastItem[];
 
   ai_summary?: string;
+
+  graph_insights?: GraphInsights;
+
+  merchant_profile?: MerchantProfile;
+
+  market_signals?: MarketSignals;
 }
 export interface ForecastItem {
   date: string;

@@ -43,6 +43,7 @@ const NAV = [
   { id: "api",          label: "API Reference"      },
   { id: "architecture", label: "Architecture"       },
   { id: "rag",          label: "RAG Knowledge Base" },
+  { id: "responsible-ai", label: "Responsible AI"   },
   { id: "sample-csv",   label: "Sample CSV"         },
   { id: "pricing",      label: "Pricing"            },
 ];
@@ -417,7 +418,7 @@ export default function DocsPage() {
                   <div style={{ width: 64, height: 64, borderRadius: 16, background: "rgba(82,157,255,0.1)", border: "2px solid rgba(82,157,255,0.4)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 8px" }}>
                     <Globe size={26} color="var(--accent)" />
                   </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent)" }}>Next.js 14</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--accent)" }}>Next.js 16</div>
                   <div style={{ fontSize: 10, color: "var(--text-muted)" }}>Vercel · TypeScript</div>
                 </div>
 
@@ -440,10 +441,12 @@ export default function DocsPage() {
                 <div style={{ textAlign: "center", padding: "0 8px" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
                     {[
-                      { icon: <TrendingUp size={14} />, label: "Prophet ML",   sub: "Forecasting",   color: "#fbbf24" },
-                      { icon: <Database size={14} />,   label: "ChromaDB",     sub: "RAG Vector DB", color: "#34d399" },
-                      { icon: <Brain size={14} />,      label: "Claude AI",    sub: "Summarization", color: "#f87171" },
-                      { icon: <Zap size={14} />,        label: "SentenceXFMR", sub: "Embeddings",    color: "#a78bfa" },
+                      { icon: <TrendingUp size={14} />, label: "Prophet ML",    sub: "Eid-aware forecast", color: "#fbbf24" },
+                      { icon: <Database size={14} />,   label: "Knowledge Graph", sub: "GraphRAG reasoning", color: "#34d399" },
+                      { icon: <Brain size={14} />,      label: "Groq LLM",      sub: "llama-3.3-70b", color: "#f87171" },
+                      { icon: <Zap size={14} />,        label: "Keyword RAG",   sub: "35 Bengali tips", color: "#a78bfa" },
+                      { icon: <Globe size={14} />,      label: "Market Intel",  sub: "Live FX + news", color: "#60a5fa" },
+                      { icon: <CheckCircle size={14} />, label: "Personalization", sub: "Merchant profile", color: "#f472b6" },
                     ].map((s) => (
                       <div key={s.label} style={{ width: 72, padding: "8px 6px", borderRadius: 10, background: `${s.color}10`, border: `1px solid ${s.color}25`, textAlign: "center" }}>
                         <span style={{ color: s.color, display: "block", marginBottom: 3 }}>{s.icon}</span>
@@ -462,11 +465,11 @@ export default function DocsPage() {
               {[
                 {
                   title: "Frontend Stack", color: "var(--accent)",
-                  items: ["Next.js 14 (App Router)", "TypeScript + Tailwind CSS", "Recharts for data viz", "Lucide React icons", "Deployed on Vercel"],
+                  items: ["Next.js 16 (App Router)", "TypeScript + Tailwind CSS", "Recharts for data viz", "Lucide React icons", "Deployed on Vercel"],
                 },
                 {
                   title: "Backend Stack", color: "var(--purple)",
-                  items: ["Python 3.11 + FastAPI", "Facebook Prophet (forecasting)", "ChromaDB (vector store)", "SentenceTransformer (multilingual)", "Deployed on Railway"],
+                  items: ["Python 3.11 + FastAPI", "Facebook Prophet (Eid-aware forecasting)", "In-memory Knowledge Graph (GraphRAG)", "Keyword RAG (35-tip Bengali KB)", "Groq LLM (llama-3.3-70b, 8b fallback)", "Live market signals (FX + news scraping)", "Deployed on Railway"],
                 },
               ].map((stack) => (
                 <div key={stack.title} className="glass-card" style={{ padding: "20px 22px" }}>
@@ -491,14 +494,15 @@ export default function DocsPage() {
             <div style={{ display: "grid", gap: 16, marginBottom: 24 }}>
               <div className="glass-card" style={{ padding: "24px 28px" }}>
                 <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.8, marginBottom: 16 }}>
-                  Byapari AI ships with <strong style={{ color: "var(--text-primary)" }}>35 hand-curated Bengali business tips</strong> stored in a ChromaDB vector database.
-                  When you upload your CSV, the system computes semantic similarity between your business context and the knowledge base, then surfaces the 3 most relevant tips — entirely offline, zero per-request API cost.
+                  Byapari AI ships with <strong style={{ color: "var(--text-primary)" }}>35 hand-curated Bengali business tips</strong> retrieved by a lightweight keyword-matching engine.
+                  When you upload your CSV, the system builds a context string from your business situation (top category, health signals, risk flags), scores it against the knowledge base, and surfaces the 3 most relevant tips — zero model downloads, instant startup, zero per-request API cost.
+                  Retrieved tips are injected into the LLM prompt as grounding context alongside knowledge-graph facts, your merchant profile, and live market signals (GraphRAG pattern).
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                   {[
                     { label: "Knowledge base size", value: "35 tips", color: "var(--accent)" },
-                    { label: "Embedding model", value: "MiniLM-L12", color: "var(--purple)" },
+                    { label: "Retrieval engine", value: "Keyword match", color: "var(--purple)" },
                     { label: "Tips returned per query", value: "Top 3", color: "var(--green)" },
                   ].map((stat) => (
                     <div key={stat.label} style={{ padding: "14px 16px", borderRadius: 10, background: "var(--bg-elevated)", textAlign: "center" }}>
@@ -513,10 +517,10 @@ export default function DocsPage() {
                 <div className="glass-card" style={{ padding: "20px 22px" }}>
                   <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: "var(--text-primary)", marginBottom: 12 }}>How retrieval works</p>
                   {[
-                    "Business context extracted from uploaded CSV (categories, trends, stock levels)",
-                    "Context embedded via paraphrase-multilingual-MiniLM-L12-v2 (supports Bengali)",
-                    "Cosine similarity search against ChromaDB vector index",
-                    "Top-3 results appended to AI insights response",
+                    "Business context extracted from uploaded CSV (categories, trends, stock levels, health signals)",
+                    "Context tokenized and scored against a keyword → tip-ID map (instant, dependency-free)",
+                    "Top-3 ranked tips returned with category + relevance score",
+                    "Tips injected into the LLM prompt alongside knowledge-graph facts, merchant profile, and live market signals",
                   ].map((step, i) => (
                     <div key={i} style={{ display: "flex", gap: 10, marginBottom: 10, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
                       <span style={{ width: 20, height: 20, borderRadius: "50%", background: "var(--accent-dim)", color: "var(--accent)", fontSize: 10, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 2 }}>{i + 1}</span>
@@ -552,6 +556,27 @@ export default function DocsPage() {
                   Translation: "Electronics and fashion demand rises 30-40% in Ramadan — stock up 3 weeks before Eid and create bundle deals."
                 </p>
               </div>
+            </div>
+          </Section>
+
+          {/* ── Responsible AI ── */}
+          <Section id="responsible-ai">
+            <SectionHeading icon={<CheckCircle size={18} />} title="Responsible AI" subtitle="Privacy, explainability, and honesty — enforced by architecture, not policy" />
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {[
+                { title: "No data retention", desc: "Uploaded sales data is processed entirely in-memory for one request and never written to disk or a database. There is nothing to breach or leak.", color: "var(--green)" },
+                { title: "Explainable outputs", desc: "Every recommendation carries a type, priority, and confidence score. The health score ships with a per-dimension breakdown. Pricing suggestions state the exact signals that justify them.", color: "var(--accent)" },
+                { title: "Grounded generation", desc: "The LLM is constrained by your real KPIs, knowledge-graph facts, curated local knowledge, your merchant profile, and live market data — sharply reducing hallucinated or generic advice.", color: "var(--purple)" },
+                { title: "Transparent ingestion", desc: "The data-quality report discloses every fix applied and every row dropped, and why — the system never silently alters your data.", color: "var(--gold)" },
+                { title: "Honest degradation", desc: "If the LLM or any external source is unreachable, deterministic analysis still completes and the UI says so plainly. No silent failures, no fabricated output.", color: "#f87171" },
+                { title: "Lawful data sources", desc: "External market signals come from public, legally accessible sources (a public exchange-rate API and public RSS feeds), fetched politely with hourly caching.", color: "#60a5fa" },
+              ].map((item) => (
+                <div key={item.title} className="glass-card" style={{ padding: "20px 22px" }}>
+                  <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 14, color: item.color, marginBottom: 8 }}>{item.title}</p>
+                  <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7 }}>{item.desc}</p>
+                </div>
+              ))}
             </div>
           </Section>
 

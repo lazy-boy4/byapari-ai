@@ -4,6 +4,9 @@ from app.services.insight_engine import generate_insights
 from app.services.forecast import generate_sales_forecast
 from app.services.gemini_service import generate_ai_analysis
 from app.services.rag_service import knowledge_base
+from app.services.graph_service import build_graph_insights
+from app.services.market_service import get_market_signals, build_market_context
+from app.services.personalization import build_merchant_profile
 import traceback
 import pandas as pd
 
@@ -64,18 +67,40 @@ async def get_ai_insights(request: InsightRequest):
         # Retrieve relevant tips
         rag_tips = knowledge_base.query(rag_context, n_results=3)
         result["rag_recommendations"] = rag_tips
-        
+
         # Build RAG text for AI prompt
         rag_text = "\n".join([f"- {tip['text']}" for tip in rag_tips])
-        
-        # Generate AI analysis with RAG context
+
+        # === KNOWLEDGE GRAPH REASONING ===
+        graph_insights = build_graph_insights(df, lang=request.lang)
+        result["graph_insights"] = graph_insights
+        # Surface graph-derived recommendations alongside the rule-based ones
+        result["insights"] = insights_list + graph_insights["recommendations"]
+        graph_facts_text = "\n".join(f"- {fact}" for fact in graph_insights["facts"][:6])
+
+        # === MERCHANT PERSONALIZATION PROFILE ===
+        profile = build_merchant_profile(df, lang=request.lang)
+        result["merchant_profile"] = profile
+
+        # === LIVE MARKET SIGNALS (scraped/parsed real-world data) ===
+        market_signals = get_market_signals()
+        result["market_signals"] = market_signals
+        top_category = ""
+        if "product_category" in df.columns and len(df) > 0:
+            top_category = str(df["product_category"].mode()[0])
+        market_context_text = build_market_context(market_signals, top_category)
+
+        # Generate AI analysis grounded in RAG + graph + profile + market
         ai_text = generate_ai_analysis(
             kpis=result.get("kpis", {}),
             insights=insights_list,
             lang=request.lang,
-            rag_context=rag_text
+            rag_context=rag_text,
+            graph_facts=graph_facts_text,
+            market_context=market_context_text,
+            profile_summary=profile.get("summary", ""),
         )
-        
+
         result["ai_summary"] = ai_text
 
         return result
